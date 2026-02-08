@@ -39,7 +39,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap"
         rel="stylesheet">
 
     <!-- Tailwind CSS CDN -->
@@ -56,7 +56,7 @@
                         'regent-white': '#FFFFFF',
                     },
                     fontFamily: {
-                        'manrope': ['Manrope', 'sans-serif'],
+                        'jakarta': ['Plus Jakarta Sans', 'sans-serif'],
                         'inter': ['Inter', 'sans-serif'],
                     }
                 }
@@ -75,7 +75,7 @@
         h4,
         h5,
         h6 {
-            font-family: 'Manrope', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 700;
         }
 
@@ -87,6 +87,23 @@
         .teal-glow-text:hover {
             text-shadow: 0 0 10px rgba(0, 201, 183, 0.6);
             transition: text-shadow 0.3s ease;
+        }
+
+        /* Soft glow for founder photo */
+        .founder-glow {
+            box-shadow: 0 0 40px rgba(0, 201, 183, 0.4);
+        }
+
+        /* Scroll-triggered fade-in animation */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -121,7 +138,7 @@
                 <!-- CTA Button Right -->
                 <div class="flex-shrink-0">
                     <a href="#contact"
-                        class="bg-regent-teal text-regent-black px-6 py-2 font-semibold teal-glow transition-all duration-300">
+                        class="bg-regent-teal text-regent-black px-6 py-2 font-semibold rounded-2xl teal-glow transition-all duration-300 hover:scale-105">
                         Join Waitlist
                     </a>
                 </div>
@@ -178,11 +195,11 @@
             <!-- CTA Buttons -->
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="#contact"
-                    class="bg-regent-teal text-regent-black px-8 py-4 font-semibold text-lg teal-glow transition-all duration-300">
+                    class="bg-regent-teal text-regent-black px-8 py-4 font-semibold text-lg rounded-2xl teal-glow transition-all duration-300 hover:scale-105">
                     Join Waitlist
                 </a>
                 <a href="#contact"
-                    class="border-2 border-regent-teal text-regent-teal px-8 py-4 font-semibold text-lg hover:bg-regent-teal hover:text-regent-black teal-glow transition-all duration-300">
+                    class="border border-regent-teal text-regent-teal px-8 py-4 font-semibold text-lg rounded-2xl hover:bg-regent-teal hover:text-regent-black teal-glow transition-all duration-300 hover:scale-105">
                     Request Investor Access
                 </a>
             </div>
@@ -201,7 +218,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                 <!-- Card 1: Anonymity Risks -->
                 <div
-                    class="bg-regent-black border-2 border-regent-teal p-8 hover:border-regent-white transition-all duration-300">
+                    class="bg-regent-black border border-regent-teal rounded-3xl p-8 hover:border-regent-white transition-all duration-300 hover:scale-105 fade-in-section">
                     <div class="mb-6">
                         <!-- Placeholder Icon: Shield with Warning -->
                         <svg class="w-16 h-16 text-regent-teal mx-auto" fill="none" stroke="currentColor"
@@ -221,7 +238,7 @@
 
                 <!-- Card 2: Legal Vacuum -->
                 <div
-                    class="bg-regent-black border-2 border-regent-teal p-8 hover:border-regent-white transition-all duration-300">
+                    class="bg-regent-black border border-regent-teal rounded-3xl p-8 hover:border-regent-white transition-all duration-300 hover:scale-105 fade-in-section">
                     <div class="mb-6">
                         <!-- Placeholder Icon: Gavel/Legal -->
                         <svg class="w-16 h-16 text-regent-teal mx-auto" fill="none" stroke="currentColor"
@@ -241,7 +258,7 @@
 
                 <!-- Card 3: Black-Box Decisions -->
                 <div
-                    class="bg-regent-black border-2 border-regent-teal p-8 hover:border-regent-white transition-all duration-300">
+                    class="bg-regent-black border border-regent-teal rounded-3xl p-8 hover:border-regent-white transition-all duration-300 hover:scale-105 fade-in-section">
                     <div class="mb-6">
                         <!-- Placeholder Icon: Eye Off/Hidden -->
                         <svg class="w-16 h-16 text-regent-teal mx-auto" fill="none" stroke="currentColor"
@@ -262,7 +279,7 @@
 
             <!-- Stat -->
             <div class="text-center">
-                <div class="inline-block bg-regent-black border-2 border-regent-teal px-8 py-6">
+                <div class="inline-block bg-regent-black border border-regent-teal rounded-2xl px-8 py-6">
                     <p class="text-4xl font-manrope font-bold text-regent-teal mb-2">17.5%</p>
                     <p class="text-gray-300 text-sm max-w-md">
                         AI agents projected to handle 17.5% of digital commerce by 2035 (<a
@@ -290,7 +307,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Feature 1: AgentID -->
                 <div
-                    class="bg-regent-navy border-2 border-regent-teal p-8 hover:border-regent-white transition-all duration-300">
+                    class="bg-regent-navy border border-regent-teal rounded-3xl p-8 hover:border-regent-white transition-all duration-300 hover:scale-105 fade-in-section">
                     <div class="mb-6">
                         <!-- Placeholder Icon: ID Badge -->
                         <svg class="w-16 h-16 text-regent-teal mx-auto" fill="none" stroke="currentColor"
@@ -324,7 +341,7 @@
 
                 <!-- Feature 2: Audit Chain -->
                 <div
-                    class="bg-regent-navy border-2 border-regent-teal p-8 hover:border-regent-white transition-all duration-300">
+                    class="bg-regent-navy border border-regent-teal rounded-3xl p-8 hover:border-regent-white transition-all duration-300 hover:scale-105 fade-in-section">
                     <div class="mb-6">
                         <!-- Placeholder Icon: Chain/Blockchain -->
                         <svg class="w-16 h-16 text-regent-teal mx-auto" fill="none" stroke="currentColor"
@@ -358,7 +375,7 @@
 
                 <!-- Feature 3: Guardian AI -->
                 <div
-                    class="bg-regent-navy border-2 border-regent-teal p-8 hover:border-regent-white transition-all duration-300">
+                    class="bg-regent-navy border border-regent-teal rounded-3xl p-8 hover:border-regent-white transition-all duration-300 hover:scale-105 fade-in-section">
                     <div class="mb-6">
                         <!-- Placeholder Icon: Shield Check -->
                         <svg class="w-16 h-16 text-regent-teal mx-auto" fill="none" stroke="currentColor"
@@ -402,12 +419,12 @@
             </h2>
 
             <!-- Founder Card -->
-            <div class="bg-regent-black border-2 border-regent-teal p-8 sm:p-12">
+            <div class="bg-regent-black border border-regent-teal rounded-3xl p-8 sm:p-12 fade-in-section">
                 <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
                     <!-- Photo -->
                     <div class="flex-shrink-0">
                         <img src="myphoto.png" alt="Sayat Kakzhanov - Founder"
-                            class="w-48 h-48 object-cover border-2 border-regent-teal">
+                            class="w-48 h-48 rounded-full object-cover founder-glow">
                     </div>
 
                     <!-- Bio -->
@@ -448,10 +465,10 @@
             <!-- Team Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <!-- Founder Card -->
-                <div class="bg-regent-navy border-2 border-regent-teal p-8 text-center">
+                <div class="bg-regent-navy border border-regent-teal rounded-3xl p-8 text-center fade-in-section">
                     <div class="mb-6">
                         <img src="myphoto.png" alt="Sayat Kakzhanov"
-                            class="w-32 h-32 mx-auto object-cover border-2 border-regent-teal">
+                            class="w-32 h-32 mx-auto rounded-full object-cover founder-glow">
                     </div>
                     <h3 class="text-xl font-manrope font-bold text-regent-white mb-2">
                         Sayat Kakzhanov
@@ -466,7 +483,7 @@
 
                 <!-- Recruiting Card -->
                 <div
-                    class="bg-regent-navy border-2 border-regent-teal p-8 text-center flex flex-col items-center justify-center">
+                    class="bg-regent-navy border border-regent-teal rounded-3xl p-8 text-center flex flex-col items-center justify-center fade-in-section">
                     <div class="mb-6">
                         <!-- Placeholder Icon: User Plus -->
                         <svg class="w-24 h-24 text-regent-teal mx-auto" fill="none" stroke="currentColor"
@@ -485,7 +502,7 @@
                         Blockchain / ML / Cryptography
                     </p>
                     <a href="#contact"
-                        class="text-regent-teal hover:text-regent-white border border-regent-teal hover:bg-regent-teal hover:text-regent-black px-6 py-2 teal-glow transition-all duration-300">
+                        class="text-regent-teal hover:text-regent-white border border-regent-teal hover:bg-regent-teal hover:text-regent-black px-6 py-2 rounded-2xl teal-glow transition-all duration-300 hover:scale-105">
                         Apply Now
                     </a>
                 </div>
@@ -505,7 +522,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Insight Card 1 -->
                 <div
-                    class="bg-regent-black border-2 border-regent-teal hover:border-regent-white transition-all duration-300">
+                    class="bg-regent-black border border-regent-teal rounded-3xl hover:border-regent-white transition-all duration-300 hover:scale-105 fade-in-section">
                     <!-- Placeholder Featured Image -->
                     <div class="h-48 bg-regent-navy flex items-center justify-center border-b-2 border-regent-teal">
                         <svg class="w-16 h-16 text-regent-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -531,7 +548,7 @@
 
                 <!-- Insight Card 2 -->
                 <div
-                    class="bg-regent-black border-2 border-regent-teal hover:border-regent-white transition-all duration-300">
+                    class="bg-regent-black border border-regent-teal rounded-3xl hover:border-regent-white transition-all duration-300 hover:scale-105 fade-in-section">
                     <!-- Placeholder Featured Image -->
                     <div class="h-48 bg-regent-navy flex items-center justify-center border-b-2 border-regent-teal">
                         <svg class="w-16 h-16 text-regent-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -558,7 +575,7 @@
 
                 <!-- Insight Card 3 -->
                 <div
-                    class="bg-regent-black border-2 border-regent-teal hover:border-regent-white transition-all duration-300">
+                    class="bg-regent-black border border-regent-teal rounded-3xl hover:border-regent-white transition-all duration-300 hover:scale-105 fade-in-section">
                     <!-- Placeholder Featured Image -->
                     <div class="h-48 bg-regent-navy flex items-center justify-center border-b-2 border-regent-teal">
                         <svg class="w-16 h-16 text-regent-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -596,7 +613,7 @@
             <!-- Two Column Layout -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <!-- Waitlist Form -->
-                <div class="bg-regent-navy border-2 border-regent-teal p-8">
+                <div class="bg-regent-navy border border-regent-teal rounded-3xl p-8 fade-in-section">
                     <h3 class="text-2xl font-manrope font-bold text-regent-white mb-6">
                         Join the Waitlist
                     </h3>
@@ -608,18 +625,18 @@
                         <div>
                             <label for="waitlist-name" class="block text-regent-white font-semibold mb-2">Name *</label>
                             <input type="text" id="waitlist-name" name="name" required
-                                class="w-full px-4 py-3 bg-regent-black border-2 border-regent-teal text-regent-white focus:outline-none focus:border-regent-white transition-colors duration-300">
+                                class="w-full px-4 py-3 bg-regent-black border border-regent-teal rounded-xl text-regent-white focus:outline-none focus:border-regent-white transition-colors duration-300">
                         </div>
                         <div>
                             <label for="waitlist-email" class="block text-regent-white font-semibold mb-2">Email
                                 *</label>
                             <input type="email" id="waitlist-email" name="email" required
-                                class="w-full px-4 py-3 bg-regent-black border-2 border-regent-teal text-regent-white focus:outline-none focus:border-regent-white transition-colors duration-300">
+                                class="w-full px-4 py-3 bg-regent-black border border-regent-teal rounded-xl text-regent-white focus:outline-none focus:border-regent-white transition-colors duration-300">
                         </div>
                         <div>
                             <label for="waitlist-role" class="block text-regent-white font-semibold mb-2">Role *</label>
                             <select id="waitlist-role" name="role" required
-                                class="w-full px-4 py-3 bg-regent-black border-2 border-regent-teal text-regent-white focus:outline-none focus:border-regent-white transition-colors duration-300">
+                                class="w-full px-4 py-3 bg-regent-black border border-regent-teal rounded-xl text-regent-white focus:outline-none focus:border-regent-white transition-colors duration-300">
                                 <option value="">Select your role</option>
                                 <option value="founder">Founder</option>
                                 <option value="investor">Investor</option>
@@ -629,14 +646,14 @@
                             </select>
                         </div>
                         <button type="submit"
-                            class="w-full bg-regent-teal text-regent-black px-8 py-4 font-semibold text-lg teal-glow transition-all duration-300 hover:bg-regent-white">
+                            class="w-full bg-regent-teal text-regent-black px-8 py-4 font-semibold text-lg rounded-2xl teal-glow transition-all duration-300 hover:bg-regent-white hover:scale-105">
                             Join Waitlist
                         </button>
                     </form>
                 </div>
 
                 <!-- Investor Request Form -->
-                <div class="bg-regent-navy border-2 border-regent-teal p-8">
+                <div class="bg-regent-navy border border-regent-teal rounded-3xl p-8 fade-in-section">
                     <h3 class="text-2xl font-manrope font-bold text-regent-white mb-6">
                         Request Investor Access
                     </h3>
@@ -647,33 +664,33 @@
                         <div>
                             <label for="investor-name" class="block text-regent-white font-semibold mb-2">Name *</label>
                             <input type="text" id="investor-name" name="name" required
-                                class="w-full px-4 py-3 bg-regent-black border-2 border-regent-teal text-regent-white focus:outline-none focus:border-regent-white transition-colors duration-300">
+                                class="w-full px-4 py-3 bg-regent-black border border-regent-teal rounded-xl text-regent-white focus:outline-none focus:border-regent-white transition-colors duration-300">
                         </div>
                         <div>
                             <label for="investor-email" class="block text-regent-white font-semibold mb-2">Email
                                 *</label>
                             <input type="email" id="investor-email" name="email" required
-                                class="w-full px-4 py-3 bg-regent-black border-2 border-regent-teal text-regent-white focus:outline-none focus:border-regent-white transition-colors duration-300">
+                                class="w-full px-4 py-3 bg-regent-black border border-regent-teal rounded-xl text-regent-white focus:outline-none focus:border-regent-white transition-colors duration-300">
                         </div>
                         <div>
                             <label for="investor-company" class="block text-regent-white font-semibold mb-2">Company
                                 *</label>
                             <input type="text" id="investor-company" name="company" required
-                                class="w-full px-4 py-3 bg-regent-black border-2 border-regent-teal text-regent-white focus:outline-none focus:border-regent-white transition-colors duration-300">
+                                class="w-full px-4 py-3 bg-regent-black border border-regent-teal rounded-xl text-regent-white focus:outline-none focus:border-regent-white transition-colors duration-300">
                         </div>
                         <div>
                             <label for="investor-role" class="block text-regent-white font-semibold mb-2">Role *</label>
                             <input type="text" id="investor-role" name="role" required
-                                class="w-full px-4 py-3 bg-regent-black border-2 border-regent-teal text-regent-white focus:outline-none focus:border-regent-white transition-colors duration-300">
+                                class="w-full px-4 py-3 bg-regent-black border border-regent-teal rounded-xl text-regent-white focus:outline-none focus:border-regent-white transition-colors duration-300">
                         </div>
                         <div>
                             <label for="investor-message"
                                 class="block text-regent-white font-semibold mb-2">Message</label>
                             <textarea id="investor-message" name="message" rows="4"
-                                class="w-full px-4 py-3 bg-regent-black border-2 border-regent-teal text-regent-white focus:outline-none focus:border-regent-white transition-colors duration-300"></textarea>
+                                class="w-full px-4 py-3 bg-regent-black border border-regent-teal rounded-xl text-regent-white focus:outline-none focus:border-regent-white transition-colors duration-300"></textarea>
                         </div>
                         <button type="submit"
-                            class="w-full bg-regent-teal text-regent-black px-8 py-4 font-semibold text-lg teal-glow transition-all duration-300 hover:bg-regent-white">
+                            class="w-full bg-regent-teal text-regent-black px-8 py-4 font-semibold text-lg rounded-2xl teal-glow transition-all duration-300 hover:bg-regent-white hover:scale-105">
                             Request Access
                         </button>
                     </form>
@@ -773,6 +790,26 @@
         investorForm.addEventListener('submit', (e) => {
             console.log('Investor form submitted to Formspree');
             // Formspree will handle the actual submission
+        });
+
+        // Scroll-triggered fade-in animations
+        const fadeInSections = document.querySelectorAll('.fade-in-section');
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, observerOptions);
+
+        fadeInSections.forEach(section => {
+            observer.observe(section);
         });
 
         // Smooth scroll for anchor links
