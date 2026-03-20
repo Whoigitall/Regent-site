@@ -1051,6 +1051,142 @@
             });
         });
     </script>
+
+    <!-- Pilot Application Modal Popup -->
+    <div id="pilot-modal-overlay"
+        class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none"
+        style="display:none;">
+        <div id="pilot-modal"
+            class="relative bg-regent-black border border-regent-teal rounded-3xl p-8 sm:p-10 w-full max-w-xl mx-4 shadow-2xl transform scale-95 transition-transform duration-300">
+            <!-- Close Button -->
+            <button id="pilot-modal-close"
+                class="absolute top-4 right-4 text-gray-500 hover:text-regent-teal transition-colors duration-300"
+                aria-label="Close popup">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <!-- Badge -->
+            <div
+                class="inline-block border border-regent-teal text-regent-teal text-xs font-semibold px-3 py-1 rounded-full mb-6 tracking-widest uppercase font-rajdhani">
+                Early Pilot
+            </div>
+
+            <!-- Header -->
+            <h3 class="text-2xl sm:text-3xl font-bold text-regent-white mb-4 font-rajdhani leading-tight">
+                If your AI agents can act — you already have risk
+            </h3>
+
+            <!-- Subheader -->
+            <p class="text-gray-300 text-sm sm:text-base mb-6 leading-relaxed font-inter">
+                Most teams cannot explain what their agents actually did once something goes wrong.
+            </p>
+
+            <!-- Bullet Points -->
+            <ul class="space-y-3 mb-8">
+                <li class="flex items-start gap-3">
+                    <span class="text-regent-teal mt-0.5 flex-shrink-0 text-lg leading-none">▸</span>
+                    <span class="text-gray-300 text-sm font-inter">No audit trail of agent actions</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-regent-teal mt-0.5 flex-shrink-0 text-lg leading-none">▸</span>
+                    <span class="text-gray-300 text-sm font-inter">No clear responsibility for outcomes</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-regent-teal mt-0.5 flex-shrink-0 text-lg leading-none">▸</span>
+                    <span class="text-gray-300 text-sm font-inter">No way to prove behavior to regulators</span>
+                </li>
+            </ul>
+
+            <!-- CTA Button -->
+            <a href="/pilot"
+                class="block w-full text-center bg-regent-teal text-regent-black px-8 py-4 font-semibold text-lg rounded-2xl teal-glow transition-all duration-300 hover:bg-regent-white hover:scale-105 font-rajdhani">
+                Apply for Pilot
+            </a>
+
+            <!-- Dismiss Link -->
+            <p class="text-center mt-4">
+                <button id="pilot-modal-dismiss"
+                    class="text-gray-500 hover:text-gray-300 text-sm transition-colors duration-300 font-inter underline underline-offset-2">
+                    Continue to site
+                </button>
+            </p>
+        </div>
+    </div>
+
+    <!-- Pilot Modal Script -->
+    <script>
+        (function () {
+            const STORAGE_KEY = 'regent_pilot_modal_dismissed';
+            const SUPPRESS_HOURS = 48;
+            const DELAY_MS = 3000;
+
+            const overlay = document.getElementById('pilot-modal-overlay');
+            const modal = document.getElementById('pilot-modal');
+            const closeBtn = document.getElementById('pilot-modal-close');
+            const dismissBtn = document.getElementById('pilot-modal-dismiss');
+
+            function isDismissed() {
+                const ts = localStorage.getItem(STORAGE_KEY);
+                if (!ts) return false;
+                const elapsed = Date.now() - parseInt(ts, 10);
+                return elapsed < SUPPRESS_HOURS * 60 * 60 * 1000;
+            }
+
+            function dismiss() {
+                localStorage.setItem(STORAGE_KEY, Date.now().toString());
+                hideModal();
+            }
+
+            function showModal() {
+                overlay.style.display = 'flex';
+                // Force reflow before adding classes for transition
+                void overlay.offsetWidth;
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                overlay.classList.add('opacity-100');
+                modal.classList.remove('scale-95');
+                modal.classList.add('scale-100');
+            }
+
+            function hideModal() {
+                overlay.classList.remove('opacity-100');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+                modal.classList.remove('scale-100');
+                modal.classList.add('scale-95');
+                setTimeout(function () {
+                    overlay.style.display = 'none';
+                }, 300);
+            }
+
+            // Do not show if already dismissed within 48h
+            if (!isDismissed()) {
+                setTimeout(showModal, DELAY_MS);
+            }
+
+            // Close on X button
+            closeBtn.addEventListener('click', dismiss);
+
+            // Close on "Continue to site"
+            dismissBtn.addEventListener('click', dismiss);
+
+            // Close on overlay click (outside modal)
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay) {
+                    dismiss();
+                }
+            });
+
+            // Close on ESC key
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && !overlay.classList.contains('pointer-events-none')) {
+                    dismiss();
+                }
+            });
+        })();
+    </script>
+
     <!-- Vercel Analytics -->
     <script defer src="/_vercel/insights/script.js"></script>
 
