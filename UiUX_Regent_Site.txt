@@ -1,0 +1,68 @@
+# UI/UX Design Analysis: Regent Protocol
+
+This document provides a comprehensive breakdown of the design system used @ [index.html](file:///c:/Regent%20site/index.html). Use these guidelines to ensure the new **Blog** section maintains visual consistency with the rest of the site.
+
+## 1. Core Design Tokens
+
+### Color Palette
+| Token | Hex Code | Usage |
+| :--- | :--- | :--- |
+| `regent-black` | `#000000` | Primary background, footer. |
+| `regent-navy` | `#0A1F3D` | Section backgrounds (About, Solution, etc.). |
+| `regent-teal` | `#00C9B7` | Primary accent, CTAs, icons, borders. |
+| `regent-white` | `#FFFFFF` | Primary headings, active links. |
+| `gray-300/400` | (Tailwind) | Body text, descriptions, secondary info. |
+
+### Typography
+The site uses three primary Google Fonts:
+- **Orbitron**: Hero Headlines (`font-orbitron`). Extra bold/Semi-bold.
+- **Rajdhani**: Section Titles (H1, H2, H3), Buttons, and Navigation (`font-rajdhani`). Bold (700).
+- **Inter**: Body text, Subtitles, and Small Headings (H4+) (`font-inter`). Regular to Semi-bold.
+
+---
+
+## 2. Component Patterns
+
+### Blog Cards (Recommended Style)
+To match the "Insights" and "Problem" sections, use the following Tailwind classes for blog post previews:
+- **Container**: `bg-regent-black border border-regent-teal rounded-3xl p-8 hover:border-regent-white transition-all duration-300 hover:scale-105 fade-in-section`
+- **Image/Thumbnail Area**: `h-48 bg-regent-navy flex items-center justify-center border-b-2 border-regent-teal rounded-t-3xl overflow-hidden` (if using images).
+- **Category Badge**: `text-regent-teal text-sm font-semibold mb-2 uppercase font-rajdhani`.
+- **Title**: `text-xl font-rajdhani font-bold text-regent-white mb-3`.
+- **Excerpt**: `text-gray-400 text-sm mb-4 leading-relaxed font-inter`.
+- **Link**: `text-regent-teal hover:text-regent-white teal-glow-text transition-colors duration-300 font-semibold font-rajdhani`.
+
+### Buttons
+- **Primary CTA**: `bg-regent-teal text-regent-black px-8 py-4 font-semibold text-lg rounded-2xl teal-glow transition-all duration-300 hover:scale-105 font-rajdhani`
+- **Secondary/Outline**: `border border-regent-teal text-regent-teal px-8 py-4 font-semibold text-lg rounded-2xl hover:bg-regent-teal hover:text-regent-black teal-glow transition-all duration-300 hover:scale-105 font-rajdhani`
+
+---
+
+## 3. Layout & Spacing
+- **Section Wrapper**: 
+  ```html
+  <section class="py-20 bg-regent-black"> <!-- or bg-regent-navy -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <!-- Content here -->
+      </div>
+  </section>
+  ```
+- **Heading Alignment**: Standard titles are centered with `text-center mb-16`.
+
+---
+
+## 4. Key UI Effects (Crucial for "Feel")
+1. **Teal Glow (Shadow)**: Applied to buttons on hover. 
+   - CSS: `box-shadow: 0 0 20px rgba(0, 201, 183, 0.5);`
+   - Use class: `.teal-glow`
+2. **Text Glow**: Applied to navigation and links on hover.
+   - CSS: `text-shadow: 0 0 10px rgba(0, 201, 183, 0.6);`
+   - Use class: `.teal-glow-text`
+3. **Fade-in Animation**: Sections should have the class `fade-in-section` to animate as the user scrolls.
+
+---
+
+## 5. Implementation Strategy for "Blog"
+1. **Grid Layout**: Use a 3-column grid (`grid grid-cols-1 md:grid-cols-3 gap-8`) for the latest posts.
+2. **Date & Author**: Add these in `text-gray-500 text-xs` below the title using `font-inter`.
+3. **Consistency**: Ensure all card corners are `rounded-3xl` and buttons are `rounded-2xl`. Never use sharp corners.
