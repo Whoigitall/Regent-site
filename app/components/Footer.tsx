@@ -10,7 +10,7 @@ const footerColumns = [
     links: [
       { label: "Documentation", href: "/technology" },
       { label: "SDK Reference", href: "/technology#sdk" },
-      { label: "GitHub", href: "https://github.com/Whoigitall", external: true },
+      { label: "GitHub", href: "https://github.com/abay94/regent-platform", external: true },
       { label: "Testnet", href: "/technology#testnet" },
     ],
   },
@@ -19,7 +19,7 @@ const footerColumns = [
     links: [
       { label: "Solutions", href: "/technology" },
       { label: "Pilot Program", href: "/pilot" },
-      { label: "Contact", href: "mailto:hello@regentprotocol.org", external: true },
+      { label: "Contact", href: "mailto:info@regentprotocol.org", external: true },
     ],
   },
   {
@@ -27,9 +27,8 @@ const footerColumns = [
     links: [
       { label: "Blog", href: "/blog" },
       { label: "Events", href: "/about#events" },
-      { label: "LinkedIn", href: "https://linkedin.com", external: true },
+      { label: "LinkedIn", href: "https://www.linkedin.com/company/regentprotocol/", external: true },
       { label: "X (Twitter)", href: "https://x.com/whoigital", external: true },
-      { label: "Discord", href: "https://discord.gg", external: true },
     ],
   },
   {
@@ -70,7 +69,7 @@ export default function Footer() {
               Verifiable Agent Infrastructure for Regulated Finance on Solana.
             </p>
             <div className="mt-4 flex flex-wrap gap-3">
-              <a href="https://github.com/Whoigitall" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-white/60 hover:text-[#00C9B7] transition-colors">
+              <a href="https://github.com/abay94/regent-platform" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-white/60 hover:text-[#00C9B7] transition-colors">
                 <GitBranch size={16} />
                 GitHub
               </a>
@@ -78,11 +77,11 @@ export default function Footer() {
                 <Globe size={16} />
                 X
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-white/60 hover:text-[#00C9B7] transition-colors">
+              <a href="https://www.linkedin.com/company/regentprotocol/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-white/60 hover:text-[#00C9B7] transition-colors">
                 <ExternalLink size={16} />
                 LinkedIn
               </a>
-              <a href="mailto:hello@regentprotocol.org" className="inline-flex items-center gap-1.5 text-sm text-white/60 hover:text-[#00C9B7] transition-colors">
+              <a href="mailto:info@regentprotocol.org" className="inline-flex items-center gap-1.5 text-sm text-white/60 hover:text-[#00C9B7] transition-colors">
                 <Mail size={16} />
                 Email
               </a>

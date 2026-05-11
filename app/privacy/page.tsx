@@ -99,7 +99,7 @@ export default function PrivacyPage() {
                     <li>Request a copy of your data in a portable format.</li>
                   </ul>
                   <p className="mt-2 text-sm leading-relaxed">
-                    To exercise these rights, contact us at <a href="mailto:hello@regentprotocol.org" className="text-[#00C9B7] hover:underline">hello@regentprotocol.org</a>.
+                    To exercise these rights, contact us at <a href="mailto:info@regentprotocol.org" className="text-[#00C9B7] hover:underline">info@regentprotocol.org</a>.
                   </p>
                 </div>
 
@@ -128,7 +128,7 @@ export default function PrivacyPage() {
                   <h2 className="text-lg font-semibold text-white">11. Contact Us</h2>
                   <p className="mt-2 text-sm leading-relaxed">
                     If you have questions about this Privacy Policy or our data practices, please contact us at:<br />
-                    <a href="mailto:hello@regentprotocol.org" className="text-[#00C9B7] hover:underline">hello@regentprotocol.org</a>
+                    <a href="mailto:info@regentprotocol.org" className="text-[#00C9B7] hover:underline">info@regentprotocol.org</a>
                   </p>
                 </div>
               </div>

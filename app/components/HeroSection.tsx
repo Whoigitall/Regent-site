@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, ExternalLink } from "lucide-react";
+import SolanaLogo from "./SolanaLogo";
 
 export default function HeroSection() {
   return (
@@ -15,7 +16,7 @@ export default function HeroSection() {
             transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#0A1F3D] px-4 py-1.5 text-sm text-[#00C9B7]"
           >
-            <span>Built on Solana</span>
+            <span className="inline-flex items-center gap-1.5">Built on <SolanaLogo className="h-3.5 w-auto inline" /> Solana</span>
             <span className="text-white/20">/</span>
             <span>AIFC Sandbox</span>
             <span className="text-white/20">/</span>
@@ -38,7 +39,7 @@ export default function HeroSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-6 max-w-2xl text-lg text-white/50"
           >
-            KYA (Know Your Agent): identity, audit, and real-time compliance for autonomous AI agents. Built on Solana. Anchored to Celestia.
+            KYA (Know Your Agent): identity, audit, and real-time compliance for autonomous AI agents. Built on <span className="inline-flex items-center gap-1"><SolanaLogo className="h-4 w-auto inline" /> Solana</span>. Anchored to Celestia.
           </motion.p>
 
           <motion.div

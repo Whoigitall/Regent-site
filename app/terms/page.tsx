@@ -122,7 +122,7 @@ export default function TermsPage() {
                   <h2 className="text-lg font-semibold text-white">13. Contact</h2>
                   <p className="mt-2 text-sm leading-relaxed">
                     For questions about these Terms, contact us at:<br />
-                    <a href="mailto:hello@regentprotocol.org" className="text-[#00C9B7] hover:underline">hello@regentprotocol.org</a>
+                    <a href="mailto:info@regentprotocol.org" className="text-[#00C9B7] hover:underline">info@regentprotocol.org</a>
                   </p>
                 </div>
               </div>

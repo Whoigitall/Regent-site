@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { TrendingUp, Zap, Clock, DollarSign, ArrowRight } from "lucide-react";
+import SolanaLogo from "./SolanaLogo";
 
 const metrics = [
   {
@@ -42,8 +43,8 @@ export default function WhySolanaSection() {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h2 className="text-3xl font-bold text-white sm:text-4xl">
-            Why We Chose Solana
+          <h2 className="text-3xl font-bold text-white sm:text-4xl inline-flex items-center justify-center gap-3 flex-wrap">
+            Why We Chose <SolanaLogo className="h-7 w-auto" /> Solana
           </h2>
           <p className="mt-4 text-lg text-white/60">
             78% cost reduction. 145% Year 1 ROI. Sub-second finality.

@@ -80,7 +80,7 @@ const faqs = [
   {
     question: "Do you offer custom enterprise pricing?",
     answer:
-      "Absolutely. Contact us at hello@regentprotocol.org for custom SLAs, on-premise deployment, and white-label options.",
+      "Absolutely. Contact us at info@regentprotocol.org for custom SLAs, on-premise deployment, and white-label options.",
   },
 ];
 

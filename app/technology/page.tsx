@@ -14,6 +14,7 @@ import {
   FlaskConical,
   ExternalLink,
 } from "lucide-react";
+import SolanaLogo from "../components/SolanaLogo";
 
 const architectureLayers = [
   {
@@ -69,16 +70,12 @@ const roadmap = [
 ];
 
 const sdks = [
-  { name: "TypeScript / JavaScript", install: "npm install @regentprotocol/sdk", link: "https://github.com/Whoigitall/regent-protocol-Abay-" },
-  { name: "Python", install: "pip install regent-sdk", link: "https://github.com/Whoigitall/regent-protocol-Abay-" },
-  { name: "Rust (Anchor)", install: "cargo add regent-sdk", link: "https://github.com/Whoigitall/regent-protocol-Abay-" },
+  { name: "TypeScript / JavaScript", install: "npm install @regentprotocol/sdk", link: "https://github.com/abay94/regent-platform" },
+  { name: "Python", install: "pip install regent-sdk", link: "https://github.com/abay94/regent-platform" },
+  { name: "Rust (Anchor)", install: "cargo add regent-sdk", link: "https://github.com/abay94/regent-platform" },
 ];
 
-const repos = [
-  { name: "regent-protocol-Abay-", description: "Main platform - Next.js dashboard, smart contracts", link: "https://github.com/Whoigitall/regent-protocol-Abay-" },
-  { name: "detect-regentprotocol", description: "Agent detector - ML scoring and monitoring API", link: "https://github.com/Whoigitall/detect-regentprotocol" },
-  { name: "regentkya", description: "Demo site and marketing pages", link: "https://github.com/Whoigitall/regentkya" },
-];
+
 
 export default function TechnologyPage() {
   return (
@@ -154,8 +151,8 @@ export default function TechnologyPage() {
               transition={{ duration: 0.6 }}
               className="text-center"
             >
-              <h2 className="text-3xl font-bold text-white sm:text-4xl">
-                Why Solana
+              <h2 className="text-3xl font-bold text-white sm:text-4xl inline-flex items-center justify-center gap-3 flex-wrap">
+                Why <SolanaLogo className="h-7 w-auto" /> Solana
               </h2>
               <p className="mt-4 text-lg text-white/60">
                 The only chain with the speed, cost, and maturity for real-time agent compliance.
@@ -335,46 +332,6 @@ export default function TechnologyPage() {
           </div>
         </section>
 
-        {/* GitHub Repos */}
-        <section className="w-full bg-[#0A1F3D] py-20 sm:py-28">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center"
-            >
-              <h2 className="text-3xl font-bold text-white sm:text-4xl">
-                GitHub Repositories
-              </h2>
-            </motion.div>
-
-            <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {repos.map((repo, i) => (
-                <motion.a
-                  key={repo.name}
-                  href={repo.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="group rounded-xl border border-white/10 bg-[#0D1117] p-6 transition-colors hover:border-[#00C9B7]/30"
-                >
-                  <div className="flex items-center gap-2">
-                    <GitBranch className="h-5 w-5 text-[#00C9B7]" />
-                    <span className="font-mono text-sm font-semibold text-white group-hover:text-[#00C9B7] transition-colors">
-                      {repo.name}
-                    </span>
-                  </div>
-                  <p className="mt-3 text-sm text-white/60">{repo.description}</p>
-                </motion.a>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* Testnet */}
         <section id="testnet" className="w-full bg-black py-20 sm:py-28">
@@ -400,7 +357,7 @@ export default function TechnologyPage() {
                   Apply for Testnet Access <ArrowRight size={16} />
                 </Link>
                 <a
-                  href="https://github.com/Whoigitall/regent-protocol-Abay-"
+                  href="https://github.com/abay94/regent-platform"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 rounded-md border border-white/20 px-6 py-3 text-sm font-semibold text-white hover:bg-white/5 transition-colors"
