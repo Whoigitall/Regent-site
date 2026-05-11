@@ -29,7 +29,7 @@ export default function TermsPage() {
                 <div>
                   <h2 className="text-lg font-semibold text-white">1. Acceptance of Terms</h2>
                   <p className="mt-2 text-sm leading-relaxed">
-                    By accessing or using the Regent Protocol website, dashboard, APIs, or any related services (collectively, the "Services"), you agree to be bound by these Terms of Use. If you do not agree to these terms, do not use the Services.
+                    By accessing or using the Regent Protocol website, dashboard, APIs, or any related services (collectively, the &quot;Services&quot;), you agree to be bound by these Terms of Use. If you do not agree to these terms, do not use the Services.
                   </p>
                 </div>
 
@@ -86,7 +86,7 @@ export default function TermsPage() {
                 <div>
                   <h2 className="text-lg font-semibold text-white">8. Disclaimer of Warranties</h2>
                   <p className="mt-2 text-sm leading-relaxed">
-                    THE SERVICES ARE PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. WE DO NOT WARRANT THAT THE SERVICES WILL BE UNINTERRUPTED, ERROR-FREE, OR SECURE. BLOCKCHAIN TECHNOLOGY INVOLVES INHERENT RISKS INCLUDING BUT NOT LIMITED TO VOLATILITY, SMART CONTRACT VULNERABILITIES, AND REGULATORY UNCERTAINTY.
+                    THE SERVICES ARE PROVIDED &quot;AS IS&quot; AND &quot;AS AVAILABLE&quot; WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. WE DO NOT WARRANT THAT THE SERVICES WILL BE UNINTERRUPTED, ERROR-FREE, OR SECURE. BLOCKCHAIN TECHNOLOGY INVOLVES INHERENT RISKS INCLUDING BUT NOT LIMITED TO VOLATILITY, SMART CONTRACT VULNERABILITIES, AND REGULATORY UNCERTAINTY.
                   </p>
                 </div>
 

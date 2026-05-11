@@ -7,7 +7,6 @@ import { useState } from "react";
 import {
   Rocket,
   CheckCircle,
-  Mail,
   ArrowRight,
   ChevronDown,
 } from "lucide-react";

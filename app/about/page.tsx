@@ -25,7 +25,7 @@ export default function AboutPage() {
                 Our Vision
               </h1>
               <blockquote className="mt-8 border-l-4 border-[#00C9B7] pl-6 text-left text-lg italic text-white/70 sm:text-xl">
-                "By 2030, every autonomous financial agent will have a verifiable identity, an immutable audit trail, and real-time behavioral compliance. Regent Protocol is building the infrastructure layer that makes this possible - starting on Solana."
+                &quot;By 2030, every autonomous financial agent will have a verifiable identity, an immutable audit trail, and real-time behavioral compliance. Regent Protocol is building the infrastructure layer that makes this possible - starting on Solana.&quot;
               </blockquote>
             </motion.div>
           </div>

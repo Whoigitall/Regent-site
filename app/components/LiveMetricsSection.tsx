@@ -8,7 +8,6 @@ function useCountUp(target: number, duration = 2000) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    let start = 0;
     const startTime = Date.now();
     const animate = () => {
       const elapsed = Date.now() - startTime;
@@ -61,7 +60,7 @@ export default function LiveMetricsSection() {
 }
 
 function MetricCard({ metric, index }: { metric: typeof metrics[0]; index: number }) {
-  const count = metric.staticValue ? 0 : useCountUp(metric.value);
+  const count = useCountUp(metric.value);
 
   return (
     <motion.div
