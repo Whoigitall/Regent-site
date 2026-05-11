@@ -54,7 +54,7 @@ npm run build
 
 - X: [@whoigital](https://x.com/whoigital)
 - GitHub: [Whoigitall](https://github.com/Whoigitall)
-- Email: hello@regentprotocol.org
+- Email: info@regentprotocol.org
 
 ---
 
