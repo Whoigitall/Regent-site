@@ -22,7 +22,7 @@ export default function Navbar() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src="/R white-Photoroom.png"
+            src="/logo-icon.png"
             alt="Regent Protocol"
             width={32}
             height={32}

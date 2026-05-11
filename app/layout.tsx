@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   description: "KYA (Know Your Agent): identity, audit, and real-time compliance for autonomous AI agents. Built on Solana. Anchored to Celestia.",
   keywords: ["AI agents", "compliance", "Solana", "Celestia", "KYA", "KYC", "DeFi", "Regent Protocol"],
   icons: {
-    icon: "/icon.svg",
+    icon: "/icon.png",
   },
   openGraph: {
     title: "Regent Protocol",

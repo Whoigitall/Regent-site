@@ -53,17 +53,14 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-6">
           <div className="col-span-2 md:col-span-3 lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2">
+            <Link href="/" className="inline-block">
               <Image
-                src="/R white-Photoroom.png"
+                src="/logo-full.png"
                 alt="Regent Protocol"
-                width={32}
-                height={32}
-                className="h-8 w-auto"
+                width={160}
+                height={68}
+                className="h-14 w-auto"
               />
-              <span className="font-[family-name:var(--font-orbitron)] text-lg font-bold tracking-wide text-white">
-                REGENT
-              </span>
             </Link>
             <p className="mt-4 text-sm text-white/60">
               Verifiable Agent Infrastructure for Regulated Finance on Solana.
