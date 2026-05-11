@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Regent Protocol
 
-## Getting Started
+**Verifiable Agent Infrastructure for Regulated Finance on Solana**
 
-First, run the development server:
+[![Solana](https://img.shields.io/badge/Built%20on-Solana-00C9B7?logo=solana)](https://solana.com)
+[![Next.js](https://img.shields.io/badge/Powered%20by-Next.js%2015-000000?logo=next.js)](https://nextjs.org)
+
+## What is Regent Protocol?
+
+Regent Protocol provides **KYA (Know Your Agent)** infrastructure: identity, audit, and real-time compliance for autonomous AI agents in regulated finance.
+
+- **AgentID** - On-chain identity registry on Solana
+- **Audit Chain** - Immutable audit trail anchored to Celestia DA
+- **Guardian AI** - Real-time behavioral monitoring and risk scoring
+
+## Live Products
+
+- [Live Platform](https://web.regentprotocol.org/dashboard) - Agent management dashboard
+- [Agent Detector](https://detect.regentprotocol.org/dashboard) - AI agent detection and verification
+- [Solana Summit KZ](https://regentprotocol.org) - May 22, 2026, Almaty
+
+## Technology Stack
+
+- **Frontend**: Next.js 15, TypeScript, Tailwind CSS v4, shadcn/ui
+- **Blockchain**: Solana (Rust + Anchor), Celestia DA
+- **ML**: Python, ONNX runtime, behavioral scoring
+- **Identity**: DID:SOL, KYC verification
+
+## SDK
 
 ```bash
-npm run dev
+npm install @regentprotocol/sdk
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pip install regent-sdk
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployment
 
-## Learn More
+Static export for any CDN or edge hosting:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+# Output: out/ directory
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contact
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- X: [@whoigital](https://x.com/whoigital)
+- GitHub: [Whoigitall](https://github.com/Whoigitall)
+- Email: hello@regentprotocol.org
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© 2026 Regent Protocol. All rights reserved.
