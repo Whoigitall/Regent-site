@@ -62,11 +62,62 @@ const comparisonData = [
 ];
 
 const roadmap = [
-  { quarter: "Q2 2026", title: "Testnet Launch", description: "SDK alpha, initial agent registry, Solana Summit KZ" },
-  { quarter: "Q3 2026", title: "Mainnet MVP", description: "500 agents, Guardian AI v1, production audit chain" },
-  { quarter: "Q4 2026", title: "Neon EVM", description: "Evaluation, 1,000 agents, cross-chain pilots" },
-  { quarter: "Q1 2027", title: "Multi-chain", description: "Multi-chain support, 2,000 agents, institutional pilots" },
-  { quarter: "Q2 2027", title: "Full Native", description: "Full Solana native, 5,000+ agents, enterprise tier" },
+  { 
+    quarter: "✅ SHIPPED — Q2 2026", 
+    title: "Devnet Live · Solana Summit KZ", 
+    status: "🟢 LIVE",
+    description: [
+      "3 Solana programs deployed on devnet:",
+      "  • agent-registry",
+      "  • mandate-registry",
+      "  • audit-anchor",
+      "Python SDK shipped",
+      "Guardian AI live (Isolation Forest, SHAP explanations, drift detection)",
+      "2 demo agents running · 9 active alerts · 127+ audit events anchored",
+      "Live dashboard",
+      "Agent Detector",
+    ] 
+  },
+  { 
+    quarter: "🟡 UPCOMING — Q3 2026", 
+    title: "Mainnet Beta", 
+    description: [
+      "Deploy programs to Solana mainnet",
+      "First 10 design partners (pilots)",
+      "Published security review (audit by a security firm)",
+      "Bug bounty program open",
+      "Revenue target: первые paying customers",
+    ] 
+  },
+  { 
+    quarter: "🟡 UPCOMING — Q4 2026", 
+    title: "Compliance Hardening", 
+    description: [
+      "EU AI Act Article 14 traceability checklist",
+      "SOC 2 Type I report (if resources are available)",
+      "First regulated-financial-institution pilot",
+      "KYC pipeline v2 (enhanced verification)",
+    ] 
+  },
+  { 
+    quarter: "🟡 UPCOMING — Q1 2027", 
+    title: "Institutional Rollout", 
+    description: [
+      "50+ production agents в regulated environments",
+      "Multi-organization RBAC",
+      "On-call SLA",
+      "First revenue milestone ($150K MRR — planed)",
+    ] 
+  },
+  { 
+    quarter: "🟡 UPCOMING — Q2 2027", 
+    title: "Multi-Chain Bridge (partner track)", 
+    description: [
+      "Neon EVM / Cosmos IBC integrations as a service",
+      "Solana remains primary chain",
+      "Cross-chain audit anchoring",
+    ] 
+  },
 ];
 
 const sdks = [
@@ -274,7 +325,23 @@ export default function TechnologyPage() {
                       <div className="rounded-xl border border-white/10 bg-[#0D1117] p-6">
                         <span className="text-sm font-medium text-[#00C9B7]">{item.quarter}</span>
                         <h3 className="mt-1 text-lg font-semibold text-white">{item.title}</h3>
-                        <p className="mt-2 text-sm text-white/60">{item.description}</p>
+                        {item.status && (
+                          <p className="mt-1 text-sm font-bold text-[#00C9B7]">{item.status}</p>
+                        )}
+                        <ul className="mt-3 space-y-1.5">
+                          {item.description.map((desc, idx) => (
+                            <li key={idx} className="text-sm text-white/60 flex items-start gap-2">
+                              {desc.startsWith("  •") ? (
+                                <span className="ml-4">{desc}</span>
+                              ) : (
+                                <>
+                                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/40" />
+                                  <span>{desc}</span>
+                                </>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
                   </motion.div>

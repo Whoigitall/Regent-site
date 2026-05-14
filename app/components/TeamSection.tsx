@@ -8,7 +8,7 @@ const teamMembers = [
   {
     name: "Sayat Kakzhanov",
     role: "Founder & CEO",
-    bio: "Former Director of Operations at KAZRDEAM Holding, co-founder of 1Fit.app, and an expert in fintech and compliance. Higher School of Economics — Master’s in Business Informatics",
+    bio: "Ex. CPO at KAZRDEAM Holding, co-founder of 1Fit.app, and an expert in fintech and compliance. Higher School of Economics — Master’s in Business Informatics",
     image: "/Sayat.png",
     linkedin: "https://www.linkedin.com/in/kakzhanov/",
   },
