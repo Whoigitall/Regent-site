@@ -8,23 +8,23 @@ const teamMembers = [
   {
     name: "Sayat Kakzhanov",
     role: "Founder & CEO",
-    bio: "TradFi + Web3 background. Ex-Compliance with National Bank connections. Driving the vision for regulated AI agent infrastructure.",
+    bio: "Former Director of Operations at KAZRDEAM Holding, co-founder of 1Fit.app, and an expert in fintech and compliance. Higher School of Economics — Master’s in Business Informatics",
     image: "/Sayat.png",
-    linkedin: "https://linkedin.com",
+    linkedin: "https://www.linkedin.com/in/kakzhanov/",
   },
   {
     name: "Abay Aubakirov",
     role: "Co-founder & CTO",
     bio: "Full-stack engineer, Solana ecosystem builder. Smart contracts, React/Next.js, and infrastructure architecture.",
     image: "/Abay.png",
-    linkedin: "https://linkedin.com",
+    linkedin: "https://www.linkedin.com/in/abay-aubakirov-74a90362/",
   },
   {
     name: "Marco Comuzzi",
     role: "Advisor",
-    bio: "Strategic advisor with deep ecosystem connections. Guiding product strategy and market positioning.",
+    bio: "Associate Professor at UNIST (blockchain, BPM, predictive analytics)",
     image: "/Marco3.png",
-    linkedin: "https://linkedin.com",
+    linkedin: "https://www.linkedin.com/in/mcomuzzi/",
   },
 ];
 

@@ -4,7 +4,7 @@ import HeroSection from "./components/HeroSection";
 import WhySolanaSection from "./components/WhySolanaSection";
 import ProductModulesSection from "./components/ProductModulesSection";
 import TerminalDemoSection from "./components/TerminalDemoSection";
-import LiveMetricsSection from "./components/LiveMetricsSection";
+
 import EventsBanner from "./components/EventsBanner";
 import TeamSection from "./components/TeamSection";
 
@@ -17,7 +17,7 @@ export default function Home() {
         <WhySolanaSection />
         <ProductModulesSection />
         <TerminalDemoSection />
-        <LiveMetricsSection />
+
         <EventsBanner />
         <TeamSection />
       </main>
