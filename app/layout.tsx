@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Orbitron, Rajdhani } from "next/font/google";
 import "./globals.css";
+import PostHogInit from "./posthog-init";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -44,6 +45,7 @@ export default function RootLayout({
       className={`${inter.variable} ${orbitron.variable} ${rajdhani.variable} dark h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-black text-white font-sans">
+        <PostHogInit />
         {children}
       </body>
     </html>
