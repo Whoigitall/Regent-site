@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import posthog from "posthog-js";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import SolanaLogo from "./SolanaLogo";
 
@@ -59,6 +60,7 @@ export default function HeroSection() {
             </a>
             <Link
               href="/pilot"
+              onClick={() => { try { posthog.capture("landing:cta_clicked", { cta: "apply_for_pilot" }); } catch {} }}
               className="inline-flex items-center justify-center gap-2 rounded-md bg-[#00C9B7] px-5 py-2.5 text-sm font-medium text-black hover:bg-[#00b8a8] transition-colors"
             >
               Apply for Pilot
@@ -67,6 +69,7 @@ export default function HeroSection() {
               href="https://web.regentprotocol.org/dashboard"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => { try { posthog.capture("landing:cta_clicked", { cta: "live_platform" }); } catch {} }}
               className="inline-flex items-center justify-center gap-2 rounded-md border border-[#00C9B7]/30 px-5 py-2.5 text-sm font-medium text-[#00C9B7] hover:bg-[#00C9B7]/10 transition-colors"
             >
               Live Platform
