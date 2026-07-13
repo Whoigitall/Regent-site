@@ -8,13 +8,14 @@ const KEY =
   process.env.NEXT_PUBLIC_POSTHOG_KEY ||
   "phc_vppptJACzrhfwphPu3UFDLm7NHzYYByN6nrPs66PCjFx";
 const HOST =
-  process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com";
+  process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://e.regentprotocol.org";
 
 export default function PostHogInit() {
   useEffect(() => {
     if (posthog.__loaded) return;
     posthog.init(KEY, {
       api_host: HOST,
+      ui_host: "https://us.posthog.com",
       capture_pageview: "history_change", // SPA route changes count as pageviews
       capture_pageleave: true,
       custom_campaign_params: ["ref", "referral"],
