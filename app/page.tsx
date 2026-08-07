@@ -7,6 +7,7 @@ import TerminalDemoSection from "./components/TerminalDemoSection";
 
 import EventsBanner from "./components/EventsBanner";
 import TeamSection from "./components/TeamSection";
+import FaqSection from "./components/FaqSection";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
 
         <EventsBanner />
         <TeamSection />
+        <FaqSection />
       </main>
       <Footer />
     </>
