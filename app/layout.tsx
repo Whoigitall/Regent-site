@@ -65,6 +65,66 @@ export const metadata: Metadata = {
   },
 };
 
+// Structured data (schema.org) — only verified facts. Lets AI engines and Google
+// recognize Regent as an entity, its founders, and its press/partner context.
+const organizationLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Regent Protocol",
+  alternateName: "Regent",
+  url: "https://regentprotocol.org",
+  logo: "https://regentprotocol.org/logo-full.png",
+  description:
+    "Compliance and identity infrastructure for the agentic economy: Know Your Agent (KYA) verification, on-chain spending mandates, a risk engine, and immutable audit for autonomous AI agents. Built on Solana.",
+  founder: [
+    {
+      "@type": "Person",
+      name: "Sayat Kakzhanov",
+      jobTitle: "Founder & CEO",
+      sameAs: "https://www.linkedin.com/in/kakzhanov/",
+    },
+    {
+      "@type": "Person",
+      name: "Abay Aubakirov",
+      jobTitle: "Co-founder & CTO",
+      sameAs: "https://www.linkedin.com/in/abay-aubakirov-74a90362/",
+    },
+  ],
+  address: { "@type": "PostalAddress", addressCountry: "KZ" },
+  sameAs: [
+    "https://www.linkedin.com/company/regentprotocol/",
+    "https://x.com/whoigital",
+  ],
+  knowsAbout: [
+    "Know Your Agent",
+    "AI agent compliance",
+    "spending mandates",
+    "AML",
+    "Solana",
+    "autonomous payments",
+  ],
+  subjectOf: {
+    "@type": "NewsArticle",
+    headline:
+      "Как два казахстанских стартапа доверили деньги ИИ, не дав потратить лишнего",
+    url: "https://forbes.kz/articles/kak-dva-kazahstanskih-startapa-doverili-dengi-ii-ne-dav-potratit-lishnego-557af7",
+    datePublished: "2026-07-23",
+    publisher: { "@type": "Organization", name: "Forbes Kazakhstan" },
+  },
+};
+
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Regent Protocol",
+  url: "https://regentprotocol.org",
+  publisher: {
+    "@type": "Organization",
+    name: "Regent Protocol",
+    url: "https://regentprotocol.org",
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -76,6 +136,14 @@ export default function RootLayout({
       className={`${inter.variable} ${orbitron.variable} ${rajdhani.variable} dark h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-black text-white font-sans">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }}
+        />
         <PostHogInit />
         {children}
       </body>

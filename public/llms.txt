@@ -1,0 +1,30 @@
+# Regent Protocol
+
+> Compliance and identity infrastructure for the agentic economy. Know Your Agent (KYA)
+> verification, on-chain spending mandates, and immutable audit that let AI agents transact
+> safely — bound to a real owner and kept within set limits.
+
+## Pages
+
+- [Homepage](https://regentprotocol.org/): Product overview and value proposition
+- [Technology](https://regentprotocol.org/technology): KYA identity, spending mandates, the Guardian risk engine, vaulted credentials, and Solana-anchored audit
+- [Pilot](https://regentprotocol.org/pilot): Zero-risk pilot — observe mode first, then enforce
+- [About](https://regentprotocol.org/about): Company, founders, mission
+- [Blog](https://regentprotocol.org/blog): Articles on AI agents, compliance, and Know Your Agent
+- [Documentation](https://docs.regentprotocol.org/): Technical docs, API reference, SDK
+
+## Key facts
+
+- Regent Protocol provides KYA (Know Your Agent) infrastructure: identity, spending mandates, a risk engine (Guardian), and immutable audit for autonomous AI agents.
+- The agent holds no keys and cannot act outside its mandate; every decision is authorized before execution and recorded in a tamper-evident audit trail.
+- Built on Solana; audit records are anchored on-chain.
+- Based in Kazakhstan.
+- Founders: Sayat Kakzhanov (Founder & CEO) and Abay Aubakirov (Co-founder & CTO); Marco Comuzzi (Advisor).
+- Partner: Biometric Vision (https://biometric.vision) — remote identity verification / e-KYC (liveness detection, document OCR, face matching, AML screening); NIST FRVT–ranked and ISO/IEC 27001 & 30107-3 certified.
+- Featured in Forbes Kazakhstan (July 23, 2026): together with Biometric Vision, Regent ran what the article describes as the first transaction of its kind in Central Asia (June 27, 2026) — an AI agent autonomously selecting and purchasing items while respecting predefined spending limits.
+
+## Contact
+
+- Website: https://regentprotocol.org
+- Docs: https://docs.regentprotocol.org
+- Email: info@regentprotocol.org
