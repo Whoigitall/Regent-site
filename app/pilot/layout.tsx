@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { faqs } from "./faqs";
 
 const TITLE = "Pilot Program";
 const DESCRIPTION =
@@ -15,10 +16,30 @@ export const metadata: Metadata = {
   },
 };
 
+// FAQPage schema generated from the SAME faqs used on the visible page — so the
+// structured data always mirrors what a user sees (required for FAQ rich results).
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
+};
+
 export default function PilotLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
+      {children}
+    </>
+  );
 }
