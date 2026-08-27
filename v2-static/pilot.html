@@ -14,6 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&family=Oxanium:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
+    --robot-lift: 1.35;
     --f-head: "Orbitron", "Oxanium", sans-serif;
     --f-body: "Oxanium", system-ui, sans-serif;
     --f-mono: "Geist Mono", ui-monospace, Menlo, monospace;
@@ -35,6 +36,7 @@
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
+      --robot-lift: 1;
       --paper: #0F1513;
       --card: #151C19;
       --well: #101714;
@@ -53,6 +55,7 @@
     }
   }
   :root[data-theme="dark"] {
+    --robot-lift: 1;
     --paper: #0F1513;
     --card: #151C19;
     --well: #101714;
@@ -165,9 +168,7 @@
   .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; }
   @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 34px; } }
   .scanner {
-    max-width: 400px; width: 100%; justify-self: end;
-    border: 1px solid var(--line); border-radius: 6px; background: var(--card);
-    overflow: hidden; box-shadow: 0 18px 50px rgba(0, 201, 183, 0.16);
+    max-width: 420px; width: 100%; justify-self: end;
   }
   @media (max-width: 900px) { .scanner { justify-self: start; max-width: 340px; } }
   .scan-cap {
@@ -175,7 +176,12 @@
     font: 600 10.5px/1.6 var(--f-mono); letter-spacing: 0.14em; color: var(--faint);
     border-bottom: 1px solid var(--hair);
   }
-  .scan-stage { position: relative; background: #0E1A1E; }
+  .scan-stage { position: relative; }
+  .scan-stage img {
+    filter: brightness(var(--robot-lift));
+    -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent 99%);
+    mask-image: linear-gradient(180deg, #000 78%, transparent 99%);
+  }
   .scan-stage img { display: block; width: 100%; height: auto; }
   /* the frame HOVERS in front of the static portrait; the glowing scanner
      sweeps vertically INSIDE it (background-position — no layout work) */
