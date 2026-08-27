@@ -452,6 +452,27 @@
     font: 500 13px/1.6 var(--f-mono); background: transparent;
   }
 
+  /* ── flow impulse: glowing gradient glides along the track, dots ignite ── */
+  .ledger-row { position: relative; }
+  .flow-pulse {
+    position: absolute; left: 34px; right: 34px; top: 32px; height: 3px;
+    pointer-events: none; opacity: 0;
+    background-image: linear-gradient(90deg, transparent, rgba(0, 201, 183, 0.55) 30%, #E8FFFB 50%, rgba(0, 201, 183, 0.55) 70%, transparent);
+    background-size: 150px 100%;
+    background-repeat: no-repeat;
+    background-position: -160px 50%;
+    filter: drop-shadow(0 0 6px rgba(0, 201, 183, 0.7)) drop-shadow(0 0 18px rgba(0, 201, 183, 0.35));
+  }
+  .flow-pulse.run { animation: flowpulse 1.6s cubic-bezier(0.35, 0, 0.35, 1) forwards; }
+  @keyframes flowpulse {
+    0% { background-position: 0% 50%; opacity: 0; }
+    8% { opacity: 1; }
+    92% { opacity: 1; }
+    100% { background-position: 100% 50%; opacity: 0; }
+  }
+  .stepnode .dot { transition: border-color 0.25s, background 0.25s, box-shadow 0.45s; }
+  .stepnode .dot.flash { box-shadow: 0 0 10px 2.5px rgba(0, 201, 183, 0.6); }
+
   /* ── mobile navigation ── */
   .menu-btn { display: none; }
   .mobile-nav { display: none; }
@@ -496,6 +517,7 @@
     .scenarios { margin-left: 0; width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
     .scen { min-height: 44px; padding: 8px 4px; font-size: 12px; }
     .ledger-row { display: block; padding: 20px 18px 4px; }
+    .flow-pulse { display: none; }
     .stepnode { display: grid; grid-template-columns: 15px 1fr; column-gap: 14px; padding: 0 0 20px; }
     .stepnode::before { left: 7px; top: 16px; bottom: 0; right: auto; width: 1px; height: auto; }
     .stepnode:last-child::before { display: none; }
@@ -594,6 +616,7 @@
       </div>
     </div>
     <div class="ledger-row" id="flow-row">
+      <div class="flow-pulse" id="flow-pulse" aria-hidden="true"></div>
       <div class="stepnode" data-n="0"><div class="dot"></div><div class="nm">Agent</div><div class="ds">requests a financial action</div></div>
       <div class="stepnode" data-n="1"><div class="dot"></div><div class="nm">AgentID</div><div class="ds">identity verified against the registry</div></div>
       <div class="stepnode" data-n="2"><div class="dot"></div><div class="nm">Mandate check</div><div class="ds">amount, destination, time, approvals</div></div>
@@ -849,18 +872,57 @@ await r.audit.ingest_event(IngestEventRequest(
   const trace = document.getElementById("flow-trace");
   document.querySelectorAll(".scen").forEach((b) => b.addEventListener("click", () => {
     document.querySelectorAll(".scen").forEach((x) => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
-    const s = SCEN[b.dataset.s];
-    const nodes = row.querySelectorAll(".stepnode");
-    const instant = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    nodes.forEach((n, i) => {
-      n.className = "stepnode";
-      if (instant) { n.className = "stepnode " + s.states[i]; }
-      else { setTimeout(() => { n.className = "stepnode " + s.states[i]; }, 70 * i); }
-    });
-    stamp.textContent = s.stamp[0];
-    stamp.className = "stamp " + s.stamp[1];
-    trace.textContent = s.trace;
+    runFlow(SCEN[b.dataset.s]);
   }));
+
+  /* the impulse: glow glides left→right, dots ignite as it passes */
+  const pulseEl = document.getElementById("flow-pulse");
+  const flowInstant = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function firePulse() {
+    if (!pulseEl || flowInstant()) return;
+    pulseEl.classList.remove("run");
+    void pulseEl.offsetWidth;               /* restart the animation */
+    pulseEl.classList.add("run");
+  }
+  function runFlow(s, statesToo = true) {
+    const nodes = row.querySelectorAll(".stepnode");
+    if (statesToo) {
+      stamp.textContent = s.stamp[0];
+      stamp.className = "stamp " + s.stamp[1];
+      trace.textContent = s.trace;
+    }
+    if (flowInstant()) {
+      if (statesToo) nodes.forEach((n, i) => { n.className = "stepnode " + s.states[i]; });
+      return;
+    }
+    firePulse();
+    nodes.forEach((n, i) => {
+      const at = 120 + i * 265;             /* synced to the 1.6s glide */
+      setTimeout(() => {
+        if (statesToo) n.className = "stepnode " + s.states[i];
+        n.querySelector(".dot").classList.add("flash");
+        setTimeout(() => n.querySelector(".dot").classList.remove("flash"), 480);
+      }, at);
+    });
+  }
+  /* first run + a soft re-pulse while the flow is on screen */
+  let flowSeen = false;
+  const flowIO = new IntersectionObserver((es) => {
+    es.forEach((e) => {
+      flowSeen = e.isIntersecting;
+      if (e.isIntersecting && !row.dataset.ran) {
+        row.dataset.ran = "1";
+        runFlow(SCEN.allow);
+      }
+    });
+  }, { threshold: 0.4 });
+  flowIO.observe(row);
+  setInterval(() => {
+    if (flowSeen && !flowInstant() && !document.hidden) {
+      const current = document.querySelector('.scen[aria-pressed="true"]');
+      runFlow(SCEN[current ? current.dataset.s : "allow"], false);
+    }
+  }, 8000);
 
   /* Audience router */
   const TABS = {
