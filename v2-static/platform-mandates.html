@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Privacy Policy — Regent Protocol</title>
-<meta name="description" content="How Regent Protocol collects, uses, and safeguards personal data across the website and services.">
-<meta property="og:title" content="Privacy Policy — Regent Protocol">
-<meta property="og:description" content="How Regent Protocol collects, uses, and safeguards personal data across the website and services.">
+<title>Mandates — Regent Protocol</title>
+<meta name="description" content="Programmable spending rules enforced before execution: amounts, destinations, time windows, approvals, per-entity budgets. Try the simulator.">
+<meta property="og:title" content="Mandates — Regent Protocol">
+<meta property="og:description" content="Programmable spending rules enforced before execution: amounts, destinations, time windows, approvals, per-entity budgets. Try the simulator.">
 <meta property="og:site_name" content="Regent Protocol">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
@@ -594,8 +594,8 @@
     .scanline { background-position: 50% 50%; }
   }
 </style>
-<link rel="canonical" href="https://regentprotocol.org/privacy">
-<meta property="og:url" content="https://regentprotocol.org/privacy">
+<link rel="canonical" href="https://regentprotocol.org/platform/mandates">
+<meta property="og:url" content="https://regentprotocol.org/platform/mandates">
 <meta property="og:image" content="https://regentprotocol.org/og-image.png">
 <meta property="og:type" content="website">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Regent Protocol", "url": "https://regentprotocol.org", "logo": "https://regentprotocol.org/logo-icon.png", "email": "info@regentprotocol.org", "sameAs": ["https://www.linkedin.com/company/regentprotocol/", "https://x.com/whoigital", "https://www.youtube.com/@regentprotocol", "https://github.com/abay94/regent-platform"]}</script>
@@ -659,7 +659,46 @@
 
 
 <!-- ══════════════════════ MANDATES-PAGE ══════════════════════ -->
-
+<div id="view-mandates-page">
+  <div class="wrap pg-hero">
+    <div class="eyebrow">Platform · Mandates</div>
+    <h1>The rules money cannot cross.</h1>
+    <p class="cat" style="font-size: 16px;">A mandate defines what an agent may do with money: amount, destination, time, conditions, and approvals — enforced before execution, not reviewed after.</p>
+  </div>
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">The failure it prevents</div>
+    <p class="lede">Post-hoc controls find the bad payment in tomorrow's report. A mandate refuses it today: the transaction outside the rules is denied before any money moves, and the agent never holds the payment credentials itself.</p>
+  </div></section>
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">Try the logic</div>
+    <h2>Mandate simulator.</h2>
+    <p class="lede" style="margin-bottom: 20px;">Adjust the rules and the action — watch the decision change. Runs entirely in your browser; illustrative only, nothing is sent anywhere.</p>
+    <div class="simulator" id="mandate-sim">
+      <div class="row"><span>Per-transaction limit</span><select id="ms-limit"><option value="50">$50</option><option value="200" selected>$200</option><option value="1000">$1,000</option></select></div>
+      <div class="row"><span>Allowed destination</span><select id="ms-dest"><option value="approved" selected>Approved vendors only</option><option value="any">Any destination</option></select></div>
+      <div class="row"><span>Approval required above</span><select id="ms-appr"><option value="0">Never</option><option value="100" selected>$100</option></select></div>
+      <div class="row"><span>Action: amount</span><input id="ms-amount" type="number" value="140" min="1" max="5000"></div>
+      <div class="row"><span>Action: destination</span><select id="ms-adest"><option value="approved" selected>Approved vendor</option><option value="new">New / unknown counterparty</option></select></div>
+      <div class="sim-verdict"><span class="stamp ok" id="ms-stamp">NEEDS APPROVAL</span><span class="trace" id="ms-trace"></span></div>
+      <div class="illus">Illustrative workflow — a local demo of mandate logic, not a live production integration. Real fields include daily/monthly ceilings, per-entity sub-budgets, and relational caps (a refund may not exceed its original charge).</div>
+    </div>
+  </div></section>
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">Mechanics</div>
+    <h2>Inputs, decision, outputs.</h2>
+    <div style="background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 24px; margin-top: 22px;">
+      <div class="case"><div class="t">Inputs</div><p>The mandate's limits (per-transaction, daily, monthly, per-entity, relational) and the action: amount, currency, optional entity and reference.</p></div>
+      <div class="case"><div class="t">Decision</div><p>Authorize-before-execution: within limits → an authorization with a short-lived signed proof (JWT). Outside → a coded refusal (<span class="mono">LIMIT_EXCEEDED</span> names the ceiling) and no movement. Owner approval can be required above thresholds.</p></div>
+      <div class="case"><div class="t">Operator visibility</div><p>Every authorization and refusal lands in the audit trail and the Control Panel. Usage counters reconcile via settle when the real charge lands.</p></div>
+    </div>
+  </div></section>
+  <section data-reveal><div class="wrap">
+    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+      <a class="btn btn-primary" href="https://docs.regentprotocol.org/rest-api/mandates" data-ph="cta_start_building_clicked:mandates">Read the API</a>
+      <a class="btn btn-secondary" href="/platform/guardian">Next: Guardian →</a>
+    </div>
+  </div></section>
+</div><!-- /view-mandates-page -->
 
 <!-- ══════════════════════ GUARDIAN ══════════════════════ -->
 
@@ -703,55 +742,7 @@
 
 
 <!-- ══════════════════════ PRIVACY ══════════════════════ -->
-<div id="view-privacy">
-  <div class="wrap hero" style="padding-bottom: 16px;">
-    <div class="eyebrow">Legal</div>
-    <h1 style="font-size: clamp(24px, 3.2vw, 34px);">Privacy Policy</h1>
-    <div class="updated legal">Last updated: May 2026</div>
-  </div>
-  <section data-reveal><div class="wrap legal">
-<h2>1. Introduction</h2>
-<p>Regent Protocol (&ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.</p>
-<h2>2. Information We Collect</h2>
-<p>We may collect the following types of information:</p><ul>
-<li><strong>Personal Information:</strong> Name, email address, company name, and other contact details you provide through forms or correspondence.</li>
-<li><strong>Usage Data:</strong> Information about how you access and use our website, including IP address, browser type, pages visited, and time spent.</li>
-<li><strong>Blockchain Data:</strong> Public on-chain data related to AgentID registrations, audit anchors, and transaction hashes. This data is inherently public on the blockchain.</li>
-<li><strong>Device Information:</strong> Device type, operating system, and unique device identifiers.</li></ul>
-<h2>3. How We Use Your Information</h2>
-<p>We use the information we collect for the following purposes:</p><ul>
-<li>To provide, maintain, and improve our services.</li>
-<li>To communicate with you about updates, support, and marketing (with your consent).</li>
-<li>To process pilot program applications and verify eligibility.</li>
-<li>To analyze usage patterns and improve user experience.</li>
-<li>To comply with legal obligations and enforce our terms.</li></ul>
-<h2>4. Data Sharing and Disclosure</h2>
-<p>We do not sell your personal data. We may share information in the following circumstances:</p><ul>
-<li><strong>Service Providers:</strong> With trusted third parties who perform services on our behalf (hosting, analytics, customer support).</li>
-<li><strong>Legal Requirements:</strong> When required by law, regulation, or legal process.</li>
-<li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets.</li>
-<li><strong>Consent:</strong> With your explicit consent for specific purposes.</li></ul>
-<h2>5. Blockchain Data</h2>
-<p>Data stored on Solana and Celestia blockchains is public and immutable by design. This includes AgentID metadata, audit anchors, and transaction records. We cannot delete or modify on-chain data. Users should be aware that blockchain interactions create permanent, publicly visible records.</p>
-<h2>6. Data Security</h2>
-<p>We implement industry-standard security measures to protect your personal data, including encryption in transit and at rest, access controls, and regular security audits. However, no method of transmission over the internet or electronic storage is 100% secure.</p>
-<h2>7. Your Rights</h2>
-<p>Depending on your jurisdiction, you may have the right to:</p><ul>
-<li>Access, correct, or delete your personal data.</li>
-<li>Object to or restrict processing of your data.</li>
-<li>Withdraw consent for marketing communications.</li>
-<li>Request a copy of your data in a portable format.</li></ul>
-<p>To exercise these rights, contact us at <a href="mailto:info@regentprotocol.org">info@regentprotocol.org</a>.</p>
-<h2>8. Cookies and Tracking</h2>
-<p>We use cookies and similar technologies to enhance your experience, analyze traffic, and understand user behavior. You can manage cookie preferences through your browser settings. We use analytics services that may set their own cookies.</p>
-<h2>9. International Transfers</h2>
-<p>Your data may be transferred to and processed in countries other than your country of residence. We ensure appropriate safeguards are in place for such transfers, including standard contractual clauses where required by law.</p>
-<h2>10. Changes to This Policy</h2>
-<p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated revision date. We encourage you to review this policy periodically.</p>
-<h2>11. Contact Us</h2>
-<p>If you have questions about this Privacy Policy or our data practices, please contact us at: <a href="mailto:info@regentprotocol.org">info@regentprotocol.org</a></p>
-  </div></section>
-</div><!-- /view-privacy -->
+
 
 
 <div class="consent-bar" id="consent-bar" hidden role="dialog" aria-label="Analytics consent">
@@ -787,7 +778,7 @@
       <a class="soc" href="mailto:info@regentprotocol.org" aria-label="Email" title="Email"><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4.236-8 5-8-5V6.2l8 5 8-5v2.036z"/></svg></a>
     </div>
     <div style="max-width: 60ch; margin-bottom: 8px;">Verifiable agent infrastructure for regulated finance on Solana. Regent gives financial agents a verifiable identity, defines the limits under which they can act, monitors risk signals, and creates tamper-evident audit evidence.</div>
-    <div>© 2026 Regent Protocol. All rights reserved. · <a href="/terms">Terms of Use</a> · <a href="#">Privacy Policy</a></div>
+    <div>© 2026 Regent Protocol. All rights reserved. · <a href="/terms">Terms of Use</a> · <a href="/privacy">Privacy Policy</a></div>
   </footer>
 </div>
 

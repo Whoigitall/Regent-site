@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Privacy Policy — Regent Protocol</title>
-<meta name="description" content="How Regent Protocol collects, uses, and safeguards personal data across the website and services.">
-<meta property="og:title" content="Privacy Policy — Regent Protocol">
-<meta property="og:description" content="How Regent Protocol collects, uses, and safeguards personal data across the website and services.">
+<title>Platform — Regent Protocol</title>
+<meta name="description" content="The complete system: AgentID, Mandates, Guardian, Audit Chain, and the Control Panel — one decision path for AI agents that move money.">
+<meta property="og:title" content="Platform — Regent Protocol">
+<meta property="og:description" content="The complete system: AgentID, Mandates, Guardian, Audit Chain, and the Control Panel — one decision path for AI agents that move money.">
 <meta property="og:site_name" content="Regent Protocol">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
@@ -594,11 +594,12 @@
     .scanline { background-position: 50% 50%; }
   }
 </style>
-<link rel="canonical" href="https://regentprotocol.org/privacy">
-<meta property="og:url" content="https://regentprotocol.org/privacy">
+<link rel="canonical" href="https://regentprotocol.org/platform">
+<meta property="og:url" content="https://regentprotocol.org/platform">
 <meta property="og:image" content="https://regentprotocol.org/og-image.png">
 <meta property="og:type" content="website">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Regent Protocol", "url": "https://regentprotocol.org", "logo": "https://regentprotocol.org/logo-icon.png", "email": "info@regentprotocol.org", "sameAs": ["https://www.linkedin.com/company/regentprotocol/", "https://x.com/whoigital", "https://www.youtube.com/@regentprotocol", "https://github.com/abay94/regent-platform"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Regent a payment processor?", "acceptedAnswer": {"@type": "Answer", "text": "No. Regent authorizes and evidences; money always moves on your existing rail. We decide whether an action is within its mandate — the charge itself stays with your PSP, exchange, or wallet flow."}}, {"@type": "Question", "name": "Is every API call recorded on-chain?", "acceptedAnswer": {"@type": "Answer", "text": "No. Financial-agent decisions that need proof are hashed and Merkle-batched; the batch root is anchored on-chain. Payloads live in the audit store — what is committed where is documented per artifact."}}, {"@type": "Question", "name": "Where do humans fit?", "acceptedAnswer": {"@type": "Answer", "text": "Everywhere it matters: a mandate can require approval above a threshold, Guardian can hold an action for review, and the Control Panel carries the kill switch — revocation suspends the agent's mandates in under a second in our benchmarks."}}, {"@type": "Question", "name": "What is available today?", "acceptedAnswer": {"@type": "Answer", "text": "Agent registration, mandates, authorization, and audit anchoring run live on Solana devnet, with a Python SDK and REST API. Mainnet, independent audit, and SOC 2 are on the roadmap — statuses live on the Trust Center ."}}]}</script>
 </head>
 <body>
 
@@ -607,10 +608,10 @@
   <header class="site">
     <a class="brand" href="/" aria-label="Regent Protocol — home"><span class="logomark" role="img" aria-label=""></span>Regent Protocol</a>
     <nav class="top" aria-label="Main">
-      <a href="/platform">Platform</a>
+      <a href="#">Platform</a>
       <a href="/solutions">Solutions</a>
       <a href="/developers">Developers</a>
-      <a href="/platform">Platform</a>
+      <a href="#">Platform</a>
       <a href="/solutions">Solutions</a>
       <a href="/developers">Developers</a>
       <a href="/pricing">Pricing</a>
@@ -625,7 +626,7 @@
     <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu"><span></span><span></span><span></span></button>
   </header>
   <nav class="mobile-nav" id="mobile-nav" hidden aria-label="Mobile">
-    <a href="/platform">Platform</a>
+    <a href="#">Platform</a>
     <a href="/solutions">Solutions</a>
     <a href="/developers">Developers</a>
     <a href="/security">Security</a>
@@ -653,7 +654,68 @@
 
 
 <!-- ══════════════════════ PLATFORM ══════════════════════ -->
-
+<div id="view-platform">
+  <div class="wrap pg-hero">
+    <div class="eyebrow">Platform</div>
+    <h1>The complete system, before the details.</h1>
+    <p class="cat" style="font-size: 16px;">Regent is the financial authorization and compliance layer for AI agents that move money. Five primitives, one decision path — here is how they fit together.</p>
+  </div>
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">System map</div>
+    <h2>Where Regent sits.</h2>
+    <figure style="margin: 24px 0 0;">
+    <svg viewBox="0 0 900 300" role="img" aria-label="System map: your application talks to the Regent control layer (AgentID, Mandates, Guardian), which writes evidence to settlement and audit layers, with a human operator overseeing via the Control Panel" style="max-width: 100%; height: auto;">
+      <defs><marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="currentColor"/></marker></defs>
+      <g fill="none" stroke="currentColor" stroke-width="1.4" font-family="Oxanium, sans-serif" font-size="13">
+        <rect x="20" y="110" width="180" height="70" rx="4"/><text x="110" y="140" text-anchor="middle" stroke="none" fill="currentColor" font-weight="600">Your application</text><text x="110" y="160" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.6" font-size="11.5">agents + business logic</text>
+        <rect x="290" y="60" width="320" height="170" rx="4" stroke="#00C9B7" stroke-width="2"/><text x="450" y="86" text-anchor="middle" stroke="none" fill="currentColor" font-weight="700">Regent control layer</text>
+        <text x="450" y="120" text-anchor="middle" stroke="none" fill="currentColor" font-size="12.5">AgentID · Mandates · Guardian</text>
+        <text x="450" y="142" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.6" font-size="11.5">decides before execution</text>
+        <rect x="700" y="40" width="180" height="64" rx="4"/><text x="790" y="66" text-anchor="middle" stroke="none" fill="currentColor" font-weight="600">Settlement</text><text x="790" y="86" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.6" font-size="11.5">Solana programs (devnet)</text>
+        <rect x="700" y="130" width="180" height="64" rx="4"/><text x="790" y="156" text-anchor="middle" stroke="none" fill="currentColor" font-weight="600">Audit evidence</text><text x="790" y="176" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.6" font-size="11.5">Merkle batches · Celestia DA</text>
+        <rect x="290" y="252" width="320" height="40" rx="4"/><text x="450" y="277" text-anchor="middle" stroke="none" fill="currentColor" font-weight="600">Control Panel — human operator</text>
+        <path d="M200 145 H288" marker-end="url(#arr)"/><text x="242" y="136" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.7" font-size="11">authorize</text>
+        <path d="M610 100 H698" marker-end="url(#arr)"/><text x="654" y="90" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.7" font-size="11">anchors</text>
+        <path d="M610 176 H698" marker-end="url(#arr)"/><text x="654" y="166" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.7" font-size="11">evidence</text>
+        <path d="M450 230 V250" marker-end="url(#arr)"/>
+      </g>
+    </svg>
+    <figcaption class="illus">Your application keeps its business logic; Regent decides and evidences. Chain layers are network characteristics, separate from Regent application performance.</figcaption>
+    </figure>
+  </div></section>
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">The primitives</div>
+    <h2>Five answers to five questions.</h2>
+    <div class="grid grid-5" style="margin-top: 22px;">
+      <div class="cell"><div class="k">AgentID</div><h3><a href="/platform/agent-id">Identity →</a></h3><p>Who is acting — a verifiable identity connected to a responsible party.</p></div>
+      <div class="cell"><div class="k">Mandates</div><h3><a href="/platform/mandates">Authority →</a></h3><p>What it may do with money — amount, destination, time, conditions, approvals.</p></div>
+      <div class="cell"><div class="k">Guardian</div><h3><a href="/platform/guardian">Risk →</a></h3><p>When to stop — rules and behavioural signals: allow, hold, or stop.</p></div>
+      <div class="cell"><div class="k">Audit Chain</div><h3><a href="/platform/audit-chain">Evidence →</a></h3><p>Proving it later — hashes, Merkle batches, chain anchoring.</p></div>
+      <div class="cell"><div class="k">Control Panel</div><h3><a href="/platform/control-panel">Oversight →</a></h3><p>Human operators — monitoring, investigation, intervention.</p></div>
+    </div>
+  </div></section>
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">Lifecycle</div>
+    <h2>Before, during, and after a financial action.</h2>
+    <div style="background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 24px; margin-top: 22px;">
+      <div class="case"><div class="t">Before</div><p>The agent holds an AgentID bound to a responsible party and a mandate bounding its authority. Nothing else runs without these.</p></div>
+      <div class="case"><div class="t">During</div><p>Each action is authorized against the mandate and evaluated by Guardian — allowed, held for a human, or stopped. The deny happens before money moves.</p></div>
+      <div class="case"><div class="t">After</div><p>The decision is hashed, batched, and anchored. Anyone can verify the record against the chain — without trusting Regent or the operator.</p></div>
+    </div>
+  </div></section>
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">FAQ</div>
+    <h2 style="margin-bottom: 20px;">What Regent is — and is not.</h2>
+    <details class="faq"><summary>Is Regent a payment processor?</summary><div class="a">No. Regent authorizes and evidences; money always moves on your existing rail. We decide whether an action is within its mandate — the charge itself stays with your PSP, exchange, or wallet flow.</div></details>
+    <details class="faq"><summary>Is every API call recorded on-chain?</summary><div class="a">No. Financial-agent decisions that need proof are hashed and Merkle-batched; the batch root is anchored on-chain. Payloads live in the audit store — what is committed where is documented per artifact.</div></details>
+    <details class="faq"><summary>Where do humans fit?</summary><div class="a">Everywhere it matters: a mandate can require approval above a threshold, Guardian can hold an action for review, and the Control Panel carries the kill switch — revocation suspends the agent's mandates in under a second in our benchmarks.</div></details>
+    <details class="faq"><summary>What is available today?</summary><div class="a">Agent registration, mandates, authorization, and audit anchoring run live on Solana devnet, with a Python SDK and REST API. Mainnet, independent audit, and SOC 2 are on the roadmap — statuses live on the <a href="/trust">Trust Center</a>.</div></details>
+    <div style="margin-top: 22px; display: flex; gap: 12px; flex-wrap: wrap;">
+      <a class="btn btn-primary" href="https://docs.regentprotocol.org/quickstart/three-steps" data-ph="cta_start_building_clicked:platform">Start building</a>
+      <a class="btn btn-secondary" href="/pilot" data-ph="cta_pilot_clicked:platform">Apply for a pilot</a>
+    </div>
+  </div></section>
+</div><!-- /view-platform -->
 
 <!-- ══════════════════════ AGENT-ID ══════════════════════ -->
 
@@ -703,55 +765,7 @@
 
 
 <!-- ══════════════════════ PRIVACY ══════════════════════ -->
-<div id="view-privacy">
-  <div class="wrap hero" style="padding-bottom: 16px;">
-    <div class="eyebrow">Legal</div>
-    <h1 style="font-size: clamp(24px, 3.2vw, 34px);">Privacy Policy</h1>
-    <div class="updated legal">Last updated: May 2026</div>
-  </div>
-  <section data-reveal><div class="wrap legal">
-<h2>1. Introduction</h2>
-<p>Regent Protocol (&ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.</p>
-<h2>2. Information We Collect</h2>
-<p>We may collect the following types of information:</p><ul>
-<li><strong>Personal Information:</strong> Name, email address, company name, and other contact details you provide through forms or correspondence.</li>
-<li><strong>Usage Data:</strong> Information about how you access and use our website, including IP address, browser type, pages visited, and time spent.</li>
-<li><strong>Blockchain Data:</strong> Public on-chain data related to AgentID registrations, audit anchors, and transaction hashes. This data is inherently public on the blockchain.</li>
-<li><strong>Device Information:</strong> Device type, operating system, and unique device identifiers.</li></ul>
-<h2>3. How We Use Your Information</h2>
-<p>We use the information we collect for the following purposes:</p><ul>
-<li>To provide, maintain, and improve our services.</li>
-<li>To communicate with you about updates, support, and marketing (with your consent).</li>
-<li>To process pilot program applications and verify eligibility.</li>
-<li>To analyze usage patterns and improve user experience.</li>
-<li>To comply with legal obligations and enforce our terms.</li></ul>
-<h2>4. Data Sharing and Disclosure</h2>
-<p>We do not sell your personal data. We may share information in the following circumstances:</p><ul>
-<li><strong>Service Providers:</strong> With trusted third parties who perform services on our behalf (hosting, analytics, customer support).</li>
-<li><strong>Legal Requirements:</strong> When required by law, regulation, or legal process.</li>
-<li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets.</li>
-<li><strong>Consent:</strong> With your explicit consent for specific purposes.</li></ul>
-<h2>5. Blockchain Data</h2>
-<p>Data stored on Solana and Celestia blockchains is public and immutable by design. This includes AgentID metadata, audit anchors, and transaction records. We cannot delete or modify on-chain data. Users should be aware that blockchain interactions create permanent, publicly visible records.</p>
-<h2>6. Data Security</h2>
-<p>We implement industry-standard security measures to protect your personal data, including encryption in transit and at rest, access controls, and regular security audits. However, no method of transmission over the internet or electronic storage is 100% secure.</p>
-<h2>7. Your Rights</h2>
-<p>Depending on your jurisdiction, you may have the right to:</p><ul>
-<li>Access, correct, or delete your personal data.</li>
-<li>Object to or restrict processing of your data.</li>
-<li>Withdraw consent for marketing communications.</li>
-<li>Request a copy of your data in a portable format.</li></ul>
-<p>To exercise these rights, contact us at <a href="mailto:info@regentprotocol.org">info@regentprotocol.org</a>.</p>
-<h2>8. Cookies and Tracking</h2>
-<p>We use cookies and similar technologies to enhance your experience, analyze traffic, and understand user behavior. You can manage cookie preferences through your browser settings. We use analytics services that may set their own cookies.</p>
-<h2>9. International Transfers</h2>
-<p>Your data may be transferred to and processed in countries other than your country of residence. We ensure appropriate safeguards are in place for such transfers, including standard contractual clauses where required by law.</p>
-<h2>10. Changes to This Policy</h2>
-<p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated revision date. We encourage you to review this policy periodically.</p>
-<h2>11. Contact Us</h2>
-<p>If you have questions about this Privacy Policy or our data practices, please contact us at: <a href="mailto:info@regentprotocol.org">info@regentprotocol.org</a></p>
-  </div></section>
-</div><!-- /view-privacy -->
+
 
 
 <div class="consent-bar" id="consent-bar" hidden role="dialog" aria-label="Analytics consent">
@@ -766,7 +780,7 @@
       <span><strong style="color: var(--mut);">Regent Protocol</strong></span>
       <a href="#primitives" data-home-anchor>Platform</a>
       <a href="#cases" data-home-anchor>Solutions</a>
-      <a href="/platform">Platform</a>
+      <a href="#">Platform</a>
       <a href="/solutions">Solutions</a>
       <a href="/developers">Developers</a>
       <a href="/pricing">Pricing</a>
@@ -787,7 +801,7 @@
       <a class="soc" href="mailto:info@regentprotocol.org" aria-label="Email" title="Email"><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4.236-8 5-8-5V6.2l8 5 8-5v2.036z"/></svg></a>
     </div>
     <div style="max-width: 60ch; margin-bottom: 8px;">Verifiable agent infrastructure for regulated finance on Solana. Regent gives financial agents a verifiable identity, defines the limits under which they can act, monitors risk signals, and creates tamper-evident audit evidence.</div>
-    <div>© 2026 Regent Protocol. All rights reserved. · <a href="/terms">Terms of Use</a> · <a href="#">Privacy Policy</a></div>
+    <div>© 2026 Regent Protocol. All rights reserved. · <a href="/terms">Terms of Use</a> · <a href="/privacy">Privacy Policy</a></div>
   </footer>
 </div>
 
