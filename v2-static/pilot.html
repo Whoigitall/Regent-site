@@ -177,16 +177,29 @@
   }
   .scan-stage { position: relative; background: #0E1A1E; }
   .scan-stage img { display: block; width: 100%; height: auto; }
-  .scanline {
-    /* the scan ZONE (the face frame); the visible line is a background layer
-       swept via background-position — no layout work, adapts to any size */
-    position: absolute; left: 28%; width: 44%; top: 7%; height: 44%;
+  /* the frame HOVERS in front of the static portrait; the glowing scanner
+     sweeps vertically INSIDE it (background-position — no layout work) */
+  .scan-frame {
+    position: absolute; left: 29%; top: 3.5%; width: 42%; height: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.28); border-radius: 2px;
     pointer-events: none;
-    background-image: linear-gradient(90deg, transparent, #FF3B30 12%, #FF7A70 50%, #FF3B30 88%, transparent);
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
+    animation: framefloat 5.5s ease-in-out infinite alternate;
+  }
+  @keyframes framefloat { 0% { transform: translateY(-6px); } 100% { transform: translateY(7px); } }
+  .scan-frame i { position: absolute; width: 22px; height: 22px; border: 0 solid rgba(255, 255, 255, 0.95); }
+  .scan-frame .tl { top: -2px; left: -2px; border-top-width: 3px; border-left-width: 3px; }
+  .scan-frame .tr { top: -2px; right: -2px; border-top-width: 3px; border-right-width: 3px; }
+  .scan-frame .bl { bottom: -2px; left: -2px; border-bottom-width: 3px; border-left-width: 3px; }
+  .scan-frame .br { bottom: -2px; right: -2px; border-bottom-width: 3px; border-right-width: 3px; }
+  .scanline {
+    position: absolute; left: 7px; right: 7px; top: 7px; bottom: 7px;
+    pointer-events: none;
+    background-image: linear-gradient(90deg, transparent, #FF3B30 10%, #FF7A70 50%, #FF3B30 90%, transparent);
     background-size: 100% 2.5px;
     background-repeat: no-repeat;
     background-position: 50% 0%;
-    filter: drop-shadow(0 0 7px rgba(255, 59, 48, 0.65)) drop-shadow(0 0 22px rgba(255, 59, 48, 0.3));
+    filter: drop-shadow(0 0 7px rgba(255, 59, 48, 0.7)) drop-shadow(0 0 24px rgba(255, 59, 48, 0.32));
     animation: scan 3.4s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
   }
   @keyframes scan { 0% { background-position: 50% 0%; } 100% { background-position: 50% 100%; } }
