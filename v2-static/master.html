@@ -555,6 +555,17 @@
       border-radius: 0 4px 4px 0; }
   }
 
+  /* ── consent banner ── */
+  .consent-bar {
+    position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 80;
+    max-width: 560px; margin: 0 auto;
+    background: var(--card); border: 1px solid var(--line); border-radius: 6px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+    padding: 14px 18px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    font-size: 13px; color: var(--mut);
+  }
+  .consent-bar .btn { padding: 8px 14px; font-size: 13px; }
+
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; animation: none !important; }
     [data-reveal] { opacity: 1 !important; transform: none !important; }
@@ -578,7 +589,7 @@
       <a href="#/about">About</a>
       <a href="https://docs.regentprotocol.org">Docs</a>
     </nav>
-    <a class="btn btn-primary" href="#quickstart" data-home-anchor style="margin-left: 16px;">Start building</a>
+    <a class="btn btn-primary" href="#quickstart" data-home-anchor data-ph="cta_start_building_clicked:header" style="margin-left: 16px;">Start building</a>
     <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu"><span></span><span></span><span></span></button>
   </header>
   <nav class="mobile-nav" id="mobile-nav" hidden aria-label="Mobile">
@@ -604,8 +615,8 @@
   <h1>Financial authorization for AI agents that move money.</h1>
   <p class="cat">Regent is the financial authorization and compliance layer for AI agents that move money: a verifiable identity for every agent, limits it cannot exceed, risk signals watched in real time, and tamper-evident audit evidence for every action.</p>
   <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-    <a class="btn btn-primary" href="#quickstart">Start building</a>
-    <a class="btn btn-secondary" href="#/pilot">Apply for a pilot</a>
+    <a class="btn btn-primary" href="#quickstart" data-ph="cta_start_building_clicked:hero">Start building</a>
+    <a class="btn btn-secondary" href="#/pilot" data-ph="cta_pilot_clicked:hero">Apply for a pilot</a>
   </div>
   <div class="status-note">Developer access available · production availability follows published status</div>
   </div>
@@ -808,7 +819,7 @@ await r.audit.ingest_event(IngestEventRequest(
   <div class="pane">
     <h3>Put it in front of your risk team.</h3>
     <p>A pilot conversation with an architect: your workflow, where the mandate gate sits, and what the evidence pack contains for your reviewers.</p>
-    <a class="btn btn-secondary" href="#/pilot">Apply for a pilot</a>
+    <a class="btn btn-secondary" href="#/pilot" data-ph="cta_pilot_clicked:hero">Apply for a pilot</a>
   </div>
 </div></section>
 
@@ -848,7 +859,7 @@ await r.audit.ingest_event(IngestEventRequest(
           <li>Community &amp; docs support</li>
           <li class="no">Mandates, Guardian, Control Panel</li>
         </ul>
-        <a class="btn btn-secondary" href="https://docs.regentprotocol.org/quickstart/three-steps">Start building</a>
+        <a class="btn btn-secondary" href="https://docs.regentprotocol.org/quickstart/three-steps" data-ph="pricing_tier_selected:developer">Start building</a>
         <div class="fnote">Overage: $0.01 / verified action</div>
       </div>
 
@@ -866,7 +877,7 @@ await r.audit.ingest_event(IngestEventRequest(
           <li>Email support · 24h response target</li>
           <li class="no">Human-KYC binding (optional, pass-through at cost)</li>
         </ul>
-        <a class="btn btn-primary" href="mailto:info@regentprotocol.org?subject=Regent%20Growth">Start with Growth</a>
+        <a class="btn btn-primary" href="mailto:info@regentprotocol.org?subject=Regent%20Growth" data-ph="pricing_tier_selected:growth">Start with Growth</a>
         <div class="fnote">Overage: $0.005 / verified action</div>
       </div>
 
@@ -882,7 +893,7 @@ await r.audit.ingest_event(IngestEventRequest(
           <li>Expanded AgentID allowance</li>
           <li>Priority support</li>
         </ul>
-        <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20Scale">Talk to us</a>
+        <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20Scale" data-ph="pricing_tier_selected:scale">Talk to us</a>
         <div class="fnote">Overage: $0.005 / verified action</div>
       </div>
 
@@ -898,7 +909,7 @@ await r.audit.ingest_event(IngestEventRequest(
           <li>Custom SLA · dedicated infra · SSO</li>
           <li>Professional services &amp; regulator mapping</li>
         </ul>
-        <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20Enterprise">Talk to us</a>
+        <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20Enterprise" data-ph="pricing_tier_selected:enterprise">Talk to us</a>
         <div class="fnote">Typical contracts $30K–$75K / yr</div>
       </div>
     </div>
@@ -1421,6 +1432,13 @@ await r.audit.ingest_event(IngestEventRequest(
   </div></section>
 </div><!-- /view-privacy -->
 
+
+<div class="consent-bar" id="consent-bar" hidden role="dialog" aria-label="Analytics consent">
+  <span style="flex: 1; min-width: 220px;">We'd like to use analytics cookies to understand how this site is used. <a href="/privacy">Privacy Policy</a></span>
+  <button class="btn btn-secondary" id="consent-no" type="button">Decline</button>
+  <button class="btn btn-primary" id="consent-yes" type="button">Allow</button>
+</div>
+
 <div class="wrap">
   <footer class="site">
     <div class="cols">
@@ -1470,6 +1488,7 @@ await r.audit.ingest_event(IngestEventRequest(
   const stamp = document.getElementById("flow-stamp");
   const trace = document.getElementById("flow-trace");
   document.querySelectorAll(".scen").forEach((b) => b.addEventListener("click", () => {
+    ph("flow_scenario_selected", { scenario: b.dataset.s });
     document.querySelectorAll(".scen").forEach((x) => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
     runFlow(SCEN[b.dataset.s]);
   }));
@@ -1633,6 +1652,7 @@ await r.audit.ingest_event(IngestEventRequest(
       if (!r.ok) throw new Error((await r.json().catch(() => ({})))?.detail?.message || "Submission failed.");
       pForm.style.display = "none";
       document.getElementById("pilot-ok").style.display = "block";
+      ph("contact_form_submitted");
     } catch (ex) {
       btn.disabled = false; btn.textContent = "Apply for the pilot \u2192";
       err.textContent = (ex.message || "Submission failed.") +
@@ -1659,6 +1679,70 @@ await r.audit.ingest_event(IngestEventRequest(
       mobileNav.setAttribute("hidden", "");
       menuBtn.setAttribute("aria-expanded", "false");
     }));
+  }
+
+  /* ── privacy-aware analytics (PostHog via first-party proxy) ── */
+  const PH_KEY = "phc_vppptJACzrhfwphPu3UFDLm7NHzYYByN6nrPs66PCjFx";
+  const PH_HOST = "https://e.regentprotocol.org";
+  function loadPosthog() {
+    if (window.posthog && window.posthog.__loaded) return;
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister opt_out_capturing opt_in_capturing reset".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    window.posthog.init(PH_KEY, {
+      api_host: PH_HOST,
+      ui_host: "https://us.posthog.com",
+      capture_pageleave: true,
+      session_recording: { maskAllInputs: true },
+      before_send: function (event) {
+        var url = event && event.properties && event.properties["$current_url"];
+        if (typeof url === "string") {
+          event.properties["$current_url"] = url.replace(/token=[^&#]+/g, "token=[REDACTED]");
+        }
+        return event;
+      },
+    });
+  }
+  function ph(name, props) {
+    if (window.posthog && window.posthog.capture) window.posthog.capture(name, props || {});
+  }
+  (function consent() {
+    var bar = document.getElementById("consent-bar");
+    var choice = null;
+    try { choice = localStorage.getItem("rg_consent"); } catch (e) {}
+    if (choice === "granted") { loadPosthog(); return; }
+    if (choice === "denied" || !bar) return;
+    bar.hidden = false;
+    document.getElementById("consent-yes").addEventListener("click", function () {
+      try { localStorage.setItem("rg_consent", "granted"); } catch (e) {}
+      bar.hidden = true; loadPosthog();
+    });
+    document.getElementById("consent-no").addEventListener("click", function () {
+      try { localStorage.setItem("rg_consent", "denied"); } catch (e) {}
+      bar.hidden = true;
+    });
+  })();
+  /* event taxonomy (spec §9.5): declarative data-ph hooks */
+  document.addEventListener("click", function (e) {
+    var el = e.target && e.target.closest && e.target.closest("[data-ph]");
+    if (!el) return;
+    var parts = el.getAttribute("data-ph").split(":");
+    ph(parts[0], parts[1] ? { value: parts[1] } : {});
+  });
+  document.querySelectorAll('a[href^="https://docs.regentprotocol.org"]').forEach(function (a) {
+    a.addEventListener("click", function () { ph("docs_opened", { href: a.getAttribute("href") }); });
+  });
+  var pfStarted = false;
+  var pfEl = document.getElementById("pilot-form");
+  if (pfEl) {
+    pfEl.addEventListener("focusin", function () {
+      if (!pfStarted) { pfStarted = true; ph("contact_form_started"); }
+    });
+  }
+  var qs = document.getElementById("quickstart");
+  if (qs && "IntersectionObserver" in window) {
+    var qio = new IntersectionObserver(function (es) {
+      es.forEach(function (en) { if (en.isIntersecting) { ph("quickstart_viewed"); qio.disconnect(); } });
+    }, { threshold: 0.4 });
+    qio.observe(qs);
   }
 
 </script>
