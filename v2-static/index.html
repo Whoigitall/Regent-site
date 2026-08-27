@@ -377,6 +377,12 @@
     width: 84px; height: 84px; object-fit: cover; border-radius: 4px;
     border: 1px solid var(--line); display: block; margin-bottom: 14px;
   }
+  /* ── legal docs ── */
+  .legal { max-width: 760px; }
+  .legal h2 { font-size: 17px; margin: 34px 0 8px; }
+  .legal p, .legal li { font-size: 14.5px; color: var(--mut); line-height: 1.65; }
+  .legal ul { margin: 8px 0; padding-left: 22px; }
+  .legal .updated { font: 500 12.5px/1.6 var(--f-mono); color: var(--faint); }
   .todo-slot {
     border: 1.5px dashed var(--line); border-radius: 4px; padding: 22px; color: var(--faint);
     font: 500 13px/1.6 var(--f-mono); background: transparent;
@@ -1086,6 +1092,101 @@ await r.audit.ingest_event(IngestEventRequest(
 
 </div><!-- /view-about -->
 
+
+<!-- ══════════════════════ TERMS ══════════════════════ -->
+<div id="view-terms" hidden>
+  <div class="wrap hero" style="padding-bottom: 16px;">
+    <div class="eyebrow">Legal</div>
+    <h1 style="font-size: clamp(24px, 3.2vw, 34px);">Terms of Use</h1>
+    <div class="updated legal">Last updated: May 2026</div>
+  </div>
+  <section data-reveal><div class="wrap legal">
+<h2>1. Acceptance of Terms</h2>
+<p>By accessing or using the Regent Protocol website, dashboard, APIs, or any related services (collectively, the &ldquo;Services&rdquo;), you agree to be bound by these Terms of Use. If you do not agree to these terms, do not use the Services.</p>
+<h2>2. Eligibility</h2>
+<p>You must be at least 18 years old and capable of entering into legally binding agreements to use our Services. By using the Services, you represent and warrant that you meet these requirements.</p>
+<h2>3. Description of Services</h2>
+<p>Regent Protocol provides infrastructure for verifying, auditing, and monitoring autonomous AI agents on Solana. This includes AgentID registration, audit chain anchoring, Guardian AI monitoring, and related APIs and dashboards. We reserve the right to modify, suspend, or discontinue any part of the Services at any time.</p>
+<h2>4. User Accounts</h2>
+<p>To access certain features, you may need to create an account. You are responsible for maintaining the confidentiality of your account credentials and for all activities under your account. You agree to notify us immediately of any unauthorized use.</p>
+<h2>5. Blockchain Interactions</h2>
+<p>Transactions on Solana and Celestia are irreversible. You are solely responsible for verifying transaction details before signing. We are not responsible for lost funds, failed transactions, or smart contract interactions initiated by you.</p>
+<h2>6. Prohibited Activities</h2>
+<p>You agree not to:</p><ul>
+<li>Use the Services for illegal, fraudulent, or unauthorized purposes.</li>
+<li>Interfere with or disrupt the integrity or performance of the Services.</li>
+<li>Attempt to gain unauthorized access to any part of the Services or related systems.</li>
+<li>Reverse engineer, decompile, or disassemble any aspect of the Services.</li>
+<li>Upload malware, viruses, or other harmful code.</li>
+<li>Use the Services to create agents that engage in market manipulation or financial crimes.</li></ul>
+<h2>7. Intellectual Property</h2>
+<p>All content, trademarks, logos, and intellectual property on the Services are owned by Regent Protocol or its licensors. You may not reproduce, distribute, or create derivative works without prior written consent. Our open-source SDKs are governed by their respective licenses.</p>
+<h2>8. Disclaimer of Warranties</h2>
+<p>THE SERVICES ARE PROVIDED &ldquo;AS IS&rdquo; AND &ldquo;AS AVAILABLE&rdquo; WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. WE DO NOT WARRANT THAT THE SERVICES WILL BE UNINTERRUPTED, ERROR-FREE, OR SECURE. BLOCKCHAIN TECHNOLOGY INVOLVES INHERENT RISKS INCLUDING BUT NOT LIMITED TO VOLATILITY, SMART CONTRACT VULNERABILITIES, AND REGULATORY UNCERTAINTY.</p>
+<h2>9. Limitation of Liability</h2>
+<p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, REGENT PROTOCOL SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF OR RELATED TO YOUR USE OF THE SERVICES. OUR TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNT YOU PAID TO US IN THE 12 MONTHS PRECEDING THE CLAIM.</p>
+<h2>10. Indemnification</h2>
+<p>You agree to indemnify and hold harmless Regent Protocol, its affiliates, officers, directors, employees, and agents from any claims, damages, losses, or expenses arising from your use of the Services or violation of these Terms.</p>
+<h2>11. Governing Law</h2>
+<p>These Terms shall be governed by and construed in accordance with the laws of the Republic of Kazakhstan, without regard to its conflict of law provisions. Any disputes shall be resolved in the courts of Almaty, Kazakhstan.</p>
+<h2>12. Changes to Terms</h2>
+<p>We may update these Terms from time to time. Material changes will be communicated via email or through the Services. Continued use of the Services after changes constitutes acceptance of the updated Terms.</p>
+<h2>13. Contact</h2>
+<p>For questions about these Terms, contact us at: <a href="mailto:info@regentprotocol.org">info@regentprotocol.org</a></p>
+  </div></section>
+</div><!-- /view-terms -->
+
+<!-- ══════════════════════ PRIVACY ══════════════════════ -->
+<div id="view-privacy" hidden>
+  <div class="wrap hero" style="padding-bottom: 16px;">
+    <div class="eyebrow">Legal</div>
+    <h1 style="font-size: clamp(24px, 3.2vw, 34px);">Privacy Policy</h1>
+    <div class="updated legal">Last updated: May 2026</div>
+  </div>
+  <section data-reveal><div class="wrap legal">
+<h2>1. Introduction</h2>
+<p>Regent Protocol (&ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.</p>
+<h2>2. Information We Collect</h2>
+<p>We may collect the following types of information:</p><ul>
+<li><strong>Personal Information:</strong> Name, email address, company name, and other contact details you provide through forms or correspondence.</li>
+<li><strong>Usage Data:</strong> Information about how you access and use our website, including IP address, browser type, pages visited, and time spent.</li>
+<li><strong>Blockchain Data:</strong> Public on-chain data related to AgentID registrations, audit anchors, and transaction hashes. This data is inherently public on the blockchain.</li>
+<li><strong>Device Information:</strong> Device type, operating system, and unique device identifiers.</li></ul>
+<h2>3. How We Use Your Information</h2>
+<p>We use the information we collect for the following purposes:</p><ul>
+<li>To provide, maintain, and improve our services.</li>
+<li>To communicate with you about updates, support, and marketing (with your consent).</li>
+<li>To process pilot program applications and verify eligibility.</li>
+<li>To analyze usage patterns and improve user experience.</li>
+<li>To comply with legal obligations and enforce our terms.</li></ul>
+<h2>4. Data Sharing and Disclosure</h2>
+<p>We do not sell your personal data. We may share information in the following circumstances:</p><ul>
+<li><strong>Service Providers:</strong> With trusted third parties who perform services on our behalf (hosting, analytics, customer support).</li>
+<li><strong>Legal Requirements:</strong> When required by law, regulation, or legal process.</li>
+<li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets.</li>
+<li><strong>Consent:</strong> With your explicit consent for specific purposes.</li></ul>
+<h2>5. Blockchain Data</h2>
+<p>Data stored on Solana and Celestia blockchains is public and immutable by design. This includes AgentID metadata, audit anchors, and transaction records. We cannot delete or modify on-chain data. Users should be aware that blockchain interactions create permanent, publicly visible records.</p>
+<h2>6. Data Security</h2>
+<p>We implement industry-standard security measures to protect your personal data, including encryption in transit and at rest, access controls, and regular security audits. However, no method of transmission over the internet or electronic storage is 100% secure.</p>
+<h2>7. Your Rights</h2>
+<p>Depending on your jurisdiction, you may have the right to:</p><ul>
+<li>Access, correct, or delete your personal data.</li>
+<li>Object to or restrict processing of your data.</li>
+<li>Withdraw consent for marketing communications.</li>
+<li>Request a copy of your data in a portable format.</li></ul>
+<p>To exercise these rights, contact us at <a href="mailto:info@regentprotocol.org">info@regentprotocol.org</a>.</p>
+<h2>8. Cookies and Tracking</h2>
+<p>We use cookies and similar technologies to enhance your experience, analyze traffic, and understand user behavior. You can manage cookie preferences through your browser settings. We use analytics services that may set their own cookies.</p>
+<h2>9. International Transfers</h2>
+<p>Your data may be transferred to and processed in countries other than your country of residence. We ensure appropriate safeguards are in place for such transfers, including standard contractual clauses where required by law.</p>
+<h2>10. Changes to This Policy</h2>
+<p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated revision date. We encourage you to review this policy periodically.</p>
+<h2>11. Contact Us</h2>
+<p>If you have questions about this Privacy Policy or our data practices, please contact us at: <a href="mailto:info@regentprotocol.org">info@regentprotocol.org</a></p>
+  </div></section>
+</div><!-- /view-privacy -->
+
 <div class="wrap">
   <footer class="site">
     <div class="cols">
@@ -1108,7 +1209,7 @@ await r.audit.ingest_event(IngestEventRequest(
       <a href="mailto:info@regentprotocol.org">Email</a>
     </div>
     <div style="max-width: 60ch; margin-bottom: 8px;">Verifiable agent infrastructure for regulated finance on Solana. Regent gives financial agents a verifiable identity, defines the limits under which they can act, monitors risk signals, and creates tamper-evident audit evidence.</div>
-    <div>© 2026 Regent Protocol. All rights reserved. · <a href="/terms">Terms of Use</a> · <a href="/privacy">Privacy Policy</a></div>
+    <div>© 2026 Regent Protocol. All rights reserved. · <a href="#/terms">Terms of Use</a> · <a href="#/privacy">Privacy Policy</a></div>
   </footer>
 </div>
 
@@ -1192,11 +1293,13 @@ await r.audit.ingest_event(IngestEventRequest(
     about: document.getElementById("view-about"),
     technology: document.getElementById("view-technology"),
     pilot: document.getElementById("view-pilot"),
+    terms: document.getElementById("view-terms"),
+    privacy: document.getElementById("view-privacy"),
   };
   function route() {
     const h = location.hash, path = location.pathname;
     let v = "home";
-    for (const name of ["pricing", "about", "technology", "pilot"]) {
+    for (const name of ["pricing", "about", "technology", "pilot", "terms", "privacy"]) {
       if (h.startsWith("#/" + name)) { v = name; break; }
       if (!h.startsWith("#/") && path === "/" + name) { v = name; break; }
     }
