@@ -136,8 +136,12 @@
   /* ── header ── */
   header.site {
     display: flex; align-items: center; gap: 28px;
-    padding: 18px 0; border-bottom: 1px solid var(--line);
+    padding: 14px 28px; border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 60; background: var(--paper);
+    margin: 0 -28px;
   }
+  /* anchor jumps land below the pinned header */
+  section, .ledger, #apply-section { scroll-margin-top: 72px; }
   .brand { display: flex; align-items: center; gap: 11px; color: var(--ink);
     font-family: var(--f-head); font-size: 13.5px; font-weight: 600;
     text-transform: uppercase; letter-spacing: 0.12em; white-space: nowrap; }
@@ -488,8 +492,7 @@
   .menu-btn { display: none; }
   .mobile-nav { display: none; }
   @media (max-width: 860px) {
-    header.site { position: sticky; top: 0; z-index: 60; background: var(--paper);
-      margin: 0 -28px; padding: 12px 28px; }
+    header.site { padding: 12px 28px; }
     header.site .btn-primary { margin-left: auto !important; padding: 9px 13px; font-size: 13px; }
     .menu-btn { display: inline-flex; flex-direction: column; justify-content: center; gap: 4.5px;
       width: 44px; height: 44px; align-items: center; background: transparent;
