@@ -903,6 +903,7 @@ await r.audit.ingest_event(IngestEventRequest(
     pulseEl.classList.add("run");
   }
   function runFlow(s, statesToo = true) {
+    if (!row || !stamp || !trace) return;
     const nodes = row.querySelectorAll(".stepnode");
     if (statesToo) {
       stamp.textContent = s.stamp[0];
@@ -925,7 +926,7 @@ await r.audit.ingest_event(IngestEventRequest(
   }
   /* first run + a soft re-pulse while the flow is on screen */
   let flowSeen = false;
-  const flowIO = new IntersectionObserver((es) => {
+  const flowIO = row ? new IntersectionObserver((es) => {
     es.forEach((e) => {
       flowSeen = e.isIntersecting;
       if (e.isIntersecting && !row.dataset.ran) {
@@ -933,8 +934,8 @@ await r.audit.ingest_event(IngestEventRequest(
         runFlow(SCEN.allow);
       }
     });
-  }, { threshold: 0.4 });
-  flowIO.observe(row);
+  }, { threshold: 0.4 }) : null;
+  if (flowIO) flowIO.observe(row);
   setInterval(() => {
     if (flowSeen && !flowInstant() && !document.hidden) {
       const current = document.querySelector('.scen[aria-pressed="true"]');
@@ -970,7 +971,8 @@ await r.audit.ingest_event(IngestEventRequest(
   }));
 
   /* Copy quickstart */
-  document.getElementById("copy-code").addEventListener("click", (e) => {
+  const copyBtn = document.getElementById("copy-code");
+  if (copyBtn) copyBtn.addEventListener("click", (e) => {
     const text = e.target.parentElement.querySelector("pre").innerText;
     navigator.clipboard.writeText(text).then(() => {
       e.target.textContent = "Copied ✓";
