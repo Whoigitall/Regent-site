@@ -398,6 +398,8 @@
       <a href="#cases" data-home-anchor>Solutions</a>
       <a href="#quickstart" data-home-anchor>Developers</a>
       <a href="#/pricing">Pricing</a>
+      <a href="#/technology">Technology</a>
+      <a href="#/pilot">Pilot</a>
       <a href="#/about">About</a>
       <a href="https://docs.regentprotocol.org">Docs</a>
     </nav>
@@ -414,7 +416,7 @@
   <p class="cat">Regent is the financial authorization and compliance layer for AI agents that move money: a verifiable identity for every agent, limits it cannot exceed, risk signals watched in real time, and tamper-evident audit evidence for every action.</p>
   <div style="display: flex; gap: 12px; flex-wrap: wrap;">
     <a class="btn btn-primary" href="#quickstart">Start building</a>
-    <a class="btn btn-secondary" href="#closing">Apply for a pilot</a>
+    <a class="btn btn-secondary" href="#/pilot">Apply for a pilot</a>
   </div>
   <div class="status-note">Developer access available · production availability follows published status</div>
 
@@ -608,7 +610,7 @@ await r.audit.ingest_event(IngestEventRequest(
   <div class="pane">
     <h3>Put it in front of your risk team.</h3>
     <p>A pilot conversation with an architect: your workflow, where the mandate gate sits, and what the evidence pack contains for your reviewers.</p>
-    <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20pilot">Apply for a pilot</a>
+    <a class="btn btn-secondary" href="#/pilot">Apply for a pilot</a>
   </div>
 </div></section>
 
@@ -832,6 +834,175 @@ await r.audit.ingest_event(IngestEventRequest(
 
 </div><!-- /view-pricing -->
 
+
+<!-- ══════════════════════ TECHNOLOGY ══════════════════════ -->
+<div id="view-technology" hidden>
+
+  <div class="wrap hero" style="padding-bottom: 40px;">
+    <div class="eyebrow">Technology</div>
+    <h1 style="font-size: clamp(26px, 3.6vw, 38px);">The architecture behind<br>verifiable agent finance.</h1>
+    <p class="cat">Three layers with one job: decide before money moves, and leave evidence nobody has to take on faith. Chain characteristics below are properties of the underlying networks, dated and separate from Regent application performance.</p>
+    <div class="status-note">Live on Solana devnet · mainnet on the roadmap</div>
+  </div>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">System map</div>
+    <h2>Three layers, one decision path.</h2>
+    <div class="grid grid-4" style="margin-top: 24px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));">
+      <div class="cell"><div class="k">Settlement · Solana</div><h3>On-chain programs</h3><p>Three Anchor programs on devnet — <span class="mono">agent-registry</span>, <span class="mono">mandate-registry</span>, <span class="mono">audit-anchor</span> — hold agent identities, mandate commitments, and Merkle roots of audit batches.</p></div>
+      <div class="cell"><div class="k">Evidence · Celestia DA</div><h3>Audit payload storage</h3><p>Full audit payloads as data-availability blobs with Merkle proofs. What is committed cannot be silently altered; what is stored where is documented, layer by layer.</p></div>
+      <div class="cell"><div class="k">Control · Guardian</div><h3>Risk engine</h3><p>Rule engine plus behavioural scoring (Isolation Forest with SHAP explanations, drift detection) — allow, hold for a human, or stop.</p></div>
+      <div class="cell"><div class="k">Surface</div><h3>Platform &amp; SDK</h3><p>Dashboard for operators — agents, mandates, audit log, kill switch — and a Python SDK plus REST API for integration.</p></div>
+    </div>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">Lifecycle</div>
+    <h2>Before, at, and after execution.</h2>
+    <div style="background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 24px; margin-top: 24px;">
+      <div class="case"><div class="t">Before</div><p>The agent is registered (AgentID), bound to a responsible party, and bounded by a mandate — amount, destination, time window, approval conditions. Nothing below runs without this.</p></div>
+      <div class="case"><div class="t">At execution</div><p>Every financial action is authorized against the mandate and evaluated by Guardian. The deny happens before any money moves; the hold routes to a human operator.</p></div>
+      <div class="case"><div class="t">After</div><p>The decision — allowed or denied — is hashed, Merkle-batched, and anchored. An auditor verifies against published keys and on-chain commitments, without trusting the operator.</p></div>
+    </div>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">Chain choices</div>
+    <h2>Why Solana. Why Celestia.</h2>
+    <div class="split" style="margin-top: 24px;">
+      <div class="ledgerlist" style="padding: 20px 22px;">
+        <h3 style="margin-top: 0;">Solana — settlement &amp; anchoring</h3>
+        <p style="font-size: 14px; color: var(--mut); margin: 8px 0 0;">Per-transaction anchoring at fractions of a cent is what makes per-action compliance economically viable. Cost and finality are network characteristics of Solana, not Regent performance promises — current figures live in the network's own documentation.</p>
+      </div>
+      <div class="ledgerlist" style="padding: 20px 22px;">
+        <h3 style="margin-top: 0;">Celestia — data availability</h3>
+        <p style="font-size: 14px; color: var(--mut); margin: 8px 0 0;">Dedicated DA for audit payloads (~$0.03&ndash;0.07&nbsp;/&nbsp;MB, chain characteristic) with cryptographic guarantees on what was committed. Tamper-evidence is stated precisely: commitments are permanent; storage layers are documented per artifact.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">Data &amp; security</div>
+    <h2>What we store, and how we defend it.</h2>
+    <div class="split" style="margin-top: 24px;">
+      <div class="ledgerlist">
+        <h3>Data minimisation</h3>
+        <ul>
+          <li><span>Audit records: hashes and decision metadata on-chain, payloads on DA</span></li>
+          <li><span>KYC documents stay with the licensed provider — we hold the outcome</span></li>
+          <li><span>Agents never hold payment credentials</span></li>
+          <li><span>Mandate limits visible only to their owner</span></li>
+        </ul>
+      </div>
+      <div class="ledgerlist">
+        <h3>Security posture</h3>
+        <ul>
+          <li><span>Multi-sig on program upgrades</span><span class="chip chip-live">IN PLACE</span></li>
+          <li><span>Rate limiting on every API endpoint</span><span class="chip chip-live">IN PLACE</span></li>
+          <li><span>Independent smart-contract audit</span><span class="chip chip-planned">PLANNED</span></li>
+          <li><span>SOC 2</span><span class="chip chip-planned">ROADMAP</span></li>
+          <li><span>GDPR mapping</span><span class="chip chip-planned">IN PROGRESS</span></li>
+        </ul>
+      </div>
+    </div>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">Roadmap</div>
+    <h2>Where this goes.</h2>
+    <p class="lede" style="margin-bottom: 24px;">Quarters, not promises: each item flips to &ldquo;shipped&rdquo; only when it is independently checkable.</p>
+    <div style="background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 24px;">
+      <div class="case"><div class="t">Shipped <span class="chip chip-live">LIVE</span></div><p>Three Solana programs on devnet · Python SDK · REST API · Guardian behavioural scoring · operator dashboard with kill switch · live demo agents.</p></div>
+      <div class="case"><div class="t">Next <span class="chip chip-planned">PLANNED</span></div><p>Mainnet beta · first design partners · published independent security review · bug bounty.</p></div>
+      <div class="case"><div class="t">Then <span class="chip chip-planned">PLANNED</span></div><p>Compliance hardening: EU AI Act evidence mappings, SOC 2 groundwork, enhanced verification pipeline, institutional pilots.</p></div>
+      <div class="case"><div class="t">Later <span class="chip chip-planned">EXPLORATORY</span></div><p>Cross-chain audit anchoring via partner integrations; Solana remains the primary chain.</p></div>
+    </div>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">SDK</div>
+    <h2>Integrate in one sitting.</h2>
+    <div class="split" style="margin-top: 24px;">
+      <div class="ledgerlist" style="padding: 20px 22px;">
+        <h3 style="margin-top: 0;">Python <span class="chip chip-live">AVAILABLE</span></h3>
+        <div class="codeblock" style="margin-top: 12px; padding: 12px 16px;">pip install regent</div>
+        <p style="font-size: 13.5px; color: var(--mut); margin: 12px 0 0;">Agents, mandates, authorize, audit, guardian — <a href="https://docs.regentprotocol.org/sdk-python/guide/introduction">full guide</a>.</p>
+      </div>
+      <div class="ledgerlist" style="padding: 20px 22px;">
+        <h3 style="margin-top: 0;">TypeScript &amp; Rust <span class="chip chip-planned">PLANNED</span></h3>
+        <p style="font-size: 13.5px; color: var(--mut); margin: 8px 0 0;">Language SDKs beyond Python are on the roadmap. The <a href="https://docs.regentprotocol.org/rest-api/authentication">REST API</a> works from any language today.</p>
+      </div>
+    </div>
+    <div style="display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap;">
+      <a class="btn btn-primary" href="https://docs.regentprotocol.org/quickstart/three-steps">Read quickstart</a>
+      <a class="btn btn-secondary" href="https://docs.regentprotocol.org/solana-programs/verification">Verify on-chain yourself</a>
+    </div>
+  </div></section>
+
+</div><!-- /view-technology -->
+
+<!-- ══════════════════════ PILOT ══════════════════════ -->
+<div id="view-pilot" hidden>
+
+  <div class="wrap hero" style="padding-bottom: 40px;">
+    <div class="eyebrow">Pilot program</div>
+    <h1 style="font-size: clamp(26px, 3.6vw, 38px);">A structured 14 days<br>to a governed agent.</h1>
+    <p class="cat">We work with your team to put identity, mandates, and audit evidence in front of your agents&rsquo; financial actions &mdash; on your workflow, with our engineers in the loop.</p>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+      <a class="btn btn-primary" href="mailto:info@regentprotocol.org?subject=Pilot%20application">Apply for the pilot</a>
+      <a class="btn btn-secondary" href="#/pricing">See pricing</a>
+    </div>
+  </div>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">Fit</div>
+    <h2>Who qualifies.</h2>
+    <div class="grid grid-4" style="margin-top: 24px;">
+      <div class="cell"><div class="k">Fintech</div><h3>Compliance-bound products</h3><p>Teams shipping agent features under financial-compliance requirements.</p></div>
+      <div class="cell"><div class="k">DeFi</div><h3>Solana-based protocols</h3><p>Protocols where autonomous actors already move value.</p></div>
+      <div class="cell"><div class="k">Frameworks</div><h3>Agent platforms</h3><p>Builders whose customers deploy financial agents.</p></div>
+      <div class="cell"><div class="k">Threshold</div><h3>Real activity</h3><p>At least one active agent, or meaningful daily transaction volume.</p></div>
+    </div>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">The engagement</div>
+    <h2>What the 14 days contain.</h2>
+    <div style="background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 24px; margin-top: 24px;">
+      <div class="case"><div class="t">Days 1&ndash;3</div><p>Architecture session: your workflow, where the mandate gate sits, what the evidence pack must contain for your reviewers.</p></div>
+      <div class="case"><div class="t">Days 4&ndash;10</div><p>Integration: AgentID issuance, mandate design for your limits and approvals, Guardian rules tuned to your risk signals, audit chain configured.</p></div>
+      <div class="case"><div class="t">Days 11&ndash;14</div><p>Validation: a governed action end to end &mdash; allowed, denied, held &mdash; with the evidence trail your compliance team can inspect. Dedicated support channel throughout.</p></div>
+    </div>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <div class="partner-banner">
+      <div style="flex: 1; min-width: 280px;">
+        <h3>Design-partner terms</h3>
+        <p>Early design partners get Enterprise features at Growth pricing for 12 months &mdash; in exchange for a named case study and a reference call. Commercial terms are agreed in writing before you are ever charged; current plans are on the <a href="#/pricing">pricing page</a>.</p>
+      </div>
+      <a class="btn btn-primary" href="mailto:info@regentprotocol.org?subject=Design%20partner">Apply</a>
+    </div>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">Pilot FAQ</div>
+    <h2 style="margin-bottom: 22px;">Before you write to us.</h2>
+    <details class="faq"><summary>How long is the pilot engagement?</summary><div class="a">14 days of structured work with our engineers, then a decision: continue on a paid plan, extend the evaluation, or part ways with your integration notes in hand.</div></details>
+    <details class="faq"><summary>What do we need to prepare?</summary><div class="a">A workflow where an agent takes financial actions, one engineer with API access, and the limits you want enforced. We bring the rest.</div></details>
+    <details class="faq"><summary>Is there a free way to evaluate first?</summary><div class="a">Yes &mdash; the Developer tier is free and self-serve: register agents, write mandates, authorize actions on devnet before talking to anyone.</div></details>
+    <details class="faq"><summary>Can we switch plans later?</summary><div class="a">Yes. Plans meter verified actions, so moving between tiers is a billing change, not a re-integration.</div></details>
+    <details class="faq"><summary>What happens after we apply?</summary><div class="a">We reply by email with a short qualification call proposal &mdash; typically within two business days.</div></details>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <h2>Tell us about your agents.</h2>
+    <p class="lede" style="margin-bottom: 22px;">One email: your product, where money moves, and what your reviewers will ask for.</p>
+    <a class="btn btn-primary" href="mailto:info@regentprotocol.org?subject=Pilot%20application&body=Product%3A%0AWhere%20agents%20move%20money%3A%0AEstimated%20agents%20%2F%20daily%20actions%3A%0ACompliance%20context%3A">Apply for the pilot</a>
+  </div></section>
+
+</div><!-- /view-pilot -->
+
 <!-- ══════════════════════ ABOUT ══════════════════════ -->
 <div id="view-about" hidden>
 
@@ -922,6 +1093,8 @@ await r.audit.ingest_event(IngestEventRequest(
       <a href="#primitives" data-home-anchor>Platform</a>
       <a href="#cases" data-home-anchor>Solutions</a>
       <a href="#/pricing">Pricing</a>
+      <a href="#/technology">Technology</a>
+      <a href="#/pilot">Pilot</a>
       <a href="#/about">About</a>
       <a href="https://docs.regentprotocol.org">Docs</a>
       <a href="#proof" data-home-anchor>Status</a>
@@ -1017,13 +1190,16 @@ await r.audit.ingest_event(IngestEventRequest(
     home: document.getElementById("view-home"),
     pricing: document.getElementById("view-pricing"),
     about: document.getElementById("view-about"),
+    technology: document.getElementById("view-technology"),
+    pilot: document.getElementById("view-pilot"),
   };
   function route() {
     const h = location.hash, path = location.pathname;
-    const v = (h.startsWith("#/pricing") || path === "/pricing") && !h.startsWith("#/about") ? "pricing"
-            : (h.startsWith("#/about") || path === "/about") && !h.startsWith("#/pricing") ? "about"
-            : (h && !h.startsWith("#/")) || (!h && path === "/") || (!h.startsWith("#/") && path !== "/pricing" && path !== "/about") ? "home"
-            : "home";
+    let v = "home";
+    for (const name of ["pricing", "about", "technology", "pilot"]) {
+      if (h.startsWith("#/" + name)) { v = name; break; }
+      if (!h.startsWith("#/") && path === "/" + name) { v = name; break; }
+    }
     for (const [k, el] of Object.entries(VIEWS)) el.hidden = k !== v;
     if (v !== "home") window.scrollTo(0, 0);
   }
@@ -1031,7 +1207,7 @@ await r.audit.ingest_event(IngestEventRequest(
   route();
   /* home anchors: make sure the home view is visible before the browser scrolls */
   document.querySelectorAll("[data-home-anchor]").forEach((a) => a.addEventListener("click", () => {
-    VIEWS.home.hidden = false; VIEWS.pricing.hidden = true; VIEWS.about.hidden = true;
+    for (const [k, el] of Object.entries(VIEWS)) el.hidden = k !== "home";
   }));
 
   /* ── billing toggle (with the spec's number fade) ── */
