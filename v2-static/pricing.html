@@ -134,12 +134,11 @@
   }
 
   /* ── header ── */
-  header.site {
-    display: flex; align-items: center; gap: 28px;
-    padding: 14px 28px; border-bottom: 1px solid var(--line);
-    position: sticky; top: 0; z-index: 60; background: var(--paper);
-    margin: 0 -28px;
+  .topbar {
+    position: sticky; top: 0; z-index: 60;
+    background: var(--paper); border-bottom: 1px solid var(--line);
   }
+  header.site { display: flex; align-items: center; gap: 28px; padding: 14px 0; }
   /* anchor jumps land below the pinned header */
   section, .ledger, #apply-section { scroll-margin-top: 72px; }
   .brand { display: flex; align-items: center; gap: 11px; color: var(--ink);
@@ -492,7 +491,7 @@
   .menu-btn { display: none; }
   .mobile-nav { display: none; }
   @media (max-width: 860px) {
-    header.site { padding: 12px 28px; }
+    header.site { padding: 12px 0; }
     header.site .btn-primary { margin-left: auto !important; padding: 9px 13px; font-size: 13px; }
     .menu-btn { display: inline-flex; flex-direction: column; justify-content: center; gap: 4.5px;
       width: 44px; height: 44px; align-items: center; background: transparent;
@@ -512,7 +511,7 @@
 
   /* ── mobile density & hero rhythm ── */
   @media (max-width: 640px) {
-    header.site { margin: 0 -18px; padding: 12px 18px; gap: 12px; }
+    header.site { padding: 12px 0; gap: 12px; }
     .brand { font-size: 11px; letter-spacing: 0.09em; gap: 8px; }
     .brand .logomark { width: 20px; height: 19px; }
     .mobile-nav:not([hidden]) { margin: 0 -18px; padding: 4px 18px 14px; }
@@ -571,6 +570,7 @@
 </head>
 <body>
 
+<div class="topbar">
 <div class="wrap">
   <header class="site">
     <a class="brand" href="/" aria-label="Regent Protocol — home"><span class="logomark" role="img" aria-label=""></span>Regent Protocol</a>
@@ -597,6 +597,7 @@
     <a href="/about">About</a>
     <a href="https://docs.regentprotocol.org">Docs</a>
   </nav>
+</div>
 </div>
 
 
