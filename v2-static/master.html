@@ -555,39 +555,6 @@
       border-radius: 0 4px 4px 0; }
   }
 
-  /* ── phase-2 pages ── */
-  .pg-hero { padding: 56px 0 36px; }
-  .pg-hero h1 { font-size: clamp(24px, 3.2vw, 34px); font-weight: 700; margin: 0 0 14px; max-width: 30ch; }
-  .simulator { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 22px; }
-  .simulator .row { display: grid; grid-template-columns: 200px 1fr; gap: 10px 18px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--hair); font-size: 14px; }
-  .simulator .row:last-of-type { border-bottom: 0; }
-  .simulator select, .simulator input[type="number"] { padding: 9px 11px; border: 1.5px solid var(--line); border-radius: 4px; background: var(--well); color: var(--ink); font: 14px var(--f-body); width: 100%; box-sizing: border-box; }
-  .sim-verdict { display: flex; align-items: center; gap: 16px; margin-top: 16px; flex-wrap: wrap; }
-  .riskpanel { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
-  .risk-out { margin-top: 16px; padding: 16px 18px; border-radius: 6px; border: 1px solid var(--line); background: var(--card); font-size: 14.5px; }
-  .idgraph svg { width: 100%; height: auto; display: block; }
-  .mockpanel { background: var(--card); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
-  .mockpanel .mp-head { display: flex; gap: 6px; padding: 12px 16px; border-bottom: 1px solid var(--hair); flex-wrap: wrap; }
-  .mockpanel .mp-body { padding: 18px 20px; font-size: 14px; }
-  .mp-row { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--hair); flex-wrap: wrap; }
-  .mp-row:last-child { border-bottom: 0; }
-  .illus { font-size: 11.5px; color: var(--faint); margin-top: 10px; }
-  .timeline { border-left: 2px solid var(--line); margin-left: 8px; padding-left: 22px; }
-  .timeline details { margin-bottom: 12px; position: relative; }
-  .timeline details::before { content: ""; position: absolute; left: -29px; top: 7px; width: 12px; height: 12px; border-radius: 7px; background: var(--seal); }
-  .timeline summary { cursor: pointer; font-weight: 650; font-size: 15px; list-style: none; }
-  .timeline .tl-body { font-size: 13.5px; color: var(--mut); padding: 8px 0 4px; max-width: 70ch; }
-  /* ── consent banner ── */
-  .consent-bar {
-    position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 80;
-    max-width: 560px; margin: 0 auto;
-    background: var(--card); border: 1px solid var(--line); border-radius: 6px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
-    padding: 14px 18px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-    font-size: 13px; color: var(--mut);
-  }
-  .consent-bar .btn { padding: 8px 14px; font-size: 13px; }
-
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; animation: none !important; }
     [data-reveal] { opacity: 1 !important; transform: none !important; }
@@ -602,29 +569,22 @@
   <header class="site">
     <a class="brand" href="/" aria-label="Regent Protocol — home"><span class="logomark" role="img" aria-label=""></span>Regent Protocol</a>
     <nav class="top" aria-label="Main">
-      <a href="#/platform">Platform</a>
-      <a href="#/solutions">Solutions</a>
-      <a href="#/developers">Developers</a>
-      <a href="#/platform">Platform</a>
-      <a href="#/solutions">Solutions</a>
-      <a href="#/developers">Developers</a>
+      <a href="#primitives" data-home-anchor>Platform</a>
+      <a href="#cases" data-home-anchor>Solutions</a>
+      <a href="#quickstart" data-home-anchor>Developers</a>
       <a href="#/pricing">Pricing</a>
       <a href="#/technology">Technology</a>
       <a href="#/pilot">Pilot</a>
       <a href="#/about">About</a>
-      <a href="#/security">Security</a>
-      <a href="#/trust">Trust</a>
       <a href="https://docs.regentprotocol.org">Docs</a>
     </nav>
-    <a class="btn btn-primary" href="#quickstart" data-home-anchor data-ph="cta_start_building_clicked:header" style="margin-left: 16px;">Start building</a>
+    <a class="btn btn-primary" href="#quickstart" data-home-anchor style="margin-left: 16px;">Start building</a>
     <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu"><span></span><span></span><span></span></button>
   </header>
   <nav class="mobile-nav" id="mobile-nav" hidden aria-label="Mobile">
-    <a href="#/platform">Platform</a>
-    <a href="#/solutions">Solutions</a>
-    <a href="#/developers">Developers</a>
-    <a href="#/security">Security</a>
-    <a href="#/trust">Trust</a>
+    <a href="#primitives" data-home-anchor>Platform</a>
+    <a href="#cases" data-home-anchor>Solutions</a>
+    <a href="#quickstart" data-home-anchor>Developers</a>
     <a href="#/pricing">Pricing</a>
     <a href="#/technology">Technology</a>
     <a href="#/pilot">Pilot</a>
@@ -644,8 +604,8 @@
   <h1>Financial authorization for AI agents that move money.</h1>
   <p class="cat">Regent is the financial authorization and compliance layer for AI agents that move money: a verifiable identity for every agent, limits it cannot exceed, risk signals watched in real time, and tamper-evident audit evidence for every action.</p>
   <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-    <a class="btn btn-primary" href="#quickstart" data-ph="cta_start_building_clicked:hero">Start building</a>
-    <a class="btn btn-secondary" href="#/pilot" data-ph="cta_pilot_clicked:hero">Apply for a pilot</a>
+    <a class="btn btn-primary" href="#quickstart">Start building</a>
+    <a class="btn btn-secondary" href="#/pilot">Apply for a pilot</a>
   </div>
   <div class="status-note">Developer access available · production availability follows published status</div>
   </div>
@@ -725,7 +685,6 @@
     <div class="cell"><div class="k">Audit Chain</div><h3>Evidence</h3><p>Creates tamper-evident evidence through cryptographic hashes, Merkle batches, and chain anchoring.</p></div>
     <div class="cell"><div class="k">Control Panel</div><h3>Oversight</h3><p>Gives human operators monitoring, investigation, policy, and intervention surfaces.</p></div>
   </div>
-  <p style="margin-top: 16px;"><a class="btn btn-secondary" href="#/platform">Explore the platform →</a></p>
   <p style="font-size: 13.5px; color: var(--faint); margin-top: 18px;">
     Together they implement <strong style="color: var(--mut);">KYA — Know Your Agent</strong>: Regent's framework for connecting an autonomous agent to a responsible context, financial mandate, and verifiable audit history. KYA is Regent's product framework; it is not a formal regulatory standard or regulatory approval.
   </p>
@@ -849,7 +808,7 @@ await r.audit.ingest_event(IngestEventRequest(
   <div class="pane">
     <h3>Put it in front of your risk team.</h3>
     <p>A pilot conversation with an architect: your workflow, where the mandate gate sits, and what the evidence pack contains for your reviewers.</p>
-    <a class="btn btn-secondary" href="#/pilot" data-ph="cta_pilot_clicked:hero">Apply for a pilot</a>
+    <a class="btn btn-secondary" href="#/pilot">Apply for a pilot</a>
   </div>
 </div></section>
 
@@ -889,7 +848,7 @@ await r.audit.ingest_event(IngestEventRequest(
           <li>Community &amp; docs support</li>
           <li class="no">Mandates, Guardian, Control Panel</li>
         </ul>
-        <a class="btn btn-secondary" href="https://docs.regentprotocol.org/quickstart/three-steps" data-ph="pricing_tier_selected:developer">Start building</a>
+        <a class="btn btn-secondary" href="https://docs.regentprotocol.org/quickstart/three-steps">Start building</a>
         <div class="fnote">Overage: $0.01 / verified action</div>
       </div>
 
@@ -907,7 +866,7 @@ await r.audit.ingest_event(IngestEventRequest(
           <li>Email support · 24h response target</li>
           <li class="no">Human-KYC binding (optional, pass-through at cost)</li>
         </ul>
-        <a class="btn btn-primary" href="mailto:info@regentprotocol.org?subject=Regent%20Growth" data-ph="pricing_tier_selected:growth">Start with Growth</a>
+        <a class="btn btn-primary" href="mailto:info@regentprotocol.org?subject=Regent%20Growth">Start with Growth</a>
         <div class="fnote">Overage: $0.005 / verified action</div>
       </div>
 
@@ -923,7 +882,7 @@ await r.audit.ingest_event(IngestEventRequest(
           <li>Expanded AgentID allowance</li>
           <li>Priority support</li>
         </ul>
-        <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20Scale" data-ph="pricing_tier_selected:scale">Talk to us</a>
+        <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20Scale">Talk to us</a>
         <div class="fnote">Overage: $0.005 / verified action</div>
       </div>
 
@@ -939,7 +898,7 @@ await r.audit.ingest_event(IngestEventRequest(
           <li>Custom SLA · dedicated infra · SSO</li>
           <li>Professional services &amp; regulator mapping</li>
         </ul>
-        <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20Enterprise" data-ph="pricing_tier_selected:enterprise">Talk to us</a>
+        <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20Enterprise">Talk to us</a>
         <div class="fnote">Typical contracts $30K–$75K / yr</div>
       </div>
     </div>
@@ -1284,478 +1243,6 @@ await r.audit.ingest_event(IngestEventRequest(
 
 </div><!-- /view-pilot -->
 
-
-<!-- ══════════════════════ PLATFORM ══════════════════════ -->
-<div id="view-platform" hidden>
-  <div class="wrap pg-hero">
-    <div class="eyebrow">Platform</div>
-    <h1>The complete system, before the details.</h1>
-    <p class="cat" style="font-size: 16px;">Regent is the financial authorization and compliance layer for AI agents that move money. Five primitives, one decision path — here is how they fit together.</p>
-  </div>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">System map</div>
-    <h2>Where Regent sits.</h2>
-    <figure style="margin: 24px 0 0;">
-    <svg viewBox="0 0 900 300" role="img" aria-label="System map: your application talks to the Regent control layer (AgentID, Mandates, Guardian), which writes evidence to settlement and audit layers, with a human operator overseeing via the Control Panel" style="max-width: 100%; height: auto;">
-      <defs><marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="currentColor"/></marker></defs>
-      <g fill="none" stroke="currentColor" stroke-width="1.4" font-family="Oxanium, sans-serif" font-size="13">
-        <rect x="20" y="110" width="180" height="70" rx="4"/><text x="110" y="140" text-anchor="middle" stroke="none" fill="currentColor" font-weight="600">Your application</text><text x="110" y="160" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.6" font-size="11.5">agents + business logic</text>
-        <rect x="290" y="60" width="320" height="170" rx="4" stroke="#00C9B7" stroke-width="2"/><text x="450" y="86" text-anchor="middle" stroke="none" fill="currentColor" font-weight="700">Regent control layer</text>
-        <text x="450" y="120" text-anchor="middle" stroke="none" fill="currentColor" font-size="12.5">AgentID · Mandates · Guardian</text>
-        <text x="450" y="142" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.6" font-size="11.5">decides before execution</text>
-        <rect x="700" y="40" width="180" height="64" rx="4"/><text x="790" y="66" text-anchor="middle" stroke="none" fill="currentColor" font-weight="600">Settlement</text><text x="790" y="86" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.6" font-size="11.5">Solana programs (devnet)</text>
-        <rect x="700" y="130" width="180" height="64" rx="4"/><text x="790" y="156" text-anchor="middle" stroke="none" fill="currentColor" font-weight="600">Audit evidence</text><text x="790" y="176" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.6" font-size="11.5">Merkle batches · Celestia DA</text>
-        <rect x="290" y="252" width="320" height="40" rx="4"/><text x="450" y="277" text-anchor="middle" stroke="none" fill="currentColor" font-weight="600">Control Panel — human operator</text>
-        <path d="M200 145 H288" marker-end="url(#arr)"/><text x="242" y="136" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.7" font-size="11">authorize</text>
-        <path d="M610 100 H698" marker-end="url(#arr)"/><text x="654" y="90" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.7" font-size="11">anchors</text>
-        <path d="M610 176 H698" marker-end="url(#arr)"/><text x="654" y="166" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.7" font-size="11">evidence</text>
-        <path d="M450 230 V250" marker-end="url(#arr)"/>
-      </g>
-    </svg>
-    <figcaption class="illus">Your application keeps its business logic; Regent decides and evidences. Chain layers are network characteristics, separate from Regent application performance.</figcaption>
-    </figure>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">The primitives</div>
-    <h2>Five answers to five questions.</h2>
-    <div class="grid grid-5" style="margin-top: 22px;">
-      <div class="cell"><div class="k">AgentID</div><h3><a href="#/agent-id">Identity →</a></h3><p>Who is acting — a verifiable identity connected to a responsible party.</p></div>
-      <div class="cell"><div class="k">Mandates</div><h3><a href="#/mandates-page">Authority →</a></h3><p>What it may do with money — amount, destination, time, conditions, approvals.</p></div>
-      <div class="cell"><div class="k">Guardian</div><h3><a href="#/guardian">Risk →</a></h3><p>When to stop — rules and behavioural signals: allow, hold, or stop.</p></div>
-      <div class="cell"><div class="k">Audit Chain</div><h3><a href="#/audit-chain">Evidence →</a></h3><p>Proving it later — hashes, Merkle batches, chain anchoring.</p></div>
-      <div class="cell"><div class="k">Control Panel</div><h3><a href="#/control-panel">Oversight →</a></h3><p>Human operators — monitoring, investigation, intervention.</p></div>
-    </div>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">Lifecycle</div>
-    <h2>Before, during, and after a financial action.</h2>
-    <div style="background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 24px; margin-top: 22px;">
-      <div class="case"><div class="t">Before</div><p>The agent holds an AgentID bound to a responsible party and a mandate bounding its authority. Nothing else runs without these.</p></div>
-      <div class="case"><div class="t">During</div><p>Each action is authorized against the mandate and evaluated by Guardian — allowed, held for a human, or stopped. The deny happens before money moves.</p></div>
-      <div class="case"><div class="t">After</div><p>The decision is hashed, batched, and anchored. Anyone can verify the record against the chain — without trusting Regent or the operator.</p></div>
-    </div>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">FAQ</div>
-    <h2 style="margin-bottom: 20px;">What Regent is — and is not.</h2>
-    <details class="faq"><summary>Is Regent a payment processor?</summary><div class="a">No. Regent authorizes and evidences; money always moves on your existing rail. We decide whether an action is within its mandate — the charge itself stays with your PSP, exchange, or wallet flow.</div></details>
-    <details class="faq"><summary>Is every API call recorded on-chain?</summary><div class="a">No. Financial-agent decisions that need proof are hashed and Merkle-batched; the batch root is anchored on-chain. Payloads live in the audit store — what is committed where is documented per artifact.</div></details>
-    <details class="faq"><summary>Where do humans fit?</summary><div class="a">Everywhere it matters: a mandate can require approval above a threshold, Guardian can hold an action for review, and the Control Panel carries the kill switch — revocation suspends the agent's mandates in under a second in our benchmarks.</div></details>
-    <details class="faq"><summary>What is available today?</summary><div class="a">Agent registration, mandates, authorization, and audit anchoring run live on Solana devnet, with a Python SDK and REST API. Mainnet, independent audit, and SOC 2 are on the roadmap — statuses live on the <a href="#/trust">Trust Center</a>.</div></details>
-    <div style="margin-top: 22px; display: flex; gap: 12px; flex-wrap: wrap;">
-      <a class="btn btn-primary" href="https://docs.regentprotocol.org/quickstart/three-steps" data-ph="cta_start_building_clicked:platform">Start building</a>
-      <a class="btn btn-secondary" href="#/pilot" data-ph="cta_pilot_clicked:platform">Apply for a pilot</a>
-    </div>
-  </div></section>
-</div><!-- /view-platform -->
-
-<!-- ══════════════════════ AGENT-ID ══════════════════════ -->
-<div id="view-agent-id" hidden>
-  <div class="wrap pg-hero">
-    <div class="eyebrow">Platform · AgentID</div>
-    <h1>Every action starts with who.</h1>
-    <p class="cat" style="font-size: 16px;">AgentID gives an agent a verifiable identity connected to a responsible party. Without it, an API key is acting — and an API key answers to no one.</p>
-  </div>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">The failure it prevents</div>
-    <p class="lede">A leaked key spends like the agent it impersonates. When something goes wrong, the log shows a credential — not an accountable party. Identity has to be cryptographic and bound to a human before the first action, not reconstructed after the incident.</p>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">Identity graph</div>
-    <h2>What an AgentID connects.</h2>
-    <figure style="margin: 24px 0 0;" class="idgraph">
-    <svg viewBox="0 0 900 240" role="img" aria-label="Identity graph: a KYC-verified responsible party is bound to the AgentID, which carries its mandates and audit history">
-      <defs><marker id="arr2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="currentColor"/></marker></defs>
-      <g fill="none" stroke="currentColor" stroke-width="1.4" font-family="Oxanium, sans-serif" font-size="13">
-        <rect x="20" y="80" width="190" height="80" rx="4"/><text x="115" y="112" text-anchor="middle" stroke="none" fill="currentColor" font-weight="600">Responsible party</text><text x="115" y="132" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.6" font-size="11.5">KYC-verified human/entity</text>
-        <rect x="330" y="80" width="220" height="80" rx="4" stroke="#00C9B7" stroke-width="2"/><text x="440" y="108" text-anchor="middle" stroke="none" fill="currentColor" font-weight="700">AgentID</text><text x="440" y="128" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.7" font-size="11.5">agent_… · DID · KMS-signed</text><text x="440" y="146" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.6" font-size="11.5">anchored on Solana (devnet)</text>
-        <rect x="680" y="30" width="200" height="64" rx="4"/><text x="780" y="56" text-anchor="middle" stroke="none" fill="currentColor" font-weight="600">Mandates</text><text x="780" y="76" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.6" font-size="11.5">what it may do with money</text>
-        <rect x="680" y="140" width="200" height="64" rx="4"/><text x="780" y="166" text-anchor="middle" stroke="none" fill="currentColor" font-weight="600">Audit history</text><text x="780" y="186" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.6" font-size="11.5">every decision, anchored</text>
-        <path d="M210 120 H328" marker-end="url(#arr2)"/><text x="268" y="110" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.7" font-size="11">binds + can revoke</text>
-        <path d="M550 100 L678 66" marker-end="url(#arr2)"/>
-        <path d="M550 140 L678 172" marker-end="url(#arr2)"/>
-      </g>
-    </svg>
-    <figcaption class="illus">Revocation flows down the same edges: the responsible party's kill switch suspends the mandates and closes the history.</figcaption>
-    </figure>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">Mechanics</div>
-    <h2>Issuance, in plain terms.</h2>
-    <div style="background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 24px; margin-top: 22px;">
-      <div class="case"><div class="t">Technical issuance</div><p>Registration mints the <span class="mono">agent_…</span> identifier and DID, signs the identity payload with Regent's KMS root key, and queues the Solana anchor. Included in every plan.</p></div>
-      <div class="case"><div class="t">Human binding</div><p>The responsible party is the KYC-verified account that registered the agent — never a client-supplied value. Optional human-KYC verification through a licensed provider is a separate, pass-through step; documents stay with the provider.</p></div>
-      <div class="case"><div class="t">Revocation</div><p>One-way. A revoked AgentID stops authorizing immediately — all its mandates are suspended via the <span class="mono">agent.revoked</span> event.</p></div>
-    </div>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">Build with it</div>
-    <p class="lede" style="margin-bottom: 18px;">Register an agent and read it back over <a href="https://docs.regentprotocol.org/rest-api/agents">REST</a> or the <a href="https://docs.regentprotocol.org/sdk-python/guide/introduction">Python SDK</a>. Live on devnet.</p>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-      <a class="btn btn-primary" href="https://docs.regentprotocol.org/rest-api/agents" data-ph="cta_start_building_clicked:agent-id">Read the API</a>
-      <a class="btn btn-secondary" href="#/mandates-page">Next: Mandates →</a>
-    </div>
-  </div></section>
-</div><!-- /view-agent-id -->
-
-<!-- ══════════════════════ MANDATES-PAGE ══════════════════════ -->
-<div id="view-mandates-page" hidden>
-  <div class="wrap pg-hero">
-    <div class="eyebrow">Platform · Mandates</div>
-    <h1>The rules money cannot cross.</h1>
-    <p class="cat" style="font-size: 16px;">A mandate defines what an agent may do with money: amount, destination, time, conditions, and approvals — enforced before execution, not reviewed after.</p>
-  </div>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">The failure it prevents</div>
-    <p class="lede">Post-hoc controls find the bad payment in tomorrow's report. A mandate refuses it today: the transaction outside the rules is denied before any money moves, and the agent never holds the payment credentials itself.</p>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">Try the logic</div>
-    <h2>Mandate simulator.</h2>
-    <p class="lede" style="margin-bottom: 20px;">Adjust the rules and the action — watch the decision change. Runs entirely in your browser; illustrative only, nothing is sent anywhere.</p>
-    <div class="simulator" id="mandate-sim">
-      <div class="row"><span>Per-transaction limit</span><select id="ms-limit"><option value="50">$50</option><option value="200" selected>$200</option><option value="1000">$1,000</option></select></div>
-      <div class="row"><span>Allowed destination</span><select id="ms-dest"><option value="approved" selected>Approved vendors only</option><option value="any">Any destination</option></select></div>
-      <div class="row"><span>Approval required above</span><select id="ms-appr"><option value="0">Never</option><option value="100" selected>$100</option></select></div>
-      <div class="row"><span>Action: amount</span><input id="ms-amount" type="number" value="140" min="1" max="5000"></div>
-      <div class="row"><span>Action: destination</span><select id="ms-adest"><option value="approved" selected>Approved vendor</option><option value="new">New / unknown counterparty</option></select></div>
-      <div class="sim-verdict"><span class="stamp ok" id="ms-stamp">NEEDS APPROVAL</span><span class="trace" id="ms-trace"></span></div>
-      <div class="illus">Illustrative workflow — a local demo of mandate logic, not a live production integration. Real fields include daily/monthly ceilings, per-entity sub-budgets, and relational caps (a refund may not exceed its original charge).</div>
-    </div>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">Mechanics</div>
-    <h2>Inputs, decision, outputs.</h2>
-    <div style="background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 24px; margin-top: 22px;">
-      <div class="case"><div class="t">Inputs</div><p>The mandate's limits (per-transaction, daily, monthly, per-entity, relational) and the action: amount, currency, optional entity and reference.</p></div>
-      <div class="case"><div class="t">Decision</div><p>Authorize-before-execution: within limits → an authorization with a short-lived signed proof (JWT). Outside → a coded refusal (<span class="mono">LIMIT_EXCEEDED</span> names the ceiling) and no movement. Owner approval can be required above thresholds.</p></div>
-      <div class="case"><div class="t">Operator visibility</div><p>Every authorization and refusal lands in the audit trail and the Control Panel. Usage counters reconcile via settle when the real charge lands.</p></div>
-    </div>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-      <a class="btn btn-primary" href="https://docs.regentprotocol.org/rest-api/mandates" data-ph="cta_start_building_clicked:mandates">Read the API</a>
-      <a class="btn btn-secondary" href="#/guardian">Next: Guardian →</a>
-    </div>
-  </div></section>
-</div><!-- /view-mandates-page -->
-
-<!-- ══════════════════════ GUARDIAN ══════════════════════ -->
-<div id="view-guardian" hidden>
-  <div class="wrap pg-hero">
-    <div class="eyebrow">Platform · Guardian</div>
-    <h1>Rules catch the known. Guardian watches the rest.</h1>
-    <p class="cat" style="font-size: 16px;">Guardian evaluates rule and behavioural risk signals on every action, then allows it, holds it for a human, or stops it — inside the authorization path.</p>
-  </div>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">The failure it prevents</div>
-    <p class="lede">An action can be inside every limit and still be wrong — a pattern break, a burst of activity, behaviour the mandate's author never imagined. A rulebook alone cannot say "this is technically permitted but should not happen."</p>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">Try the logic</div>
-    <h2>Decision panel.</h2>
-    <p class="lede" style="margin-bottom: 20px;">Combine the signals — watch how the decision forms. Illustrative logic, local to this page.</p>
-    <div class="riskpanel" id="riskpanel">
-      <div class="cell" style="border: 1px solid var(--line); border-radius: 6px;"><div class="k">Rule signal</div>
-        <div class="seg" style="margin-top: 8px;"><button class="rp" data-g="rule" data-v="clear" aria-pressed="true">within mandate</button><button class="rp" data-g="rule" data-v="violation" aria-pressed="false">violation</button></div></div>
-      <div class="cell" style="border: 1px solid var(--line); border-radius: 6px;"><div class="k">Behavioural risk</div>
-        <div class="seg" style="margin-top: 8px;"><button class="rp" data-g="risk" data-v="low" aria-pressed="true">low</button><button class="rp" data-g="risk" data-v="elevated" aria-pressed="false">elevated</button><button class="rp" data-g="risk" data-v="high" aria-pressed="false">high</button></div></div>
-      <div class="cell" style="border: 1px solid var(--line); border-radius: 6px;"><div class="k">Human approval</div>
-        <div class="seg" style="margin-top: 8px;"><button class="rp" data-g="human" data-v="none" aria-pressed="true">not required</button><button class="rp" data-g="human" data-v="granted" aria-pressed="false">granted</button></div></div>
-    </div>
-    <div class="risk-out"><span class="stamp ok" id="rp-stamp">ALLOW</span> <span class="trace" id="rp-trace" style="margin-left: 12px;">rule clear · risk low → the action proceeds; the decision is recorded either way</span></div>
-    <div class="illus">Illustrative decision matrix. We publish no accuracy, false-positive, or latency figures for Guardian — behavioural scoring signals feed the decision alongside rules, and the thresholds belong to your deployment.</div>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">Mechanics</div>
-    <div style="background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 24px; margin-top: 8px;">
-      <div class="case"><div class="t">Inputs</div><p>The mandate decision, the agent's behavioural risk score (isolation-forest scoring with explainable factors, drift detection), and the human-approval state where the mandate requires one.</p></div>
-      <div class="case"><div class="t">Outputs</div><p>Allow — proceed. Hold — route to an operator with the factors that raised it. Stop — refuse, with the refusal recorded as evidence (<span class="mono">RISK_SCORE_TOO_HIGH</span> above the hard threshold).</p></div>
-      <div class="case"><div class="t">Fail-safe</div><p>Guardian is a soft dependency for scoring but the gate fails closed on rules: if the control layer cannot decide, the money action is refused.</p></div>
-    </div>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-      <a class="btn btn-primary" href="https://docs.regentprotocol.org/concepts/guardian" data-ph="cta_start_building_clicked:guardian">Read the docs</a>
-      <a class="btn btn-secondary" href="#/audit-chain">Next: Audit Chain →</a>
-    </div>
-  </div></section>
-</div><!-- /view-guardian -->
-
-<!-- ══════════════════════ AUDIT-CHAIN ══════════════════════ -->
-<div id="view-audit-chain" hidden>
-  <div class="wrap pg-hero">
-    <div class="eyebrow">Platform · Audit Chain</div>
-    <h1>Evidence nobody has to take on faith.</h1>
-    <p class="cat" style="font-size: 16px;">Every decision — allowed or refused — is hashed, Merkle-batched, and anchored on-chain. An auditor verifies the record against public commitments, without trusting Regent or the operator.</p>
-  </div>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">The failure it prevents</div>
-    <p class="lede">A vendor-held log proves what the vendor chose to keep. When the question is "was this record altered after the fact", trust-me is not an answer a regulator accepts. Tamper-evidence has to be structural.</p>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">Follow one event</div>
-    <h2>From action to proof.</h2>
-    <div class="timeline" style="margin-top: 24px;">
-      <details open><summary>1 · The event is recorded</summary><div class="tl-body">The action (or refusal) becomes an audit event: <span class="mono">event_id</span>, agent, type, payload. The payload is hashed on receipt — <span class="mono">payload_hash</span> is what the evidence chain carries.</div></details>
-      <details><summary>2 · Events are Merkle-batched</summary><div class="tl-body">Events group into a batch; each gets a <span class="mono">merkle_index</span> and proof path to the batch root. One root commits to every event beneath it — change any event and the root no longer matches.</div></details>
-      <details><summary>3 · The root is anchored</summary><div class="tl-body">The batch root is committed on Solana (devnet today); full payload blobs go to the data-availability layer. On devnet this lands within seconds of ingestion.</div></details>
-      <details><summary>4 · Anyone verifies</summary><div class="tl-body">Recompute the event's hash, walk its Merkle path to the root, check the root against the on-chain commitment. The end-to-end recipe is public: <a href="https://docs.regentprotocol.org/solana-programs/verification">Verifying on-chain</a>.</div></details>
-    </div>
-    <div class="codeblock" style="margin-top: 20px;">event_id:      action-7f3a…            <span class="cm"># illustrative record</span>
-payload_hash:  9c41ab02…                <span class="cm"># sha-256 of the payload</span>
-merkle_index:  3
-merkle_proof:  [d802…, 44b1…, e97c…]   <span class="cm"># path to the batch root</span>
-batch_root:    5aa1f7…                  <span class="cm"># committed on-chain</span>
-status:        anchored</div>
-    <div class="illus">Illustrative data. "Immutable" is stated precisely here: the on-chain commitment is permanent; where payloads are stored, and for how long, is documented per plan (the optional immutable archive is an Enterprise add-on).</div>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-      <a class="btn btn-primary" href="https://docs.regentprotocol.org/rest-api/audit" data-ph="cta_start_building_clicked:audit-chain">Read the API</a>
-      <a class="btn btn-secondary" href="#/control-panel">Next: Control Panel →</a>
-    </div>
-  </div></section>
-</div><!-- /view-audit-chain -->
-
-<!-- ══════════════════════ CONTROL-PANEL ══════════════════════ -->
-<div id="view-control-panel" hidden>
-  <div class="wrap pg-hero">
-    <div class="eyebrow">Platform · Control Panel</div>
-    <h1>Autonomy, with a hand on the switch.</h1>
-    <p class="cat" style="font-size: 16px;">The Control Panel is where human operators watch, investigate, and intervene: every agent, every mandate, every decision — and the kill switch.</p>
-  </div>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">Three operator tasks</div>
-    <h2>What oversight looks like.</h2>
-    <div class="mockpanel" style="margin-top: 22px;" id="cp-mock">
-      <div class="mp-head">
-        <button class="scen cpt" data-t="investigate" aria-pressed="true">Investigate a flagged action</button>
-        <button class="scen cpt" data-t="review" aria-pressed="false">Review a mandate</button>
-        <button class="scen cpt" data-t="pause" aria-pressed="false">Pause an agent</button>
-      </div>
-      <div class="mp-body" id="cp-body"></div>
-    </div>
-    <div class="illus">Illustrative mockup with fictional data — not a production screenshot.</div>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">Mechanics</div>
-    <div style="background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 24px; margin-top: 8px;">
-      <div class="case"><div class="t">Monitoring</div><p>Agents, mandates, and the audit log in one place — each decision with its reason and its evidence status.</p></div>
-      <div class="case"><div class="t">Intervention</div><p>Approve held actions, adjust mandates, and revoke: the kill switch suspends all the agent's mandates — the first refused authorize follows within ~0.5 s in our benchmarks.</p></div>
-      <div class="case"><div class="t">No seats</div><p>Your whole team uses the panel on any paid plan — Regent prices verified actions, not headcount.</p></div>
-    </div>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-      <a class="btn btn-primary" href="https://docs.regentprotocol.org/quickstart/three-steps" data-ph="cta_start_building_clicked:control-panel">Try it on devnet</a>
-      <a class="btn btn-secondary" href="#/platform">Back to the platform →</a>
-    </div>
-  </div></section>
-</div><!-- /view-control-panel -->
-
-
-<!-- ══════════════════════ SOLUTIONS ══════════════════════ -->
-<div id="view-solutions" hidden>
-  <div class="wrap pg-hero">
-    <div class="eyebrow">Solutions</div>
-    <h1>Find yourself by workflow, not by industry label.</h1>
-    <p class="cat" style="font-size: 16px;">Four places where money moves through an agent — and where the mandate gate, Guardian, and the evidence chain go to work.</p>
-  </div>
-  <section data-reveal><div class="wrap">
-    <div class="grid grid-4" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
-      <div class="cell"><div class="k">Payments</div><h3><a href="#/agentic-payments">Agentic payments →</a></h3>
-        <p><strong>Risk today:</strong> an autonomous payment fires with nobody in front of it<br><strong>Regent steps in:</strong> pre-execution mandate check; approval conditions for the big ones<br><strong>You get:</strong> a signed decision + anchored evidence per payment</p></div>
-      <div class="cell"><div class="k">Platforms</div><h3><a href="#/fintech-platforms">Fintech platforms →</a></h3>
-        <p><strong>Risk today:</strong> your customers' agents act inside your product, under your name<br><strong>Regent steps in:</strong> per-customer AgentIDs and account-scoped mandates<br><strong>You get:</strong> per-tenant controls and an auditable trail per customer</p></div>
-      <div class="cell"><div class="k">Treasury</div><h3><a href="#/treasury-custody">Treasury & custody →</a></h3>
-        <p><strong>Risk today:</strong> large-value movement with multi-party rules in spreadsheets<br><strong>Regent steps in:</strong> value, counterparty, time-window and multi-approval policies enforced in the path<br><strong>You get:</strong> case-ready evidence for every movement, allowed or refused</p></div>
-      <div class="cell"><div class="k">Compliance</div><h3><a href="#/compliance-risk">Compliance & risk →</a></h3>
-        <p><strong>Risk today:</strong> reconstructing what an agent did takes days of log archaeology<br><strong>Regent steps in:</strong> every decision carries its context, policy, and proof<br><strong>You get:</strong> case reconstruction from a single record; evidence exports for reviewers</p></div>
-    </div>
-  </div></section>
-</div><!-- /view-solutions -->
-
-<!-- ══════════════════════ AGENTIC-PAYMENTS ══════════════════════ -->
-<div id="view-agentic-payments" hidden>
-  <div class="wrap pg-hero">
-    <div class="eyebrow">Solutions · Agentic payments</div>
-    <h1>The payment decides itself. The rules don't.</h1>
-    <p class="cat" style="font-size: 16px;">An agent initiates a payment; the mandate bounds amount and destination before execution; approvals can require a human; the evidence shows exactly why it was allowed.</p>
-  </div>
-  <section data-reveal><div class="wrap">
-    <div style="background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 24px;">
-      <div class="case"><div class="t">1 · Initiation</div><p>The agent requests the payment with its AgentID — no payment credentials in the agent's hands, ever.</p></div>
-      <div class="case"><div class="t">2 · Enforcement</div><p>Amount, destination category, time window, and per-entity ceilings check before execution. Outside the rules → <span class="mono">LIMIT_EXCEEDED</span>, and nothing has moved. Above the approval threshold → held for the owner.</p></div>
-      <div class="case"><div class="t">3 · Exception handling</div><p>Guardian holds pattern-breaking payments even when technically permitted; refusals and holds are records, not just log lines.</p></div>
-      <div class="case"><div class="t">4 · Evidence</div><p>Each decision is hashed and anchored — the "why was this allowed" question has a verifiable answer per payment.</p></div>
-    </div>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px;">
-      <a class="btn btn-primary" href="#/pilot" data-ph="cta_pilot_clicked:agentic-payments">Apply for a pilot</a>
-      <a class="btn btn-secondary" href="#/mandates-page">How mandates work →</a>
-    </div>
-  </div></section>
-</div><!-- /view-agentic-payments -->
-
-<!-- ══════════════════════ FINTECH-PLATFORMS ══════════════════════ -->
-<div id="view-fintech-platforms" hidden>
-  <div class="wrap pg-hero">
-    <div class="eyebrow">Solutions · Fintech platforms</div>
-    <h1>Your customers' agents, under your customers' rules.</h1>
-    <p class="cat" style="font-size: 16px;">Issue AgentIDs for customer-facing agents and apply account-specific controls — every customer's agent runs inside that customer's limits, and you can prove it.</p>
-  </div>
-  <section data-reveal><div class="wrap">
-    <div style="background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 24px;">
-      <div class="case"><div class="t">Per-customer identity</div><p>Each customer-facing agent gets its own AgentID bound to that account — incidents attribute to an agent and an accountable context, not to your platform key.</p></div>
-      <div class="case"><div class="t">Account-scoped mandates</div><p>Limits per customer, not per platform: per-transaction and daily ceilings, per-entity sub-budgets ("at most N per merchant per month"), approval thresholds the customer controls.</p></div>
-      <div class="case"><div class="t">Platform-grade evidence</div><p>When a customer disputes an agent action, the trail is per-customer and independently verifiable — support answers with proof, not "our logs say".</p></div>
-    </div>
-    <p class="lede" style="margin-top: 18px;">Integration is API-first: the <a href="https://docs.regentprotocol.org/rest-api/agents">REST reference</a> covers issuing agents and mandates programmatically per account.</p>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px;">
-      <a class="btn btn-primary" href="#/pilot" data-ph="cta_pilot_clicked:fintech">Apply for a pilot</a>
-      <a class="btn btn-secondary" href="https://docs.regentprotocol.org" data-ph="cta_start_building_clicked:fintech">Open docs</a>
-    </div>
-  </div></section>
-</div><!-- /view-fintech-platforms -->
-
-<!-- ══════════════════════ TREASURY-CUSTODY ══════════════════════ -->
-<div id="view-treasury-custody" hidden>
-  <div class="wrap pg-hero">
-    <div class="eyebrow">Solutions · Treasury & custody</div>
-    <h1>Large value moves on small, explicit rules.</h1>
-    <p class="cat" style="font-size: 16px;">Policies on transaction value, counterparty, account, time window, and multi-party approval — enforced in the execution path, evidenced after.</p>
-  </div>
-  <section data-reveal><div class="wrap">
-    <div style="background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 24px;">
-      <div class="case"><div class="t">Policy surface</div><p>Value ceilings per movement and per period; counterparty and destination constraints; time windows; approval requirements that scale with amount (relational caps bound a movement by its referenced anchor — a release never exceeds its instruction).</p></div>
-      <div class="case"><div class="t">Human control</div><p>Multi-party approval is a mandate condition, not a meeting: the movement holds until the required approvals land, and each approval is itself part of the record.</p></div>
-      <div class="case"><div class="t">Evidence</div><p>Every movement — executed, held, or refused — is anchored with its policy context. Reviews start from the record, not from interviews.</p></div>
-    </div>
-    <p class="illus" style="margin-top: 14px;">This page describes product capabilities for evaluation — it is not financial, custody, or regulatory advice.</p>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px;">
-      <a class="btn btn-primary" href="#/pilot" data-ph="cta_pilot_clicked:treasury">Talk to an architect</a>
-      <a class="btn btn-secondary" href="#/audit-chain">How the evidence works →</a>
-    </div>
-  </div></section>
-</div><!-- /view-treasury-custody -->
-
-<!-- ══════════════════════ COMPLIANCE-RISK ══════════════════════ -->
-<div id="view-compliance-risk" hidden>
-  <div class="wrap pg-hero">
-    <div class="eyebrow">Solutions · Compliance & risk</div>
-    <h1>Reconstruct any case from one record.</h1>
-    <p class="cat" style="font-size: 16px;">Action → responsible context → policy → decision → evidence: the chain your reviewers walk today across five systems, in one verifiable record.</p>
-  </div>
-  <section data-reveal><div class="wrap">
-    <div style="background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 24px;">
-      <div class="case"><div class="t">The case view</div><p>Start from any action and walk outward: which agent, bound to whom, under which mandate version, decided how, held or approved by whom — each hop a record, not a recollection.</p></div>
-      <div class="case"><div class="t">Independent verification</div><p>The evidence chain verifies against public commitments — your reviewers (or an external auditor) check it without trusting Regent or the operator. The recipe is <a href="https://docs.regentprotocol.org/solana-programs/verification">public</a>.</p></div>
-      <div class="case"><div class="t">Evidence packs</div><p>Exports and mappings for internal compliance review — EU AI Act record-keeping articles, NIST AI RMF, SOC 2 export formats (Enterprise add-on). These are exports and mappings, never a claim of regulator approval.</p></div>
-    </div>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px;">
-      <a class="btn btn-primary" href="#/pilot" data-ph="cta_pilot_clicked:compliance">Request enterprise materials</a>
-      <a class="btn btn-secondary" href="#/trust">Trust Center →</a>
-    </div>
-  </div></section>
-</div><!-- /view-compliance-risk -->
-
-<!-- ══════════════════════ DEVELOPERS ══════════════════════ -->
-<div id="view-developers" hidden>
-  <div class="wrap pg-hero">
-    <div class="eyebrow">Developers</div>
-    <h1>From SDK to a first verified action — in one sitting.</h1>
-    <p class="cat" style="font-size: 16px;">Everything runs on devnet today: register an agent, bound it with a mandate, authorize an action against it, watch the evidence anchor.</p>
-  </div>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">The build path</div>
-    <div style="background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 24px;">
-      <div class="case"><div class="t">1 · Account & key</div><p>Sign up at <a href="https://web.regentprotocol.org">web.regentprotocol.org</a>, complete verification, create an API key. Free during the demo phase.</p></div>
-      <div class="case"><div class="t">2 · Agent & mandate</div><p>Register an agent, create a mandate with your limits — dashboard or <a href="https://docs.regentprotocol.org/rest-api/agents">REST</a>.</p></div>
-      <div class="case"><div class="t">3 · Authorize · act · audit</div><p>The core loop, straight from the quickstart:</p></div>
-    </div>
-    <div class="codeblock" style="margin-top: 18px;"><span class="cm"># pip install regent</span>
-auth = await r.payment.authorize(
-    mandate_id=MANDATE_ID,
-    request=AuthorizeRequest(amount=Decimal("25"), currency="USD"),
-)
-await r.audit.ingest_event(IngestEventRequest(
-    event_id=f"action-{auth.jti}", agent_id=AGENT_ID,
-    event_type="action.completed",
-    payload={"authorization_jti": auth.jti},
-))</div>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">Surface</div>
-    <div class="grid grid-4" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
-      <div class="cell"><div class="k">Python SDK</div><h3>Available</h3><p><span class="mono">pip install regent</span> — agents, mandates, authorize, audit, guardian. <a href="https://docs.regentprotocol.org/sdk-python/guide/introduction">Guide</a>.</p></div>
-      <div class="cell"><div class="k">REST API</div><h3>Available</h3><p>Any language, bearer-key auth, org scoping. <a href="https://docs.regentprotocol.org/rest-api/authentication">Reference</a> incl. the <a href="https://docs.regentprotocol.org/rest-api/errors">full error catalog</a>.</p></div>
-      <div class="cell"><div class="k">TypeScript · Rust</div><h3>Planned</h3><p>Language SDKs beyond Python are on the roadmap; REST works from both today.</p></div>
-      <div class="cell"><div class="k">Environment</div><h3>Devnet</h3><p>Solana devnet — no mainnet risk while you evaluate. The SDK stores no secrets beyond your API key.</p></div>
-    </div>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px;">
-      <a class="btn btn-primary" href="https://docs.regentprotocol.org/quickstart/three-steps" data-ph="cta_start_building_clicked:developers">Read quickstart</a>
-      <a class="btn btn-secondary" href="https://docs.regentprotocol.org" data-ph="cta_start_building_clicked:developers-docs">Open docs</a>
-    </div>
-  </div></section>
-</div><!-- /view-developers -->
-
-<!-- ══════════════════════ SECURITY ══════════════════════ -->
-<div id="view-security" hidden>
-  <div class="wrap pg-hero">
-    <div class="eyebrow">Security</div>
-    <h1>Posture, stated precisely.</h1>
-    <p class="cat" style="font-size: 16px;">How we defend the control layer — and exactly which assurances exist today versus which are on the roadmap. No certificate theater.</p>
-  </div>
-  <section data-reveal><div class="wrap">
-    <div class="grid grid-4" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
-      <div class="cell"><div class="k">Identity & credentials</div><h3>No bearer secrets on agents</h3><p>Agents never hold payment credentials; identity payloads are KMS-signed at registration; the responsible party is always the verified session user, never a client-supplied value.</p></div>
-      <div class="cell"><div class="k">Enforcement</div><h3>Fail closed</h3><p>If the control layer cannot decide — identity unreachable, proof unmintable — the money action is refused, and the refusal is recorded.</p></div>
-      <div class="cell"><div class="k">Audit integrity</div><h3>Structural tamper-evidence</h3><p>Hashes on receipt, Merkle batching, on-chain commitments — altering a record after the fact breaks the math, not a policy.</p></div>
-      <div class="cell"><div class="k">Operations</div><h3>Defense in depth</h3><p>Multi-sig on program upgrades; per-IP rate limiting on every endpoint; org-scoped authorization on every route.</p></div>
-    </div>
-  </div></section>
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">Assurance status</div>
-    <div class="tblshell"><div class="tblwrap"><table class="cmp">
-      <tr><th>Item</th><th>Status</th><th>What that means</th></tr>
-      <tr><td>Independent security audit</td><td><span class="chip chip-planned">PLANNED</span></td><td>Will be stated here only when the report is public</td></tr>
-      <tr><td>SOC 2</td><td><span class="chip chip-planned">ROADMAP</span></td><td>No compliance claim before completion</td></tr>
-      <tr><td>Responsible disclosure</td><td><span class="chip chip-live">OPEN</span></td><td>Security reports: <a href="mailto:info@regentprotocol.org">info@regentprotocol.org</a></td></tr>
-    </table></div></div>
-    <p class="illus" style="margin-top: 14px;">No bug-bounty program exists yet; we don't promise one until it does.</p>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px;">
-      <a class="btn btn-primary" href="#/trust">Trust Center →</a>
-      <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Security">Contact security</a>
-    </div>
-  </div></section>
-</div><!-- /view-security -->
-
-<!-- ══════════════════════ TRUST ══════════════════════ -->
-<div id="view-trust" hidden>
-  <div class="wrap pg-hero">
-    <div class="eyebrow">Trust Center</div>
-    <h1>Every claim, with its status.</h1>
-    <p class="cat" style="font-size: 16px;">The one page for due diligence: what runs today, what is planned, and where the evidence lives. If a status changes, this table changes first.</p>
-  </div>
-  <section data-reveal><div class="wrap">
-    <div class="tblshell"><div class="tblwrap"><table class="cmp">
-      <tr><th>Topic</th><th>Status</th><th>Evidence / next step</th></tr>
-      <tr><td>Devnet — registration, mandates, authorization, audit anchoring</td><td><span class="chip chip-live">AVAILABLE</span></td><td><a href="https://docs.regentprotocol.org/quickstart/three-steps">Quickstart</a> · <a href="https://docs.regentprotocol.org/solana-programs/verification">verify on-chain yourself</a></td></tr>
-      <tr><td>Python SDK + REST API</td><td><span class="chip chip-live">AVAILABLE</span></td><td><a href="https://docs.regentprotocol.org">docs.regentprotocol.org</a></td></tr>
-      <tr><td>Mainnet</td><td><span class="chip chip-planned">PLANNED</span></td><td>Follows published status; no date promised</td></tr>
-      <tr><td>Independent security audit</td><td><span class="chip chip-planned">PLANNED</span></td><td>Linked here only after publication</td></tr>
-      <tr><td>SOC 2</td><td><span class="chip chip-planned">ROADMAP</span></td><td>No certificate claim before completion</td></tr>
-      <tr><td>Regulatory mappings (EU AI Act record-keeping, NIST AI RMF)</td><td><span class="chip chip-planned">PLANNED</span></td><td>Evidence exports and mappings — never "approved by a regulator"</td></tr>
-      <tr><td>Privacy & data handling</td><td><span class="chip chip-live">PUBLISHED</span></td><td><a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Use</a></td></tr>
-    </table></div></div>
-    <p class="lede" style="margin-top: 20px;">Deeper diligence — architecture sessions, evidence-pack samples, security questionnaires: <a href="mailto:info@regentprotocol.org?subject=Enterprise%20materials">request enterprise materials</a>.</p>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px;">
-      <a class="btn btn-primary" href="mailto:info@regentprotocol.org?subject=Enterprise%20materials" data-ph="trust_center_contact">Request enterprise materials</a>
-      <a class="btn btn-secondary" href="#/security">Security approach →</a>
-    </div>
-  </div></section>
-</div><!-- /view-trust -->
-
 <!-- ══════════════════════ ABOUT ══════════════════════ -->
 <div id="view-about" hidden>
 
@@ -1934,28 +1421,16 @@ await r.audit.ingest_event(IngestEventRequest(
   </div></section>
 </div><!-- /view-privacy -->
 
-
-<div class="consent-bar" id="consent-bar" hidden role="dialog" aria-label="Analytics consent">
-  <span style="flex: 1; min-width: 220px;">We'd like to use analytics cookies to understand how this site is used. <a href="/privacy">Privacy Policy</a></span>
-  <button class="btn btn-secondary" id="consent-no" type="button">Decline</button>
-  <button class="btn btn-primary" id="consent-yes" type="button">Allow</button>
-</div>
-
 <div class="wrap">
   <footer class="site">
     <div class="cols">
       <span><strong style="color: var(--mut);">Regent Protocol</strong></span>
       <a href="#primitives" data-home-anchor>Platform</a>
       <a href="#cases" data-home-anchor>Solutions</a>
-      <a href="#/platform">Platform</a>
-      <a href="#/solutions">Solutions</a>
-      <a href="#/developers">Developers</a>
       <a href="#/pricing">Pricing</a>
       <a href="#/technology">Technology</a>
       <a href="#/pilot">Pilot</a>
       <a href="#/about">About</a>
-      <a href="#/security">Security</a>
-      <a href="#/trust">Trust</a>
       <a href="https://docs.regentprotocol.org">Docs</a>
       <a href="#proof" data-home-anchor>Status</a>
       <a href="mailto:info@regentprotocol.org">Contact</a>
@@ -1995,7 +1470,6 @@ await r.audit.ingest_event(IngestEventRequest(
   const stamp = document.getElementById("flow-stamp");
   const trace = document.getElementById("flow-trace");
   document.querySelectorAll(".scen").forEach((b) => b.addEventListener("click", () => {
-    ph("flow_scenario_selected", { scenario: b.dataset.s });
     document.querySelectorAll(".scen").forEach((x) => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
     runFlow(SCEN[b.dataset.s]);
   }));
@@ -2086,29 +1560,18 @@ await r.audit.ingest_event(IngestEventRequest(
   });
 
   /* ── hash router: #/pricing, #/about, everything else = home ── */
-  const VIEW_PATHS = {
-    pricing: "/pricing", about: "/about", technology: "/technology", pilot: "/pilot",
-    terms: "/terms", privacy: "/privacy",
-    platform: "/platform", "agent-id": "/platform/agent-id", "mandates-page": "/platform/mandates",
-    guardian: "/platform/guardian", "audit-chain": "/platform/audit-chain", "control-panel": "/platform/control-panel",
-    solutions: "/solutions", "agentic-payments": "/solutions/agentic-payments",
-    "fintech-platforms": "/solutions/fintech-platforms", "treasury-custody": "/solutions/treasury-custody",
-    "compliance-risk": "/solutions/compliance-risk", developers: "/developers",
-    security: "/security", trust: "/trust",
-  };
   const VIEWS = {};
-  for (const n of ["home"].concat(Object.keys(VIEW_PATHS))) {
+  for (const n of ["home", "pricing", "about", "technology", "pilot", "terms", "privacy"]) {
     const el = document.getElementById("view-" + n);
     if (el) VIEWS[n] = el;   /* per-route builds carry a single view */
   }
   function route() {
     const h = location.hash, path = location.pathname;
     let v = "home";
-    for (const name of Object.keys(VIEW_PATHS)) {
-      if (h === "#/" + name || h.startsWith("#/" + name + "#")) { v = name; break; }
-      if (!h.startsWith("#/") && path === VIEW_PATHS[name]) { v = name; break; }
+    for (const name of ["pricing", "about", "technology", "pilot", "terms", "privacy"]) {
+      if (h.startsWith("#/" + name)) { v = name; break; }
+      if (!h.startsWith("#/") && path === "/" + name) { v = name; break; }
     }
-    if (v === "trust") ph("trust_center_viewed");
     if (!VIEWS[v]) return;   /* single-view build: nothing to switch */
     if (Object.keys(VIEWS).length < 2) { VIEWS[Object.keys(VIEWS)[0]].hidden = false; return; }
     for (const [k, el] of Object.entries(VIEWS)) el.hidden = k !== v;
@@ -2168,7 +1631,6 @@ await r.audit.ingest_event(IngestEventRequest(
       if (!r.ok) throw new Error((await r.json().catch(() => ({})))?.detail?.message || "Submission failed.");
       pForm.style.display = "none";
       document.getElementById("pilot-ok").style.display = "block";
-      ph("contact_form_submitted");
     } catch (ex) {
       btn.disabled = false; btn.textContent = "Apply for the pilot \u2192";
       err.textContent = (ex.message || "Submission failed.") +
@@ -2196,135 +1658,6 @@ await r.audit.ingest_event(IngestEventRequest(
       menuBtn.setAttribute("aria-expanded", "false");
     }));
   }
-
-  /* ── privacy-aware analytics (PostHog via first-party proxy) ── */
-  const PH_KEY = "phc_vppptJACzrhfwphPu3UFDLm7NHzYYByN6nrPs66PCjFx";
-  const PH_HOST = "https://e.regentprotocol.org";
-  function loadPosthog() {
-    if (window.posthog && window.posthog.__loaded) return;
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister opt_out_capturing opt_in_capturing reset".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-    window.posthog.init(PH_KEY, {
-      api_host: PH_HOST,
-      ui_host: "https://us.posthog.com",
-      capture_pageleave: true,
-      session_recording: { maskAllInputs: true },
-      before_send: function (event) {
-        var url = event && event.properties && event.properties["$current_url"];
-        if (typeof url === "string") {
-          event.properties["$current_url"] = url.replace(/token=[^&#]+/g, "token=[REDACTED]");
-        }
-        return event;
-      },
-    });
-  }
-  function ph(name, props) {
-    if (window.posthog && window.posthog.capture) window.posthog.capture(name, props || {});
-  }
-  (function consent() {
-    var bar = document.getElementById("consent-bar");
-    var choice = null;
-    try { choice = localStorage.getItem("rg_consent"); } catch (e) {}
-    if (choice === "granted") { loadPosthog(); return; }
-    if (choice === "denied" || !bar) return;
-    bar.hidden = false;
-    document.getElementById("consent-yes").addEventListener("click", function () {
-      try { localStorage.setItem("rg_consent", "granted"); } catch (e) {}
-      bar.hidden = true; loadPosthog();
-    });
-    document.getElementById("consent-no").addEventListener("click", function () {
-      try { localStorage.setItem("rg_consent", "denied"); } catch (e) {}
-      bar.hidden = true;
-    });
-  })();
-  /* event taxonomy (spec §9.5): declarative data-ph hooks */
-  document.addEventListener("click", function (e) {
-    var el = e.target && e.target.closest && e.target.closest("[data-ph]");
-    if (!el) return;
-    var parts = el.getAttribute("data-ph").split(":");
-    ph(parts[0], parts[1] ? { value: parts[1] } : {});
-  });
-  document.querySelectorAll('a[href^="https://docs.regentprotocol.org"]').forEach(function (a) {
-    a.addEventListener("click", function () { ph("docs_opened", { href: a.getAttribute("href") }); });
-  });
-  var pfStarted = false;
-  var pfEl = document.getElementById("pilot-form");
-  if (pfEl) {
-    pfEl.addEventListener("focusin", function () {
-      if (!pfStarted) { pfStarted = true; ph("contact_form_started"); }
-    });
-  }
-  var qs = document.getElementById("quickstart");
-  if (qs && "IntersectionObserver" in window) {
-    var qio = new IntersectionObserver(function (es) {
-      es.forEach(function (en) { if (en.isIntersecting) { ph("quickstart_viewed"); qio.disconnect(); } });
-    }, { threshold: 0.4 });
-    qio.observe(qs);
-  }
-
-  /* ── mandate simulator (illustrative, local) ── */
-  const msEls = ["ms-limit","ms-dest","ms-appr","ms-amount","ms-adest"].map(id => document.getElementById(id));
-  function msRun(track) {
-    if (msEls.some(e => !e)) return;
-    const [limit, dest, appr, amount, adest] = msEls.map(e => e.value);
-    const a = Number(amount) || 0;
-    const stamp = document.getElementById("ms-stamp"), trace = document.getElementById("ms-trace");
-    let verdict, cls, why;
-    if (dest === "approved" && adest === "new") {
-      verdict = "DENIED"; cls = "deny"; why = "destination outside the allowed category — refused before execution";
-    } else if (a > Number(limit)) {
-      verdict = "DENIED"; cls = "deny"; why = `$${a} exceeds the per-transaction limit $${limit} — refused before execution`;
-    } else if (Number(appr) > 0 && a > Number(appr)) {
-      verdict = "NEEDS APPROVAL"; cls = "hold"; why = `above the $${appr} approval threshold — held for a human decision`;
-    } else {
-      verdict = "ALLOWED"; cls = "ok"; why = "within every rule — authorized, with a signed proof and an audit record";
-    }
-    stamp.textContent = verdict; stamp.className = "stamp " + cls; trace.textContent = why;
-    if (track) ph("mandate_simulator_used", { verdict: verdict });
-  }
-  msEls.forEach(e => e && e.addEventListener("input", () => msRun(true)));
-  msRun(false);
-
-  /* ── guardian decision panel ── */
-  const rpState = { rule: "clear", risk: "low", human: "none" };
-  function rpRun(track) {
-    const stamp = document.getElementById("rp-stamp"), trace = document.getElementById("rp-trace");
-    if (!stamp) return;
-    let v, cls, why;
-    if (rpState.rule === "violation") { v = "STOP"; cls = "deny"; why = "the mandate said no — rules always win; the refusal itself is recorded"; }
-    else if (rpState.risk === "high") { v = "STOP"; cls = "deny"; why = "behavioural risk crossed the hard threshold — stopped with the contributing factors recorded"; }
-    else if (rpState.risk === "elevated" && rpState.human !== "granted") { v = "HOLD"; cls = "hold"; why = "elevated risk → held for a human; an operator sees the factors and decides"; }
-    else { v = "ALLOW"; cls = "ok"; why = rpState.human === "granted" ? "human approved — the action proceeds, approval recorded" : "rule clear · risk low → the action proceeds; the decision is recorded either way"; }
-    stamp.textContent = v; stamp.className = "stamp " + cls; trace.textContent = why;
-    if (track) ph("risk_panel_used", { verdict: v });
-  }
-  document.querySelectorAll(".rp").forEach(b => b.addEventListener("click", () => {
-    document.querySelectorAll(`.rp[data-g="${b.dataset.g}"]`).forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
-    rpState[b.dataset.g] = b.dataset.v; rpRun(true);
-  }));
-  rpRun(false);
-
-  /* ── control-panel mock tasks ── */
-  const CP = {
-    investigate: `<div class="mp-row"><span><strong>HELD</strong> · payment $1,180 → "Northwind Parts Ltd."</span><span class="mono" style="color: var(--hold);">risk: elevated</span></div>
-      <div class="mp-row"><span>Factors</span><span class="mono" style="font-size:12.5px;">amount ×6 vs 30-day pattern · new counterparty</span></div>
-      <div class="mp-row"><span>Evidence</span><span class="mono" style="font-size:12.5px;">event anchored · proof verifies ✓</span></div>
-      <div style="margin-top: 12px;"><button class="btn btn-primary" type="button">Approve</button> <button class="btn btn-danger" type="button">Refuse</button></div>`,
-    review: `<div class="mp-row"><span>Mandate · procurement-bot</span><span class="pill pill-ok">ACTIVE</span></div>
-      <div class="mp-row"><span>Per-transaction</span><span class="mono">$500</span></div>
-      <div class="mp-row"><span>Daily used</span><span class="mono">$1,240 / $2,000</span></div>
-      <div class="mp-row"><span>Approval required</span><span class="mono">above $250</span></div>
-      <div style="margin-top: 12px;"><button class="btn btn-secondary" type="button">Adjust limits</button></div>`,
-    pause: `<div class="mp-row"><span>Agent · procurement-bot</span><span class="pill pill-ok">ACTIVE</span></div>
-      <div class="mp-row"><span>Mandates</span><span class="mono">2 active</span></div>
-      <div class="mp-row"><span>Kill switch</span><span style="font-size: 12.5px; color: var(--mut);">revocation is one-way; all mandates suspend immediately</span></div>
-      <div style="margin-top: 12px;"><button class="btn btn-danger" type="button">⏻ Revoke agent</button></div>`,
-  };
-  function cpShow(t) { const b = document.getElementById("cp-body"); if (b) b.innerHTML = CP[t]; }
-  document.querySelectorAll(".cpt").forEach(b => b.addEventListener("click", () => {
-    document.querySelectorAll(".cpt").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
-    cpShow(b.dataset.t);
-  }));
-  cpShow("investigate");
 
 </script>
 
