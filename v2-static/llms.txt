@@ -1,0 +1,23 @@
+# Regent Protocol
+
+> Regent is the financial authorization and compliance layer for AI agents that move money: a verifiable identity for every agent (AgentID), spending mandates it cannot exceed, Guardian risk controls, and tamper-evident audit evidence anchored on Solana. Live on Solana devnet; production availability follows published status.
+
+KYA — Know Your Agent — is Regent's product framework for connecting an autonomous agent to a responsible context, financial mandate, and verifiable audit history. It is not a formal regulatory standard.
+
+## Pages
+
+- [Home](https://regentprotocol.org/): what Regent does — the financial action flow from AgentID through mandate check, Guardian decision, and audit proof
+- [Technology](https://regentprotocol.org/technology): architecture — Solana settlement programs (devnet), Celestia DA audit storage, Guardian risk engine, Python SDK
+- [Pricing](https://regentprotocol.org/pricing): usage-based launch pricing — Developer $0, Growth $299/mo, Scale $999/mo, Enterprise from $2,500/mo; the unit is a verified action, never seats
+- [Pilot Program](https://regentprotocol.org/pilot): structured 14-day engagement; application form online
+- [About](https://regentprotocol.org/about): team and thesis
+- [Terms of Use](https://regentprotocol.org/terms) · [Privacy Policy](https://regentprotocol.org/privacy)
+
+## Developer resources
+
+- [Documentation](https://docs.regentprotocol.org): quickstart, Python SDK (`pip install regent`), REST API, Solana programs — machine-readable index at [docs llms.txt](https://docs.regentprotocol.org/llms.txt)
+- [Verify on-chain](https://docs.regentprotocol.org/solana-programs/verification): independently check agents, mandates, and audit events against Solana
+
+## Contact
+
+info@regentprotocol.org · [Pilot application](https://regentprotocol.org/pilot)
