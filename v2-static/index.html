@@ -1,0 +1,1059 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Regent Protocol — Financial authorization for AI agents</title>
+<meta name="description" content="Regent is the financial authorization and compliance layer for AI agents that move money: verifiable identity, spending mandates, risk controls, and tamper-evident audit evidence.">
+<meta property="og:title" content="Regent Protocol — Financial authorization for AI agents">
+<meta property="og:description" content="Verifiable identity, spending mandates, risk controls, and tamper-evident audit evidence for AI agents that move money.">
+<meta property="og:site_name" content="Regent Protocol">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&family=Oxanium:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --f-head: "Orbitron", "Oxanium", sans-serif;
+    --f-body: "Oxanium", system-ui, sans-serif;
+    --f-mono: "Geist Mono", ui-monospace, Menlo, monospace;
+    --paper: #F7F7F3;
+    --card: #FFFFFF;
+    --well: #F0F1EB;
+    --ink: #16211E;
+    --mut: #55625D;
+    --faint: #82908A;
+    --line: #D9DDD6;
+    --hair: #E7EAE3;
+    --seal: #123E93;
+    --seal-soft: #E8EDF9;
+    --ok: #1E6B45;   --ok-soft: #E4F0E8;
+    --hold: #9A6A14; --hold-soft: #F6EEDB;
+    --deny: #A03227; --deny-soft: #F7E6E3;
+    --code-bg: #14201C;
+    --code-ink: #D9E2DC;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0F1513;
+      --card: #151C19;
+      --well: #101714;
+      --ink: #E7EBE6;
+      --mut: #9AA8A1;
+      --faint: #6D7B75;
+      --line: #28312D;
+      --hair: #1E2723;
+      --seal: #7FA0F4;
+      --seal-soft: #1A2438;
+      --ok: #64B98A;   --ok-soft: #14281C;
+      --hold: #D6A44C; --hold-soft: #2C2313;
+      --deny: #E07A6E; --deny-soft: #341B17;
+      --code-bg: #0B100E;
+      --code-ink: #C7D2CB;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0F1513;
+    --card: #151C19;
+    --well: #101714;
+    --ink: #E7EBE6;
+    --mut: #9AA8A1;
+    --faint: #6D7B75;
+    --line: #28312D;
+    --hair: #1E2723;
+    --seal: #7FA0F4;
+    --seal-soft: #1A2438;
+    --ok: #64B98A;   --ok-soft: #14281C;
+    --hold: #D6A44C; --hold-soft: #2C2313;
+    --deny: #E07A6E; --deny-soft: #341B17;
+    --code-bg: #0B100E;
+    --code-ink: #C7D2CB;
+  }
+
+  * { box-sizing: border-box; }
+  a, button, .tier, .addon, .cell, .stepnode .dot { transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1); }
+  .tier:hover, .addon:hover { transform: translateY(-2px); border-color: var(--seal); }
+  .tier.hot:hover { transform: translateY(-2px); }
+  .price, .per { transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1); }
+  .price.fading, .per.fading { opacity: 0; }
+  [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity 420ms cubic-bezier(0.4, 0, 0.2, 1), transform 420ms cubic-bezier(0.4, 0, 0.2, 1); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 16px/1.6 var(--f-body);
+  }
+  a { color: var(--seal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .mono { font-family: var(--f-mono); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+  @media (max-width: 640px) { .wrap { padding: 0 18px; } }
+
+  h1, h2, h3 { font-family: var(--f-head); letter-spacing: 0; text-wrap: balance; }
+  h2 { font-size: 26px; font-weight: 600; margin: 0 0 10px; line-height: 1.25; }
+  .lede { color: var(--mut); font-size: 16.5px; max-width: 62ch; margin: 0; }
+
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--faint); margin-bottom: 14px;
+  }
+  section { padding: 72px 0; border-top: 1px solid var(--line); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 20px; border-radius: 3px; border: 1.5px solid transparent;
+    font: 600 14.5px/1 var(--f-body); cursor: pointer;
+  }
+  .btn-primary { background: var(--seal); color: var(--paper); }
+  .btn-primary:hover { filter: brightness(1.12); text-decoration: none; }
+  .btn-secondary { border-color: var(--line); color: var(--ink); background: transparent; }
+  .btn-secondary:hover { background: var(--well); text-decoration: none; }
+  .btn:focus-visible, .tab:focus-visible, .scen:focus-visible, button:focus-visible {
+    outline: 2px solid var(--seal); outline-offset: 2px;
+  }
+
+  .chip {
+    display: inline-block; padding: 2px 9px; border-radius: 2px;
+    font: 600 11px/1.6 var(--f-mono); letter-spacing: 0.08em;
+  }
+  .chip-devnet { background: var(--hold-soft); color: var(--hold); }
+  .chip-planned { background: var(--well); color: var(--faint); border: 1px solid var(--line); }
+  .chip-live { background: var(--ok-soft); color: var(--ok); }
+
+  /* ── draft banner ── */
+  .draft-note {
+    background: var(--ink); color: var(--paper);
+    font: 500 12.5px/1.5 var(--f-mono);
+    text-align: center; padding: 8px 16px;
+  }
+
+  /* ── header ── */
+  header.site {
+    display: flex; align-items: center; gap: 28px;
+    padding: 18px 0; border-bottom: 1px solid var(--line);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 16px; color: var(--ink); }
+  .brand .sigil {
+    width: 22px; height: 22px; border: 2px solid var(--seal); border-radius: 2px;
+    display: grid; place-items: center; font: 700 11px/1 var(--f-mono); color: var(--seal);
+  }
+  nav.top { display: flex; gap: 22px; margin-left: auto; font-size: 14px; }
+  nav.top a { color: var(--mut); }
+  nav.top a:hover { color: var(--ink); text-decoration: none; }
+  @media (max-width: 860px) { nav.top { display: none; } }
+
+  /* ── hero ── */
+  .hero { padding: 76px 0 60px; }
+  .hero h1 {
+    font-size: clamp(28px, 3.9vw, 44px); font-weight: 700; line-height: 1.14;
+    margin: 0 0 20px; max-width: 24ch;
+  }
+  .hero .cat { font-size: 17.5px; color: var(--mut); max-width: 58ch; margin: 0 0 26px; }
+  .status-note {
+    display: inline-flex; align-items: center; gap: 8px;
+    font: 500 13px/1.5 var(--f-mono); color: var(--mut);
+    border-left: 3px solid var(--seal); padding: 4px 12px; margin-top: 26px;
+    background: var(--seal-soft);
+  }
+
+  /* ── ledger flow ── */
+  .ledger {
+    margin-top: 56px; background: var(--card); border: 1px solid var(--line);
+    border-radius: 4px; overflow: hidden;
+  }
+  .ledger-head {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    padding: 14px 20px; border-bottom: 1px solid var(--hair);
+  }
+  .ledger-head .cap { font: 600 12px/1.5 var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
+  .scenarios { display: flex; gap: 6px; margin-left: auto; }
+  .scen {
+    border: 1px solid var(--line); background: transparent; color: var(--mut);
+    font: 600 12.5px/1 var(--f-body); padding: 8px 13px;
+    border-radius: 3px; cursor: pointer;
+  }
+  .scen[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .ledger-row {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 0;
+    padding: 26px 20px 8px;
+  }
+  @media (max-width: 860px) { .ledger-row { grid-template-columns: repeat(3, 1fr); row-gap: 22px; } }
+  .stepnode { position: relative; padding: 0 14px 18px; }
+  .stepnode::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 1px; background: var(--line);
+  }
+  .stepnode .dot {
+    position: relative; z-index: 1; width: 15px; height: 15px; border-radius: 8px;
+    border: 2px solid var(--line); background: var(--card); margin-bottom: 12px;
+    transition: border-color 0.25s, background 0.25s;
+  }
+  .stepnode.pass .dot { border-color: var(--ok); background: var(--ok); }
+  .stepnode.stop .dot { border-color: var(--deny); background: var(--deny); }
+  .stepnode.warn .dot { border-color: var(--hold); background: var(--hold); }
+  .stepnode.skip .dot { border-style: dashed; }
+  .stepnode .nm { font: 600 13px/1.4 var(--f-body); }
+  .stepnode .ds { font-size: 12px; color: var(--faint); line-height: 1.45; margin-top: 2px; }
+  .ledger-out {
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    padding: 18px 20px 22px; border-top: 1px dashed var(--line);
+  }
+  .stamp {
+    font: 700 15px/1 var(--f-mono); letter-spacing: 0.14em;
+    border: 2.5px solid; padding: 9px 16px; border-radius: 3px;
+    transform: rotate(-1.5deg);
+  }
+  .stamp.ok { color: var(--ok); border-color: var(--ok); background: var(--ok-soft); }
+  .stamp.deny { color: var(--deny); border-color: var(--deny); background: var(--deny-soft); }
+  .stamp.hold { color: var(--hold); border-color: var(--hold); background: var(--hold-soft); }
+  .trace { font: 400 13px/1.6 var(--f-mono); color: var(--mut); flex: 1; min-width: 260px; }
+  .illustrative { font-size: 11.5px; color: var(--faint); padding: 0 20px 14px; }
+
+  /* ── audience router ── */
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+  .tab {
+    border: 1px solid var(--line); background: transparent; color: var(--mut);
+    font: 600 14px/1 var(--f-body); padding: 11px 18px;
+    border-radius: 3px; cursor: pointer;
+  }
+  .tab[aria-selected="true"] { background: var(--seal); border-color: var(--seal); color: var(--paper); }
+  .tabpanel { background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 26px 28px; }
+  .tabpanel p { margin: 0 0 18px; color: var(--mut); max-width: 68ch; }
+  .tabpanel h3 { margin: 0 0 8px; font-family: var(--f-head); font-size: 17px; font-weight: 600; }
+
+  /* ── card grids ── */
+  .grid { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+  .grid-4 { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .grid-5 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .cell { background: var(--card); padding: 22px 22px 24px; }
+  .cell h3 { margin: 0 0 8px; font-size: 17px; font-weight: 600; font-family: var(--f-body); }
+  .cell p { margin: 0; font-size: 13.8px; color: var(--mut); line-height: 1.55; }
+  .cell .k { font: 600 11px/1.5 var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--seal); margin-bottom: 10px; }
+
+  /* ── proof / maturity ── */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 780px) { .split { grid-template-columns: 1fr; } }
+  .ledgerlist { background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 22px 14px; }
+  .ledgerlist h3 { font-family: var(--f-body); font-size: 15px; font-weight: 600; margin: 16px 0 4px; display: flex; align-items: center; gap: 10px; }
+  .ledgerlist ul { list-style: none; margin: 0; padding: 0; }
+  .ledgerlist li {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
+    padding: 10px 0; border-bottom: 1px solid var(--hair); font-size: 14px;
+  }
+  .ledgerlist li:last-child { border-bottom: 0; }
+  .ledgerlist li span:first-child { color: var(--ink); }
+
+  /* ── code ── */
+  .codeblock {
+    background: var(--code-bg); color: var(--code-ink); border-radius: 4px;
+    font: 400 13px/1.7 var(--f-mono); padding: 18px 20px;
+    overflow-x: auto; position: relative;
+  }
+  .codeblock .cm { color: #7C8F86; }
+  .copybtn {
+    position: absolute; top: 10px; right: 10px;
+    background: transparent; border: 1px solid #3A4742; color: var(--code-ink);
+    font: 600 11.5px/1 var(--f-mono); padding: 6px 10px; border-radius: 3px; cursor: pointer;
+  }
+  .copybtn:hover { background: #1F2B26; }
+
+  /* ── use cases ── */
+  .case { display: grid; grid-template-columns: 200px 1fr; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--hair); }
+  .case:last-child { border-bottom: 0; }
+  @media (max-width: 680px) { .case { grid-template-columns: 1fr; gap: 6px; } }
+  .case .t { font-weight: 600; font-size: 15px; }
+  .case p { margin: 0; font-size: 14px; color: var(--mut); max-width: 74ch; }
+
+  /* ── closing ── */
+  .closing { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 780px) { .closing { grid-template-columns: 1fr; } }
+  .closing .pane { background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 30px 28px; }
+  .closing h3 { font-family: var(--f-head); font-size: 18px; margin: 0 0 10px; font-weight: 600; }
+  .closing p { color: var(--mut); font-size: 14.5px; margin: 0 0 20px; max-width: 52ch; }
+
+  footer.site {
+    border-top: 1px solid var(--line); padding: 36px 0 48px;
+    font-size: 13px; color: var(--faint);
+  }
+  footer.site .cols { display: flex; gap: 34px; flex-wrap: wrap; margin-bottom: 22px; }
+  footer.site a { color: var(--mut); }
+
+  /* ── pricing ── */
+  .toggle-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 26px 0 6px; }
+  .toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
+  .toggle button {
+    border: 0; background: transparent; color: var(--mut); cursor: pointer;
+    font: 600 13.5px/1 var(--f-body); padding: 11px 18px; min-height: 44px;
+  }
+  .toggle button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .toggle-note { font-size: 13px; color: var(--faint); }
+  .free-badge { background: var(--seal-soft); color: var(--seal); font: 600 11px/1.6 var(--f-mono); padding: 2px 8px; border-radius: 2px; letter-spacing: 0.06em; }
+
+  .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 26px; align-items: stretch; }
+  .tier {
+    background: var(--card); border: 1px solid var(--line); border-radius: 4px;
+    padding: 24px 22px; display: flex; flex-direction: column; gap: 0; position: relative;
+  }
+  .tier.hot { border: 2px solid var(--seal); box-shadow: 0 10px 34px rgba(18, 62, 147, 0.10); }
+  .tier .popbadge {
+    position: absolute; top: -11px; left: 20px;
+    background: var(--seal); color: var(--paper);
+    font: 700 10.5px/1.7 var(--f-mono); letter-spacing: 0.12em;
+    padding: 1px 10px; border-radius: 2px;
+  }
+  .tier .tname { font: 600 13px/1.5 var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--seal); }
+  .tier .price { font-family: var(--f-head); font-size: 30px; font-weight: 700; margin: 10px 0 2px; font-variant-numeric: tabular-nums; }
+  .tier .per { font-size: 13px; color: var(--faint); min-height: 20px; }
+  .tier .tag { font-size: 13.5px; color: var(--mut); margin: 12px 0 16px; line-height: 1.5; min-height: 42px; }
+  .tier ul { list-style: none; margin: 0 0 18px; padding: 0; flex: 1; }
+  .tier li { display: flex; gap: 9px; padding: 6.5px 0; font-size: 13.5px; border-bottom: 1px solid var(--hair); align-items: baseline; }
+  .tier li:last-child { border-bottom: 0; }
+  .tier li::before { content: "✓"; color: var(--ok); font-weight: 700; font-size: 12px; flex: none; }
+  .tier li.no::before { content: "—"; color: var(--faint); font-weight: 400; }
+  .tier li.no { color: var(--faint); }
+  .tier .fnote { font: 400 11.5px/1.5 var(--f-mono); color: var(--faint); margin-top: 12px; }
+  .tier .btn { justify-content: center; }
+
+  .tblwrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 4px; margin-top: 26px; }
+  table.cmp { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 720px; }
+  table.cmp th {
+    text-align: left; font: 600 11.5px/1.6 var(--f-mono); letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--mut); background: var(--well);
+    padding: 11px 16px; border-bottom: 1px solid var(--line);
+  }
+  table.cmp td { padding: 10px 16px; border-bottom: 1px solid var(--hair); vertical-align: top; }
+  table.cmp tr:last-child td { border-bottom: 0; }
+  table.cmp td:first-child { color: var(--ink); }
+  table.cmp td + td { color: var(--mut); font-family: var(--f-mono); font-size: 12.5px; }
+  table.cmp tr.cat td {
+    font: 600 11px/1.7 var(--f-mono); letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--faint); background: var(--well); padding: 8px 16px;
+  }
+  .yes { color: var(--ok); font-weight: 700; }
+  .dash { color: var(--faint); }
+
+  .addons { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-top: 26px; }
+  .addon { background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 22px; }
+  .addon h3 { font-family: var(--f-body); font-size: 16px; font-weight: 600; margin: 0 0 6px; }
+  .addon .pr { font: 600 13px/1.6 var(--f-mono); color: var(--seal); margin-bottom: 8px; }
+  .addon p { margin: 0; font-size: 13.5px; color: var(--mut); }
+
+  .transparency { display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; align-items: start; }
+  @media (max-width: 820px) { .transparency { grid-template-columns: 1fr; } }
+  .statgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 18px; }
+  .stat .n { font-family: var(--f-head); font-size: 21px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .stat .l { font-size: 12px; color: var(--faint); margin-top: 4px; line-height: 1.45; }
+
+  .partner-banner {
+    border: 2px solid var(--seal); border-radius: 4px; background: var(--card);
+    padding: 28px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 8px;
+  }
+  .partner-banner h3 { margin: 0 0 6px; font-family: var(--f-head); font-size: 18px; font-weight: 600; }
+  .partner-banner p { margin: 0; color: var(--mut); font-size: 14.5px; max-width: 60ch; }
+
+  details.faq { background: var(--card); border: 1px solid var(--line); border-radius: 4px; margin-bottom: 10px; }
+  details.faq summary {
+    cursor: pointer; padding: 16px 20px; font-weight: 600; font-size: 15px; list-style: none;
+    display: flex; justify-content: space-between; align-items: center; gap: 14px; min-height: 44px; box-sizing: border-box;
+  }
+  details.faq summary::after { content: "+"; font-family: var(--f-mono); color: var(--faint); font-size: 17px; }
+  details.faq[open] summary::after { content: "–"; }
+  details.faq .a { padding: 0 20px 18px; color: var(--mut); font-size: 14px; max-width: 76ch; line-height: 1.6; }
+
+  .launch-note {
+    font: 500 12.5px/1.6 var(--f-mono); color: var(--hold);
+    background: var(--hold-soft); border-radius: 2px; display: inline-block; padding: 3px 10px; margin-top: 14px;
+  }
+
+  /* ── about ── */
+  .about-thesis { font-family: var(--f-head); font-size: 19px; font-weight: 500; line-height: 1.6; max-width: 44ch; margin: 0; }
+  .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; margin-top: 26px; }
+  .todo-slot {
+    border: 1.5px dashed var(--line); border-radius: 4px; padding: 22px; color: var(--faint);
+    font: 500 13px/1.6 var(--f-mono); background: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+    [data-reveal] { opacity: 1 !important; transform: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="site">
+    <span class="brand"><span class="sigil">R</span>Regent Protocol</span>
+    <nav class="top" aria-label="Main">
+      <a href="#primitives" data-home-anchor>Platform</a>
+      <a href="#cases" data-home-anchor>Solutions</a>
+      <a href="#quickstart" data-home-anchor>Developers</a>
+      <a href="#/pricing">Pricing</a>
+      <a href="#/about">About</a>
+      <a href="https://docs.regentprotocol.org">Docs</a>
+    </nav>
+    <a class="btn btn-primary" href="#quickstart" data-home-anchor style="margin-left: 16px;">Start building</a>
+  </header>
+</div>
+
+<div id="view-home">
+
+<!-- 1 · HERO -->
+<div class="wrap hero">
+  <div class="eyebrow">Financial infrastructure for autonomous agents</div>
+  <h1>Financial authorization for AI agents that move money.</h1>
+  <p class="cat">Regent is the financial authorization and compliance layer for AI agents that move money: a verifiable identity for every agent, limits it cannot exceed, risk signals watched in real time, and tamper-evident audit evidence for every action.</p>
+  <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+    <a class="btn btn-primary" href="#quickstart">Start building</a>
+    <a class="btn btn-secondary" href="#closing">Apply for a pilot</a>
+  </div>
+  <div class="status-note">Developer access available · production availability follows published status</div>
+
+  <!-- 3 · FINANCIAL ACTION FLOW (hero visual) -->
+  <div class="ledger" id="flow">
+    <div class="ledger-head">
+      <span class="cap">The financial action flow</span>
+      <div class="scenarios" role="group" aria-label="Scenario">
+        <button class="scen" aria-pressed="true"  data-s="allow">Allowed payment</button>
+        <button class="scen" aria-pressed="false" data-s="violate">Mandate violation</button>
+        <button class="scen" aria-pressed="false" data-s="hold">Risk hold</button>
+      </div>
+    </div>
+    <div class="ledger-row" id="flow-row">
+      <div class="stepnode" data-n="0"><div class="dot"></div><div class="nm">Agent</div><div class="ds">requests a financial action</div></div>
+      <div class="stepnode" data-n="1"><div class="dot"></div><div class="nm">AgentID</div><div class="ds">identity verified against the registry</div></div>
+      <div class="stepnode" data-n="2"><div class="dot"></div><div class="nm">Mandate check</div><div class="ds">amount, destination, time, approvals</div></div>
+      <div class="stepnode" data-n="3"><div class="dot"></div><div class="nm">Guardian</div><div class="ds">rule + behavioural risk signals</div></div>
+      <div class="stepnode" data-n="4"><div class="dot"></div><div class="nm">Payment rail</div><div class="ds">the action executes — or never does</div></div>
+      <div class="stepnode" data-n="5"><div class="dot"></div><div class="nm">Audit proof</div><div class="ds">hashed, batched, anchored</div></div>
+    </div>
+    <div class="ledger-out">
+      <span class="stamp ok" id="flow-stamp" role="status">ALLOWED</span>
+      <span class="trace" id="flow-trace">mandate OK · risk clear → executed · evidence anchored · visible in the Control Panel</span>
+    </div>
+    <div class="illustrative">Illustrative workflow — a conceptual walkthrough, not a live production integration.</div>
+  </div>
+</div>
+
+<!-- 2 · AUDIENCE ROUTER -->
+<section data-reveal id="audience"><div class="wrap">
+  <div class="eyebrow">Where do you stand</div>
+  <h2>Three ways in, one control layer.</h2>
+  <div class="tabs" role="tablist" aria-label="Audience" style="margin-top: 24px;">
+    <button class="tab" role="tab" aria-selected="true"  data-t="dev">Build an agent product</button>
+    <button class="tab" role="tab" aria-selected="false" data-t="fin">Control financial agent risk</button>
+    <button class="tab" role="tab" aria-selected="false" data-t="risk">Prepare for institutional review</button>
+  </div>
+  <div class="tabpanel" id="tabpanel" role="tabpanel">
+    <h3 id="tp-h">From SDK to a first verified action</h3>
+    <p id="tp-p">Issue an AgentID, create a mandate, and authorize your agent's first governed action against it — then watch the audit evidence anchor. The quickstart walks the whole loop.</p>
+    <a class="btn btn-primary" id="tp-cta" href="#quickstart">Read quickstart</a>
+  </div>
+</div></section>
+
+<!-- 4 · WHY ACCESS CONTROL IS NOT ENOUGH -->
+<section data-reveal><div class="wrap">
+  <div class="eyebrow">The boundary</div>
+  <h2>Access control answers what an agent can reach.<br>Money needs more.</h2>
+  <p class="lede" style="margin-bottom: 26px;">Generic gateways help manage what an agent can access. Regent is designed to govern and prove what an agent is authorised to do with money.</p>
+  <div class="grid grid-4">
+    <div class="cell"><div class="k">Identity</div><h3>Who is acting</h3><p>A verifiable identity connected to a responsible party — not an API key that anyone could be holding.</p></div>
+    <div class="cell"><div class="k">Pre-execution limits</div><h3>What it may do</h3><p>Amount, destination, time window, and approval conditions are enforced before the action executes, not reviewed after.</p></div>
+    <div class="cell"><div class="k">Behavioural control</div><h3>When to stop</h3><p>Rule and risk signals can allow, hold for a human, or stop an action that is technically permitted but behaviourally wrong.</p></div>
+    <div class="cell"><div class="k">Evidence</div><h3>Proving it later</h3><p>Every decision leaves tamper-evident evidence that an auditor can check without trusting the operator.</p></div>
+  </div>
+</div></section>
+
+<!-- 5 · FIVE PRIMITIVES -->
+<section data-reveal id="primitives"><div class="wrap">
+  <div class="eyebrow">The platform</div>
+  <h2>Five primitives, one workflow.</h2>
+  <p class="lede" style="margin-bottom: 26px;">Each one is a plain answer to a question a financial agent forces you to ask.</p>
+  <div class="grid grid-5">
+    <div class="cell"><div class="k">AgentID</div><h3>Identity</h3><p>Gives an agent a verifiable identity connected to a responsible party. Technical issuance is included; optional human verification is a separate, pass-through step.</p></div>
+    <div class="cell"><div class="k">Mandates</div><h3>Authority</h3><p>Defines what an agent may do with money: amount, destination, time, conditions, and approvals.</p></div>
+    <div class="cell"><div class="k">Guardian</div><h3>Risk</h3><p>Evaluates rules and behavioural risk signals, then allows, holds, or stops a risky action.</p></div>
+    <div class="cell"><div class="k">Audit Chain</div><h3>Evidence</h3><p>Creates tamper-evident evidence through cryptographic hashes, Merkle batches, and chain anchoring.</p></div>
+    <div class="cell"><div class="k">Control Panel</div><h3>Oversight</h3><p>Gives human operators monitoring, investigation, policy, and intervention surfaces.</p></div>
+  </div>
+  <p style="font-size: 13.5px; color: var(--faint); margin-top: 18px;">
+    Together they implement <strong style="color: var(--mut);">KYA — Know Your Agent</strong>: Regent's framework for connecting an autonomous agent to a responsible context, financial mandate, and verifiable audit history. KYA is Regent's product framework; it is not a formal regulatory standard or regulatory approval.
+  </p>
+</div></section>
+
+<!-- 6 · USE CASES -->
+<section data-reveal id="cases"><div class="wrap">
+  <div class="eyebrow">Workflows</div>
+  <h2>Built for the moment money moves.</h2>
+  <div style="background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 24px; margin-top: 24px;">
+    <div class="case">
+      <div class="t">Agentic payments</div>
+      <p>An agent initiates a payment. The mandate bounds amount and destination before execution; approval conditions can require a human; the evidence pack shows exactly why it was allowed.</p>
+    </div>
+    <div class="case">
+      <div class="t">Fintech platforms</div>
+      <p>A platform issues AgentIDs for customer-facing agents and applies account-specific controls — every customer's agent runs under that customer's limits.</p>
+    </div>
+    <div class="case">
+      <div class="t">Treasury &amp; custody</div>
+      <p>Policies on transaction value, counterparty, account, time window, and multi-party approval — enforced before movement, evidenced after.</p>
+    </div>
+    <div class="case">
+      <div class="t">Compliance &amp; risk</div>
+      <p>Case reconstruction from a single record: action → responsible context → policy → decision → evidence. Evidence packs are exports and mappings for internal review.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- 7 · PROOF AND MATURITY -->
+<section data-reveal id="proof"><div class="wrap">
+  <div class="eyebrow">Status, plainly</div>
+  <h2>What exists today. What is planned.</h2>
+  <p class="lede" style="margin-bottom: 26px;">The public site is deliberately more precise than a pitch deck — every claim below carries its state.</p>
+  <div class="split">
+    <div class="ledgerlist">
+      <h3>Available now <span class="chip chip-devnet">DEVNET</span></h3>
+      <ul>
+        <li><span>Agent registration, mandate registration, audit anchoring on Solana devnet</span><span class="chip chip-live">LIVE</span></li>
+        <li><span>Python SDK — agents, mandates, audit, guardian</span><span class="chip chip-live">LIVE</span></li>
+        <li><span>REST API with bearer-token auth and org scoping</span><span class="chip chip-live">LIVE</span></li>
+        <li><span>Dashboard: agents, mandates, audit log, kill switch</span><span class="chip chip-live">LIVE</span></li>
+      </ul>
+    </div>
+    <div class="ledgerlist">
+      <h3>On the roadmap <span class="chip chip-planned">PLANNED</span></h3>
+      <ul>
+        <li><span>Mainnet availability</span><span class="chip chip-planned">PLANNED</span></li>
+        <li><span>Independent security audit</span><span class="chip chip-planned">PLANNED</span></li>
+        <li><span>SOC 2</span><span class="chip chip-planned">ROADMAP</span></li>
+        <li><span>EU AI Act evidence mappings and exports</span><span class="chip chip-planned">PLANNED</span></li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- 8 · DEVELOPER QUICKSTART -->
+<section data-reveal id="quickstart"><div class="wrap">
+  <div class="eyebrow">Developers</div>
+  <h2>A first verified action in one sitting.</h2>
+  <p class="lede" style="margin-bottom: 26px;">Register an agent, bound it with a mandate, authorize an action against it, and log the evidence — the full loop, from the real quickstart.</p>
+  <div class="codeblock">
+    <button class="copybtn" id="copy-code">Copy</button>
+<pre style="margin:0;"><span class="cm"># pip install regent</span>
+auth = await r.payment.authorize(
+    mandate_id=MANDATE_ID,
+    request=AuthorizeRequest(amount=Decimal("25"), currency="USD"),
+)                                     <span class="cm"># the mandate says yes — or this raises</span>
+
+await r.audit.ingest_event(IngestEventRequest(
+    event_id=f"action-{auth.jti}",
+    agent_id=AGENT_ID,
+    event_type="action.completed",
+    payload={"authorization_jti": auth.jti},
+))                                    <span class="cm"># evidence queued for anchoring</span></pre>
+  </div>
+  <div style="display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap;">
+    <a class="btn btn-primary" href="https://docs.regentprotocol.org/quickstart/three-steps">Read quickstart</a>
+    <a class="btn btn-secondary" href="https://docs.regentprotocol.org">Open docs</a>
+  </div>
+</div></section>
+
+<!-- 9 · TRUST -->
+<section data-reveal><div class="wrap">
+  <div class="eyebrow">Trust &amp; security</div>
+  <h2>Security posture, not certificate claims.</h2>
+  <p class="lede">No bearer secrets on agents; identity is proof-of-possession. Mandates fail closed — if the control layer is unreachable, the money action is refused. Evidence verifies against published keys, so an auditor does not have to trust the operator. Independent audit and SOC 2 are on the roadmap and will be stated here only when the reports exist.</p>
+  <div style="display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap;">
+    <a class="btn btn-secondary" href="#proof">Review security approach</a>
+    <a class="btn btn-secondary" href="mailto:info@regentprotocol.org">Contact security</a>
+  </div>
+</div></section>
+
+
+<!-- FAQ (from the current landing) -->
+<section data-reveal id="faq"><div class="wrap">
+  <div class="eyebrow">FAQ</div>
+  <h2>Frequently asked questions.</h2>
+  <p class="lede" style="margin-bottom: 22px;">The essentials on Know Your Agent, spending controls, and agent identity.</p>
+  <details class="faq">
+    <summary>What is Know Your Agent (KYA)?</summary>
+    <div class="a">Know Your Agent (KYA) is a compliance framework that verifies AI agents before they execute financial transactions. It ensures that every autonomous payment has a verified sender, approved limits, and a tamper-evident audit trail. KYA is Regent&rsquo;s product framework; it is not a formal regulatory standard or regulatory approval.</div>
+  </details>
+  <details class="faq">
+    <summary>How does Regent Protocol prevent unauthorized AI spending?</summary>
+    <div class="a">Regent Protocol uses spending mandates &mdash; programmable rules that define what an AI agent can spend, on what, and up to what limit. A transaction outside those rules is denied before it executes, and the agent never holds the payment credentials itself.</div>
+  </details>
+  <details class="faq">
+    <summary>What is an AgentID?</summary>
+    <div class="a">AgentID is a unique decentralized identifier (DID) assigned to every AI agent in the Regent network. It links the agent to its KYA verification, mandates, and audit history.</div>
+  </details>
+</div></section>
+
+<!-- 10 · CLOSING -->
+<section data-reveal id="closing"><div class="wrap closing">
+  <div class="pane">
+    <h3>Build with it.</h3>
+    <p>Developer tier with devnet access. Issue AgentIDs, write mandates, authorize actions, watch evidence anchor — before you talk to anyone.</p>
+    <a class="btn btn-primary" href="https://docs.regentprotocol.org/quickstart/three-steps">Start building</a>
+  </div>
+  <div class="pane">
+    <h3>Put it in front of your risk team.</h3>
+    <p>A pilot conversation with an architect: your workflow, where the mandate gate sits, and what the evidence pack contains for your reviewers.</p>
+    <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20pilot">Apply for a pilot</a>
+  </div>
+</div></section>
+
+</div><!-- /view-home -->
+
+<!-- ══════════════════════ PRICING ══════════════════════ -->
+<div id="view-pricing" hidden>
+
+  <div class="wrap hero" style="padding-bottom: 24px;">
+    <div class="eyebrow">Pricing</div>
+    <h1 style="font-size: clamp(26px, 3.6vw, 38px);">Compliance infrastructure,<br>priced like infrastructure.</h1>
+    <p class="cat">Start free. Scale with usage. Every plan includes verifiable agent identity and tamper-evident audit anchoring; <strong>Growth and above add Mandates, Guardian, and the Control Panel.</strong> We price verified actions — not seats.</p>
+    <div class="mono" style="font-size: 12.5px; color: var(--faint); display: flex; gap: 18px; flex-wrap: wrap;">
+      <span>Sub-cent chain anchoring</span><span>·</span><span>No per-seat pricing</span><span>·</span><span>Usage alerts &amp; hard caps</span>
+    </div>
+    <div class="launch-note">LAUNCH PRICING — commercial availability follows published status</div>
+
+    <div class="toggle-row">
+      <div class="toggle" role="group" aria-label="Billing period">
+        <button aria-pressed="true" data-bill="mo">Monthly</button>
+        <button aria-pressed="false" data-bill="yr">Annual <span class="free-badge">2 months free</span></button>
+      </div>
+      <span class="toggle-note">Annual prepay: 2 months free on Growth and Scale.</span>
+    </div>
+
+    <div class="tiers">
+      <div class="tier">
+        <div class="tname">Developer</div>
+        <div class="price">$0</div>
+        <div class="per">forever</div>
+        <div class="tag">For hackathons, solo builders, and teams exploring KYA.</div>
+        <ul>
+          <li>5,000 verified actions / month</li>
+          <li>1,000 agent identities (AgentID)</li>
+          <li>30-day audit history</li>
+          <li>Devnet access</li>
+          <li>Community &amp; docs support</li>
+          <li class="no">Mandates, Guardian, Control Panel</li>
+        </ul>
+        <a class="btn btn-secondary" href="https://docs.regentprotocol.org/quickstart/three-steps">Start building</a>
+        <div class="fnote">Overage: $0.01 / verified action</div>
+      </div>
+
+      <div class="tier hot">
+        <div class="popbadge">MOST POPULAR</div>
+        <div class="tname">Growth</div>
+        <div class="price" data-mo="$299" data-yr="$249">$299</div>
+        <div class="per" data-mo="/ month" data-yr="/ mo, billed annually">/ month</div>
+        <div class="tag">For agentic AI startups and fintech teams in production.</div>
+        <ul>
+          <li>15,000 verified actions / month</li>
+          <li>Mandate engine + Guardian + Control Panel</li>
+          <li>5,000 agent identities</li>
+          <li>50 GB audit storage · 12-month retention</li>
+          <li>Email support · 24h response target</li>
+          <li class="no">Human-KYC binding (optional, pass-through at cost)</li>
+        </ul>
+        <a class="btn btn-primary" href="mailto:info@regentprotocol.org?subject=Regent%20Growth">Start with Growth</a>
+        <div class="fnote">Overage: $0.005 / verified action</div>
+      </div>
+
+      <div class="tier">
+        <div class="tname">Scale</div>
+        <div class="price" data-mo="$999" data-yr="$833">$999</div>
+        <div class="per" data-mo="/ month" data-yr="/ mo, billed annually">/ month</div>
+        <div class="tag">For platforms running fleets of financial agents.</div>
+        <ul>
+          <li>75,000 verified actions / month</li>
+          <li>Everything in Growth</li>
+          <li>100 GB audit storage · 12-month retention</li>
+          <li>Expanded AgentID allowance</li>
+          <li>Priority support</li>
+        </ul>
+        <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20Scale">Talk to us</a>
+        <div class="fnote">Overage: $0.005 / verified action</div>
+      </div>
+
+      <div class="tier">
+        <div class="tname">Enterprise</div>
+        <div class="price" style="font-size: 22px; padding-top: 10px;">From $2,500</div>
+        <div class="per">/ month</div>
+        <div class="tag">For regulated institutions, banks, and payment infrastructure providers.</div>
+        <ul>
+          <li>Volume actions from $0.001–0.003</li>
+          <li>Immutable archive (add-on): Celestia DA + Merkle proofs</li>
+          <li>Regulatory evidence packs (add-on)</li>
+          <li>Custom SLA · dedicated infra · SSO</li>
+          <li>Professional services &amp; regulator mapping</li>
+        </ul>
+        <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20Enterprise">Talk to us</a>
+        <div class="fnote">Typical contracts $30K–$75K / yr</div>
+      </div>
+    </div>
+  </div>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">Usage</div>
+    <h2>Pay for what you verify.</h2>
+    <p class="lede">Every unit is metered. No seats, no surprises — usage alerts and hard caps live in the Control Panel.</p>
+    <div class="tblwrap">
+      <table class="cmp">
+        <tr><th>Metered unit</th><th>Developer</th><th>Growth</th><th>Scale</th><th>Enterprise</th></tr>
+        <tr><td>Verified action</td><td>5,000 free, then $0.01</td><td>15,000 incl., then $0.005</td><td>75,000 incl., then $0.005</td><td>$0.001–0.003 (volume)</td></tr>
+        <tr><td>Agent identity (AgentID)</td><td>1,000 free</td><td>5,000 incl., then $0.10</td><td>Expanded allowance</td><td>Custom</td></tr>
+        <tr><td>Audit storage</td><td>30-day history</td><td>50 GB · 12 months</td><td>100 GB · 12 months</td><td>Custom · immutable archive add-on</td></tr>
+        <tr><td>Human-KYC binding (optional)</td><td class="dash">—</td><td>Pass-through at cost</td><td>Pass-through at cost</td><td>Pass-through at cost</td></tr>
+      </table>
+    </div>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">Comparison</div>
+    <h2>Compare plans.</h2>
+    <div class="tblwrap">
+      <table class="cmp">
+        <tr><th>Feature</th><th>Developer</th><th>Growth</th><th>Scale</th><th>Enterprise</th></tr>
+        <tr class="cat"><td colspan="5">Identity &amp; agents</td></tr>
+        <tr><td>Technical AgentID issuance</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td>Human-KYC binding (optional)</td><td class="dash">—</td><td>Pass-through</td><td>Pass-through</td><td>Pass-through</td></tr>
+        <tr><td>White-label identity issuance</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="yes">✓</td></tr>
+        <tr class="cat"><td colspan="5">Audit &amp; compliance</td></tr>
+        <tr><td>Tamper-evident audit chain (hashes, Merkle batches, anchoring)</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td>Regulatory evidence packs (EU AI Act Art. 12/14, NIST AI RMF, SOC 2 export)</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td>Add-on</td></tr>
+        <tr><td>Audit retention</td><td>30 days</td><td>12 months</td><td>12 months</td><td>Custom, immutable</td></tr>
+        <tr class="cat"><td colspan="5">Control &amp; platform</td></tr>
+        <tr><td>Mandate engine (programmable spending rules)</td><td class="dash">—</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td>Guardian risk controls</td><td class="dash">—</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td>Control Panel dashboard</td><td class="dash">—</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td>SSO &amp; dedicated infrastructure</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="yes">✓</td></tr>
+        <tr class="cat"><td colspan="5">Support</td></tr>
+        <tr><td>Community &amp; docs</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td>Email support, 24h response target</td><td class="dash">—</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td>Custom SLA &amp; dedicated support</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="yes">✓</td></tr>
+      </table>
+    </div>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">Enterprise add-ons</div>
+    <h2>Modular compliance, assembled to your regulatory perimeter.</h2>
+    <div class="addons">
+      <div class="addon">
+        <h3>Regulatory Evidence Packs</h3>
+        <div class="pr">$5K–$15K / yr</div>
+        <p>EU AI Act Art. 12/14 record-keeping, NIST AI RMF mapping, SOC 2 audit export — evidence exports and mappings for your reviewers, not regulator approval.</p>
+      </div>
+      <div class="addon">
+        <h3>Immutable Archive</h3>
+        <div class="pr">$0.50 / GB / mo · or flat $5K–$25K / yr</div>
+        <p>Full payloads on Celestia DA with Merkle proofs, retention matched to your regulator.</p>
+      </div>
+      <div class="addon">
+        <h3>Professional Services</h3>
+        <div class="pr">$200–$300 / hr · or fixed-scope</div>
+        <p>Integration, mandate design, and regulator mapping with our solutions team.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <section data-reveal><div class="wrap transparency">
+    <div>
+      <div class="eyebrow">Why our costs are different</div>
+      <h2>Sub-cent chain costs.<br>Published, not promised.</h2>
+      <p class="lede">Regent anchors audit trails on Solana and stores immutable payloads on Celestia. On-chain anchoring costs fractions of a cent per action — which is why per-transaction compliance is economically viable, and why our pricing sits structurally below legacy GRC contracts.</p>
+    </div>
+    <div class="statgrid">
+      <div class="stat"><div class="n">&lt;$0.01</div><div class="l">chain cost to anchor one verified action</div></div>
+      <div class="stat"><div class="n">~$0.03–0.07</div><div class="l">per MB, Celestia DA immutable storage (chain characteristic)</div></div>
+      <div class="stat"><div class="n">$0</div><div class="l">per-seat fees on every plan</div></div>
+      <div class="stat"><div class="n">2 mo</div><div class="l">free on annual prepay (Growth &amp; Scale)</div></div>
+    </div>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <div class="partner-banner">
+      <div style="flex: 1; min-width: 280px;">
+        <h3>Building with us early?</h3>
+        <p>Our first design partners get Enterprise features at Growth pricing for 12 months — in exchange for a named case study and a reference call.</p>
+      </div>
+      <a class="btn btn-primary" href="mailto:info@regentprotocol.org?subject=Design%20partner">Apply for the pilot program</a>
+    </div>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">Pricing FAQ</div>
+    <h2 style="margin-bottom: 22px;">Questions buyers actually ask.</h2>
+    <details class="faq">
+      <summary>What is a verified action?</summary>
+      <div class="a">One financial-agent decision that needs proof — an authorization checked against a mandate, or an audit record committed to the evidence chain — not every API call. Technically, each verified action produces an <span class="mono">anchor</span>: a hash committed on Solana with Merkle batch proofs.</div>
+    </details>
+    <details class="faq">
+      <summary>What happens if I exceed my included actions?</summary>
+      <div class="a">Developer overage is billed at $0.01 per verified action, Growth and Scale at $0.005. You can set usage alerts and hard caps in the Control Panel, so there are no surprise bills.</div>
+    </details>
+    <details class="faq">
+      <summary>Do you charge per seat?</summary>
+      <div class="a">No. Regent prices infrastructure, not headcount. Your whole team can use the Control Panel on any paid plan.</div>
+    </details>
+    <details class="faq">
+      <summary>Is there a discount for annual billing?</summary>
+      <div class="a">Yes. Annual prepay includes 2 months free on Growth and Scale. Enterprise terms are contractual.</div>
+    </details>
+    <details class="faq">
+      <summary>Is human KYC included?</summary>
+      <div class="a">Technical AgentID issuance is included in every plan. Optional human-KYC binding — verifying the person behind an agent through a licensed provider — is a separate, pass-through-at-cost step on paid plans.</div>
+    </details>
+    <details class="faq">
+      <summary>Can Regent handle our regulator's evidence format?</summary>
+      <div class="a">Enterprise evidence packs cover EU AI Act Article 12/14 record-keeping, NIST AI RMF, and SOC 2 exports — as evidence exports and mappings for internal compliance review. Custom regulator mapping is available through professional services.</div>
+    </details>
+  </div></section>
+
+  <section data-reveal><div class="wrap" style="text-align: left;">
+    <h2>Make every agent accountable.</h2>
+    <p class="lede" style="margin-bottom: 22px;">Start free, anchor your first audit trail, and scale when your agents do.</p>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+      <a class="btn btn-primary" href="https://docs.regentprotocol.org/quickstart/three-steps">Start building</a>
+      <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20pilot">Talk to us</a>
+    </div>
+  </div></section>
+
+</div><!-- /view-pricing -->
+
+<!-- ══════════════════════ ABOUT ══════════════════════ -->
+<div id="view-about" hidden>
+
+  <div class="wrap hero" style="padding-bottom: 40px;">
+    <div class="eyebrow">About</div>
+    <h1 style="font-size: clamp(26px, 3.6vw, 38px);">Autonomy needs<br>accountability.</h1>
+    <p class="cat">AI agents are starting to move real money. The missing layer is not intelligence — it is authorization: who is this agent, what may it do, who answers for it, and how do you prove what happened. Regent exists to make that layer boring, inspectable infrastructure.</p>
+  </div>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">Product thesis</div>
+    <p class="about-thesis">"Trust in autonomous finance will not come from smarter models. It will come from verifiable identity, enforced limits, and evidence anyone can check."</p>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">How we work</div>
+    <h2>Three commitments.</h2>
+    <div class="principles">
+      <div class="cell">
+        <div class="k">Precision over promise</div>
+        <h3>We label maturity</h3>
+        <p>Devnet is called devnet. Roadmap is called roadmap. A certification is claimed only when the report exists. The public site is deliberately more precise than a pitch deck.</p>
+      </div>
+      <div class="cell">
+        <div class="k">Evidence over trust</div>
+        <h3>We minimize what you must believe</h3>
+        <p>Audit evidence verifies against published keys and on-chain commitments. An auditor should not have to trust us — or our customers — to check what happened.</p>
+      </div>
+      <div class="cell">
+        <div class="k">Fail closed</div>
+        <h3>We refuse before we guess</h3>
+        <p>If the control layer cannot decide, the money action does not happen. Uncertainty resolves toward the owner's protection, never toward throughput.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">Team</div>
+    <h2>Founders &amp; advisor.</h2>
+    <div class="principles" style="margin-top: 20px;">
+      <div class="cell">
+        <div class="k">Founder &amp; CEO</div>
+        <h3>Sayat Kakzhanov</h3>
+        <p>Ex. CPO at KAZRDEAM Holding, co-founder of 1Fit.app, and an expert in fintech and compliance. Higher School of Economics &mdash; Master&rsquo;s in Business Informatics.</p>
+        <p style="margin-top: 10px;"><a href="https://www.linkedin.com/in/kakzhanov/">LinkedIn</a></p>
+      </div>
+      <div class="cell">
+        <div class="k">Co-founder &amp; CTO</div>
+        <h3>Abay Aubakirov</h3>
+        <p>Full-stack engineer, Solana ecosystem builder. Smart contracts, React/Next.js, and infrastructure architecture.</p>
+        <p style="margin-top: 10px;"><a href="https://www.linkedin.com/in/abay-aubakirov-74a90362/">LinkedIn</a></p>
+      </div>
+      <div class="cell">
+        <div class="k">Advisor</div>
+        <h3>Marco Comuzzi</h3>
+        <p>Associate Professor at UNIST &mdash; blockchain, business process management, predictive analytics.</p>
+        <p style="margin-top: 10px;"><a href="https://www.linkedin.com/in/mcomuzzi/">LinkedIn</a></p>
+      </div>
+    </div>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">Contact</div>
+    <h2>Two doors.</h2>
+    <div class="closing" style="margin-top: 22px;">
+      <div class="pane">
+        <h3>Technical &amp; pilot</h3>
+        <p>Architecture questions, pilot applications, integration scoping.</p>
+        <a class="btn btn-primary" href="mailto:info@regentprotocol.org?subject=Regent%20pilot">Talk to an architect</a>
+      </div>
+      <div class="pane">
+        <h3>General &amp; company</h3>
+        <p>Press, partnerships, and everything else.</p>
+        <a class="btn btn-secondary" href="mailto:info@regentprotocol.org">info@regentprotocol.org</a>
+      </div>
+    </div>
+  </div></section>
+
+</div><!-- /view-about -->
+
+<div class="wrap">
+  <footer class="site">
+    <div class="cols">
+      <span><strong style="color: var(--mut);">Regent Protocol</strong></span>
+      <a href="#primitives" data-home-anchor>Platform</a>
+      <a href="#cases" data-home-anchor>Solutions</a>
+      <a href="#/pricing">Pricing</a>
+      <a href="#/about">About</a>
+      <a href="https://docs.regentprotocol.org">Docs</a>
+      <a href="#proof" data-home-anchor>Status</a>
+      <a href="mailto:info@regentprotocol.org">Contact</a>
+    </div>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: center; margin-bottom: 18px;">
+      <a href="https://www.linkedin.com/company/regentprotocol/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://x.com/whoigital" target="_blank" rel="noopener">X</a>
+      <a href="https://www.youtube.com/@regentprotocol" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://github.com/abay94/regent-platform" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:info@regentprotocol.org">Email</a>
+    </div>
+    <div style="max-width: 60ch; margin-bottom: 8px;">Verifiable agent infrastructure for regulated finance on Solana. Regent gives financial agents a verifiable identity, defines the limits under which they can act, monitors risk signals, and creates tamper-evident audit evidence.</div>
+    <div>© 2026 Regent Protocol. All rights reserved. · <a href="/terms">Terms of Use</a> · <a href="/privacy">Privacy Policy</a></div>
+  </footer>
+</div>
+
+<script>
+  /* Scenario toggle — the flow explains state change, per spec §7.1 */
+  const SCEN = {
+    allow: {
+      states: ["pass", "pass", "pass", "pass", "pass", "pass"],
+      stamp: ["ALLOWED", "ok"],
+      trace: "mandate OK · risk clear → executed · evidence anchored · visible in the Control Panel",
+    },
+    violate: {
+      states: ["pass", "pass", "stop", "skip", "skip", "pass"],
+      stamp: ["DENIED", "deny"],
+      trace: "amount exceeds the per-transaction limit → stopped before any money moved · the denial itself is evidence",
+    },
+    hold: {
+      states: ["pass", "pass", "pass", "warn", "skip", "pass"],
+      stamp: ["HOLD", "hold"],
+      trace: "mandate OK · risk signal raised → held for human approval · the operator decides in the Control Panel",
+    },
+  };
+  const row = document.getElementById("flow-row");
+  const stamp = document.getElementById("flow-stamp");
+  const trace = document.getElementById("flow-trace");
+  document.querySelectorAll(".scen").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll(".scen").forEach((x) => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+    const s = SCEN[b.dataset.s];
+    const nodes = row.querySelectorAll(".stepnode");
+    const instant = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    nodes.forEach((n, i) => {
+      n.className = "stepnode";
+      if (instant) { n.className = "stepnode " + s.states[i]; }
+      else { setTimeout(() => { n.className = "stepnode " + s.states[i]; }, 70 * i); }
+    });
+    stamp.textContent = s.stamp[0];
+    stamp.className = "stamp " + s.stamp[1];
+    trace.textContent = s.trace;
+  }));
+
+  /* Audience router */
+  const TABS = {
+    dev: {
+      h: "From SDK to a first verified action",
+      p: "Issue an AgentID, create a mandate, and authorize your agent's first governed action against it — then watch the audit evidence anchor. The quickstart walks the whole loop.",
+      cta: ["Read quickstart", "#quickstart"],
+    },
+    fin: {
+      h: "Control what your agents do with money — before execution",
+      p: "Mandates put amount, destination, time, and approval conditions in front of every financial action. Guardian holds or stops what a rule alone would miss. Your operators keep the kill switch.",
+      cta: ["See the workflow", "#flow"],
+    },
+    risk: {
+      h: "Evidence your reviewers can check without trusting us",
+      p: "Every decision leaves tamper-evident evidence — hashed, batched, anchored. Evidence packs are exports and mappings for internal compliance review; product maturity is stated plainly on this page.",
+      cta: ["Read the status ledger", "#proof"],
+    },
+  };
+  document.querySelectorAll(".tab").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach((x) => x.setAttribute("aria-selected", x === b ? "true" : "false"));
+    const t = TABS[b.dataset.t];
+    document.getElementById("tp-h").textContent = t.h;
+    document.getElementById("tp-p").textContent = t.p;
+    const cta = document.getElementById("tp-cta");
+    cta.textContent = t.cta[0]; cta.href = t.cta[1];
+  }));
+
+  /* Copy quickstart */
+  document.getElementById("copy-code").addEventListener("click", (e) => {
+    const text = e.target.parentElement.querySelector("pre").innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      e.target.textContent = "Copied ✓";
+      setTimeout(() => { e.target.textContent = "Copy"; }, 1600);
+    });
+  });
+
+  /* ── hash router: #/pricing, #/about, everything else = home ── */
+  const VIEWS = {
+    home: document.getElementById("view-home"),
+    pricing: document.getElementById("view-pricing"),
+    about: document.getElementById("view-about"),
+  };
+  function route() {
+    const h = location.hash, path = location.pathname;
+    const v = (h.startsWith("#/pricing") || path === "/pricing") && !h.startsWith("#/about") ? "pricing"
+            : (h.startsWith("#/about") || path === "/about") && !h.startsWith("#/pricing") ? "about"
+            : (h && !h.startsWith("#/")) || (!h && path === "/") || (!h.startsWith("#/") && path !== "/pricing" && path !== "/about") ? "home"
+            : "home";
+    for (const [k, el] of Object.entries(VIEWS)) el.hidden = k !== v;
+    if (v !== "home") window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", route);
+  route();
+  /* home anchors: make sure the home view is visible before the browser scrolls */
+  document.querySelectorAll("[data-home-anchor]").forEach((a) => a.addEventListener("click", () => {
+    VIEWS.home.hidden = false; VIEWS.pricing.hidden = true; VIEWS.about.hidden = true;
+  }));
+
+  /* ── billing toggle (with the spec's number fade) ── */
+  const noMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll(".toggle button").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll(".toggle button").forEach((x) =>
+      x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+    const mode = b.dataset.bill;
+    const swap = () => document.querySelectorAll("[data-mo]").forEach((el) => {
+      el.textContent = mode === "yr" ? el.dataset.yr : el.dataset.mo;
+    });
+    if (noMotion) { swap(); return; }
+    const els = document.querySelectorAll("[data-mo]");
+    els.forEach((el) => el.classList.add("fading"));
+    setTimeout(() => { swap(); els.forEach((el) => el.classList.remove("fading")); }, 150);
+  }));
+
+  /* ── scroll reveal (master spec §7.3: subtle, comprehension-first) ── */
+  if (noMotion) {
+    document.querySelectorAll("[data-reveal]").forEach((el) => el.classList.add("in"));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -8% 0px" });
+    document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
+    /* re-check when a hidden view becomes visible */
+    window.addEventListener("hashchange", () => {
+      document.querySelectorAll("[data-reveal]:not(.in)").forEach((el) => io.observe(el));
+    });
+  }
+</script>
+
+</body>
+</html>
