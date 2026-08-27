@@ -452,6 +452,71 @@
     font: 500 13px/1.6 var(--f-mono); background: transparent;
   }
 
+  /* ── mobile navigation ── */
+  .menu-btn { display: none; }
+  .mobile-nav { display: none; }
+  @media (max-width: 860px) {
+    header.site { position: sticky; top: 0; z-index: 60; background: var(--paper);
+      margin: 0 -28px; padding: 12px 28px; }
+    header.site .btn-primary { margin-left: auto !important; padding: 9px 13px; font-size: 13px; }
+    .menu-btn { display: inline-flex; flex-direction: column; justify-content: center; gap: 4.5px;
+      width: 44px; height: 44px; align-items: center; background: transparent;
+      border: 1px solid var(--line); border-radius: 4px; cursor: pointer; flex: none; }
+    .menu-btn span { display: block; width: 18px; height: 2px; background: var(--ink); border-radius: 1px; }
+    .menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-nav:not([hidden]) { display: block; background: var(--card);
+      border-bottom: 1px solid var(--line); margin: 0 -28px; padding: 4px 28px 14px; }
+    .mobile-nav a { display: block; padding: 13px 4px; font-size: 15.5px; font-weight: 600;
+      color: var(--ink); border-bottom: 1px solid var(--hair); }
+    .mobile-nav a:last-child { border-bottom: 0; }
+    .mobile-nav a:hover { text-decoration: none; color: var(--seal); }
+  }
+  @media (min-width: 861px) { .mobile-nav { display: none !important; } }
+
+  /* ── mobile density & hero rhythm ── */
+  @media (max-width: 640px) {
+    header.site { margin: 0 -18px; padding: 12px 18px; }
+    .mobile-nav:not([hidden]) { margin: 0 -18px; padding: 4px 18px 14px; }
+    section { padding: 48px 0; }
+    h2 { font-size: 21px; }
+    .hero { padding: 38px 0 44px; }
+    .hero h1 { font-size: clamp(22px, 6.4vw, 27px); }
+    .hero .cat { font-size: 15.5px; }
+    .hero-grid { gap: 26px; }
+    .scanner { justify-self: center !important; max-width: 320px; margin: 0 auto; }
+    .ledger { margin-top: 34px; }
+    .cell { padding: 18px 16px 20px; }
+    .tab { min-height: 44px; }
+    .ledger-out { flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px 18px 20px; }
+
+    /* flow → vertical timeline: dot rail left, continuous connector */
+    .ledger-head { padding: 12px 14px; }
+    .scenarios { margin-left: 0; width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .scen { min-height: 44px; padding: 8px 4px; font-size: 12px; }
+    .ledger-row { display: block; padding: 20px 18px 4px; }
+    .stepnode { display: grid; grid-template-columns: 15px 1fr; column-gap: 14px; padding: 0 0 20px; }
+    .stepnode::before { left: 7px; top: 16px; bottom: 0; right: auto; width: 1px; height: auto; }
+    .stepnode:last-child::before { display: none; }
+    .stepnode .dot { grid-column: 1; grid-row: 1; margin-bottom: 0; margin-top: 1px; }
+    .stepnode .nm { grid-column: 2; grid-row: 1; }
+    .stepnode .ds { grid-column: 2; grid-row: 2; }
+  }
+
+  /* ── tables: sticky first column + scroll affordance ── */
+  .tblshell { position: relative; }
+  @media (max-width: 768px) {
+    table.cmp th:first-child, table.cmp td:first-child {
+      position: sticky; left: 0; z-index: 1; background: var(--card);
+      box-shadow: 6px 0 8px -6px rgba(0, 0, 0, 0.18);
+    }
+    table.cmp th:first-child, table.cmp tr.cat td:first-child { background: var(--well); }
+    .tblshell::after { content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: 26px;
+      background: linear-gradient(90deg, transparent, var(--paper)); pointer-events: none;
+      border-radius: 0 4px 4px 0; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; animation: none !important; }
     [data-reveal] { opacity: 1 !important; transform: none !important; }
@@ -480,7 +545,18 @@
       <a href="https://docs.regentprotocol.org">Docs</a>
     </nav>
     <a class="btn btn-primary" href="#quickstart" data-home-anchor style="margin-left: 16px;">Start building</a>
+    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu"><span></span><span></span><span></span></button>
   </header>
+  <nav class="mobile-nav" id="mobile-nav" hidden aria-label="Mobile">
+    <a href="#primitives" data-home-anchor>Platform</a>
+    <a href="#cases" data-home-anchor>Solutions</a>
+    <a href="#quickstart" data-home-anchor>Developers</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/technology">Technology</a>
+    <a href="/pilot">Pilot</a>
+    <a href="/about">About</a>
+    <a href="https://docs.regentprotocol.org">Docs</a>
+  </nav>
 </div>
 
 
@@ -729,6 +805,20 @@
     document.getElementById("pf-email").focus({ preventScroll: true });
     document.getElementById("apply-section").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   }));
+
+  /* ── mobile menu ── */
+  const menuBtn = document.getElementById("menu-btn"), mobileNav = document.getElementById("mobile-nav");
+  if (menuBtn && mobileNav) {
+    menuBtn.addEventListener("click", () => {
+      const opening = mobileNav.hasAttribute("hidden");
+      if (opening) mobileNav.removeAttribute("hidden"); else mobileNav.setAttribute("hidden", "");
+      menuBtn.setAttribute("aria-expanded", String(opening));
+    });
+    mobileNav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => {
+      mobileNav.setAttribute("hidden", "");
+      menuBtn.setAttribute("aria-expanded", "false");
+    }));
+  }
 
 </script>
 
