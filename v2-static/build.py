@@ -56,6 +56,63 @@ ROUTES = {
         "title": "Privacy Policy — Regent Protocol",
         "desc": "How Regent Protocol collects, uses, and safeguards personal data across the website and services.",
     },
+    "platform": {"path": "/platform", "file": "platform.html",
+        "title": "Platform — Regent Protocol",
+        "desc": "The complete system: AgentID, Mandates, Guardian, Audit Chain, and the Control Panel — one decision path for AI agents that move money."},
+    "agent-id": {"path": "/platform/agent-id", "file": "platform-agent-id.html",
+        "title": "AgentID — Regent Protocol",
+        "desc": "A verifiable identity for every agent, connected to a responsible party — KMS-signed, DID-addressed, anchored on Solana devnet."},
+    "mandates-page": {"path": "/platform/mandates", "file": "platform-mandates.html",
+        "title": "Mandates — Regent Protocol",
+        "desc": "Programmable spending rules enforced before execution: amounts, destinations, time windows, approvals, per-entity budgets. Try the simulator."},
+    "guardian": {"path": "/platform/guardian", "file": "platform-guardian.html",
+        "title": "Guardian — Regent Protocol",
+        "desc": "Rule and behavioural risk signals on every action: allow, hold for a human, or stop — inside the authorization path."},
+    "audit-chain": {"path": "/platform/audit-chain", "file": "platform-audit-chain.html",
+        "title": "Audit Chain — Regent Protocol",
+        "desc": "Tamper-evident evidence: hashes, Merkle batches, on-chain commitments — verifiable without trusting Regent or the operator."},
+    "control-panel": {"path": "/platform/control-panel", "file": "platform-control-panel.html",
+        "title": "Control Panel — Regent Protocol",
+        "desc": "Human oversight for autonomous agents: monitoring, investigation, mandate review, and the kill switch."},
+    "solutions": {"path": "/solutions", "file": "solutions.html",
+        "title": "Solutions — Regent Protocol",
+        "desc": "Agentic payments, fintech platforms, treasury & custody, compliance & risk — where the mandate gate and the evidence chain go to work."},
+    "agentic-payments": {"path": "/solutions/agentic-payments", "file": "solutions-agentic-payments.html",
+        "title": "Agentic Payments — Regent Protocol",
+        "desc": "Pre-execution mandate enforcement, approval conditions, and anchored evidence for autonomous payments."},
+    "fintech-platforms": {"path": "/solutions/fintech-platforms", "file": "solutions-fintech-platforms.html",
+        "title": "Fintech Platforms — Regent Protocol",
+        "desc": "Per-customer AgentIDs and account-scoped mandates for customer-facing agents — with a verifiable trail per customer."},
+    "treasury-custody": {"path": "/solutions/treasury-custody", "file": "solutions-treasury-custody.html",
+        "title": "Treasury & Custody — Regent Protocol",
+        "desc": "Value, counterparty, time-window, and multi-party approval policies enforced in the execution path."},
+    "compliance-risk": {"path": "/solutions/compliance-risk", "file": "solutions-compliance-risk.html",
+        "title": "Compliance & Risk — Regent Protocol",
+        "desc": "Case reconstruction from a single record: action, responsible context, policy, decision, evidence — independently verifiable."},
+    "developers": {"path": "/developers", "file": "developers.html",
+        "title": "Developers — Regent Protocol",
+        "desc": "From SDK to a first verified action in one sitting: Python SDK, REST API, devnet sandbox. pip install regent."},
+    "security": {"path": "/security", "file": "security.html",
+        "title": "Security — Regent Protocol",
+        "desc": "Security posture stated precisely: no bearer secrets on agents, fail-closed enforcement, structural tamper-evidence — and honest assurance statuses."},
+    "trust": {"path": "/trust", "file": "trust.html",
+        "title": "Trust Center — Regent Protocol",
+        "desc": "Due-diligence statuses in one table: what runs on devnet today, what is planned, and where the evidence lives."},
+    "blog": {"path": "/blog", "file": "blog.html",
+        "title": "Guides — Regent Protocol",
+        "desc": "Definition-grade guides to agent finance: Know Your Agent, verified actions, tamper-evident audit trails."},
+    "post-kya": {"path": "/blog/what-is-know-your-agent", "file": "blog-what-is-know-your-agent.html",
+        "title": "What is Know Your Agent (KYA)?",
+        "desc": "KYA connects an autonomous agent to a responsible context, a financial mandate, and a verifiable audit history — a product framework, not a regulatory standard.",
+        "article": True},
+    "post-verified-actions": {"path": "/blog/verified-actions-vs-api-calls", "file": "blog-verified-actions-vs-api-calls.html",
+        "title": "Verified actions vs API calls",
+        "desc": "A verified action is one financial-agent decision that needs proof — not every API call. The unit behind Regent's pricing, precisely.",
+        "article": True},
+    "post-tamper-evident": {"path": "/blog/tamper-evident-audit-trails", "file": "blog-tamper-evident-audit-trails.html",
+        "title": "What makes an audit trail tamper-evident?",
+        "desc": "Hash on receipt, Merkle batching, on-chain anchoring, independent verification — and what each layer does not promise.",
+        "article": True},
 }
 
 ORG_LD = {
@@ -141,9 +198,16 @@ def main() -> None:
         ]
         # structured data: Organization everywhere; page-specific on top
         lds = [ORG_LD]
+        if r.get("article"):
+            lds.append({"@context": "https://schema.org", "@type": "BlogPosting",
+                "headline": r["title"], "description": r["desc"],
+                "author": {"@type": "Person", "name": "Abay Aubakirov", "jobTitle": "Co-founder & CTO"},
+                "publisher": {"@type": "Organization", "name": "Regent Protocol", "url": BASE},
+                "datePublished": "2026-08-28", "dateModified": "2026-08-28",
+                "mainEntityOfPage": canonical})
         if name == "pricing":
             lds.append(PRICING_LD)
-        if name in ("home", "pricing", "pilot"):
+        if name in ("home", "pricing", "pilot", "platform"):
             ld = faq_ld(blocks[name])
             if ld:
                 lds.append(ld)
