@@ -605,7 +605,16 @@
   @media (max-width: 820px) { .threeq { grid-template-columns: 1fr; } }
   /* ── mega menu ── */
   .navdrop { position: relative; display: flex; align-items: center; }
-  .navdrop > a::after { content: "\25BE"; font-size: 9px; margin-left: 5px; opacity: 0.55; }
+  .navdrop > a::after {
+    content: ""; display: inline-block; width: 7px; height: 7px;
+    margin-left: 8px; margin-bottom: 2px;
+    border-right: 1.6px solid currentColor; border-bottom: 1.6px solid currentColor;
+    transform: rotate(45deg); transform-origin: 60% 60%;
+    opacity: 0.7; transition: transform .18s ease, opacity .18s ease;
+  }
+  .navdrop:hover > a::after, .navdrop:focus-within > a::after {
+    transform: rotate(225deg); opacity: 1;
+  }
   .mega {
     position: absolute; top: calc(100% + 14px); left: 50%; transform: translate(-50%, 6px);
     width: min(760px, calc(100vw - 40px));
@@ -653,6 +662,22 @@
   }
   .consent-bar .btn { padding: 8px 14px; font-size: 13px; }
   .consent-bar[hidden] { display: none; }
+
+  /* Money20/20 event band (homepage) */
+  .event-band {
+    display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+    padding: 10px 18px; text-align: center;
+    /* Money20/20 ME brand gradient (blue → violet, cyan accent) */
+    background: linear-gradient(90deg, #2429D8 0%, #5B33E0 48%, #9257E9 100%);
+    color: #FFFFFF; font-size: 13.5px; text-decoration: none;
+  }
+  .event-band:hover { filter: brightness(1.12); text-decoration: none; }
+  .event-band strong { color: #FFFFFF; font-weight: 700; }
+  .event-band .eb-dot { width: 7px; height: 7px; border-radius: 50%; background: #67E8F9; flex: none;
+    animation: ebpulse 2s ease-in-out infinite; }
+  .event-band .eb-cta { color: #A5F3FC; font-weight: 600; white-space: nowrap; }
+  @keyframes ebpulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+  @media (prefers-reduced-motion: reduce) { .event-band .eb-dot { animation: none; } }
 
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; animation: none !important; }
@@ -722,7 +747,20 @@
       </div>
       <a href="/developers">Developers</a>
       <a href="/pricing">Pricing</a>
-      <a href="/blog">Blog</a>
+      <div class="navdrop">
+        <a href="/about" aria-haspopup="true">Company</a>
+        <div class="mega mega-sm" aria-label="Company">
+          <div class="mlinks">
+            <a href="/about">About us <span>thesis, products, ecosystem, recognition</span></a>
+            <a href="/blog">Blog <span>plain-language agent-economy explainers</span></a>
+            <a href="/security">Security <span>practices &amp; responsible disclosure</span></a>
+            <a href="/trust">Trust Center <span>claims you can verify yourself</span></a>
+          </div>
+          <div class="mega-foot">
+            <a href="mailto:info@regentprotocol.org">Contact — info@regentprotocol.org</a>
+          </div>
+        </div>
+      </div>
       <a href="https://docs.regentprotocol.org">Docs</a>
     </nav>
     <a class="btn btn-primary" href="#quickstart" data-home-anchor data-ph="cta_start_building_clicked:header" style="margin-left: 16px;">Start building</a>
@@ -745,6 +783,13 @@
 </div>
 
 <div id="view-home">
+
+<!-- 0 · EVENT BAND — Money20/20 ME (remove after 2026-09-16) -->
+<a class="event-band" href="mailto:info@regentprotocol.org?subject=Meeting%20at%20Money20%2F20%20Middle%20East" data-ph="money2020_banner_clicked">
+  <span class="eb-dot" aria-hidden="true"></span>
+  <span><strong>Meet us at Money20/20 Middle East</strong> — Riyadh, Sept 14–16 · Booth <strong>H2.P124</strong></span>
+  <span class="eb-cta">Book a meeting →</span>
+</a>
 
 <!-- 1 · HERO -->
 <div class="wrap hero">
