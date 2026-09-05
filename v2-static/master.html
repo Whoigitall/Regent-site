@@ -663,21 +663,28 @@
   .consent-bar .btn { padding: 8px 14px; font-size: 13px; }
   .consent-bar[hidden] { display: none; }
 
-  /* Money20/20 event band (homepage) */
+  /* Money20/20 ME event band — official black + gold */
   .event-band {
-    display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
-    padding: 10px 18px; text-align: center;
-    /* Money20/20 ME brand gradient (blue → violet, cyan accent) */
-    background: linear-gradient(90deg, #2429D8 0%, #5B33E0 48%, #9257E9 100%);
-    color: #FFFFFF; font-size: 13.5px; text-decoration: none;
+    display: flex; align-items: center; justify-content: center; gap: 22px; flex-wrap: wrap;
+    padding: 12px 20px;
+    background: #0F0E0B;
+    border-top: 1px solid rgba(185,146,47,0.35);
+    border-bottom: 2px solid #B9922F;
+    color: #FFFFFF; text-decoration: none;
   }
-  .event-band:hover { filter: brightness(1.12); text-decoration: none; }
-  .event-band strong { color: #FFFFFF; font-weight: 700; }
-  .event-band .eb-dot { width: 7px; height: 7px; border-radius: 50%; background: #67E8F9; flex: none;
-    animation: ebpulse 2s ease-in-out infinite; }
-  .event-band .eb-cta { color: #A5F3FC; font-weight: 600; white-space: nowrap; }
-  @keyframes ebpulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
-  @media (prefers-reduced-motion: reduce) { .event-band .eb-dot { animation: none; } }
+  .event-band:hover { background: #17150F; text-decoration: none; }
+  .eb-lockup { display: flex; align-items: center; gap: 14px; }
+  .eb-m {
+    font-weight: 800; font-size: 15px; line-height: 0.98; letter-spacing: 0.02em;
+    color: #FFFFFF; text-align: left; font-family: var(--f-head);
+  }
+  .eb-me { display: flex; flex-direction: column; text-align: left; }
+  .eb-me { color: #B9922F; font-weight: 800; font-size: 16px; letter-spacing: 0.04em; font-family: var(--f-head); }
+  .eb-me small { color: rgba(255,255,255,0.75); font-weight: 500; font-size: 10.5px; letter-spacing: 0.08em; font-family: var(--f-mono); margin-top: 2px; }
+  .eb-meet { font-size: 13.5px; color: rgba(255,255,255,0.9); }
+  .eb-meet strong { color: #B9922F; font-weight: 700; }
+  .event-band .eb-cta { color: #B9922F; font-weight: 700; font-size: 13.5px; white-space: nowrap; border: 1px solid rgba(185,146,47,0.5); border-radius: 4px; padding: 6px 12px; }
+  .event-band:hover .eb-cta { background: rgba(185,146,47,0.12); }
 
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; animation: none !important; }
@@ -779,9 +786,12 @@
 <div id="view-home">
 
 <!-- 0 · EVENT BAND — Money20/20 ME (remove after 2026-09-16) -->
-<a class="event-band" href="mailto:info@regentprotocol.org?subject=Meeting%20at%20Money20%2F20%20Middle%20East" data-ph="money2020_banner_clicked">
-  <span class="eb-dot" aria-hidden="true"></span>
-  <span><strong>Meet us at Money20/20 Middle East</strong> — Riyadh, Sept 14–16 · Booth <strong>H2.P124</strong></span>
+<a class="event-band" href="mailto:info@regentprotocol.org?subject=Meeting%20at%20Money20%2F20%20Middle%20East" data-ph="money2020_banner_clicked" aria-label="Meet us at Money20/20 Middle East, Riyadh, 14-16 September 2026, booth H2.P124">
+  <span class="eb-lockup" aria-hidden="true">
+    <span class="eb-m">.MONEY<br>20/20</span>
+    <span class="eb-me">MIDDLE EAST<small>14–16 SEPTEMBER 2026 · RIYADH</small></span>
+  </span>
+  <span class="eb-meet">Meet us there — Booth <strong>H2.P124</strong></span>
   <span class="eb-cta">Book a meeting →</span>
 </a>
 
