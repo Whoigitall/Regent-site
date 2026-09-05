@@ -663,28 +663,28 @@
   .consent-bar .btn { padding: 8px 14px; font-size: 13px; }
   .consent-bar[hidden] { display: none; }
 
-  /* Money20/20 ME event band — official black + gold */
+  /* Money20/20 ME event band — official Brand Styling 2026:
+     primary gradient True White → Cyan #00FFFF → Green #00DC46, Rich Black type,
+     gold MIDDLE EAST from the logo lockup. */
   .event-band {
     display: flex; align-items: center; justify-content: center; gap: 22px; flex-wrap: wrap;
-    padding: 12px 20px;
-    background: #0F0E0B;
-    border-top: 1px solid rgba(185,146,47,0.35);
-    border-bottom: 2px solid #B9922F;
-    color: #FFFFFF; text-decoration: none;
+    padding: 13px 20px;
+    background: linear-gradient(105deg, #FFFFFF 0%, #00FFFF 42%, #00DC46 100%);
+    color: #000000; text-decoration: none;
   }
-  .event-band:hover { background: #17150F; text-decoration: none; }
+  .event-band:hover { filter: saturate(1.15); text-decoration: none; }
   .eb-lockup { display: flex; align-items: center; gap: 14px; }
   .eb-m {
     font-weight: 800; font-size: 15px; line-height: 0.98; letter-spacing: 0.02em;
-    color: #FFFFFF; text-align: left; font-family: var(--f-head);
+    color: #000000; text-align: left; font-family: var(--f-head);
   }
-  .eb-me { display: flex; flex-direction: column; text-align: left; }
-  .eb-me { color: #B9922F; font-weight: 800; font-size: 16px; letter-spacing: 0.04em; font-family: var(--f-head); }
-  .eb-me small { color: rgba(255,255,255,0.75); font-weight: 500; font-size: 10.5px; letter-spacing: 0.08em; font-family: var(--f-mono); margin-top: 2px; }
-  .eb-meet { font-size: 13.5px; color: rgba(255,255,255,0.9); }
-  .eb-meet strong { color: #B9922F; font-weight: 700; }
-  .event-band .eb-cta { color: #B9922F; font-weight: 700; font-size: 13.5px; white-space: nowrap; border: 1px solid rgba(185,146,47,0.5); border-radius: 4px; padding: 6px 12px; }
-  .event-band:hover .eb-cta { background: rgba(185,146,47,0.12); }
+  .eb-me { display: flex; flex-direction: column; text-align: left;
+    color: #A8862D; font-weight: 800; font-size: 16px; letter-spacing: 0.04em; font-family: var(--f-head); }
+  .eb-me small { color: rgba(0,0,0,0.72); font-weight: 600; font-size: 10.5px; letter-spacing: 0.08em; font-family: var(--f-mono); margin-top: 2px; }
+  .eb-meet { font-size: 13.5px; color: #000000; }
+  .eb-meet strong { color: #3200FF; font-weight: 800; }
+  .event-band .eb-cta { color: #FFFFFF; background: #000000; font-weight: 700; font-size: 13.5px; white-space: nowrap; border-radius: 4px; padding: 7px 14px; }
+  .event-band:hover .eb-cta { color: #00FFFF; }
 
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; animation: none !important; }
