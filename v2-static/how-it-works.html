@@ -192,7 +192,7 @@ const SCENES = [
   img:"/tour/03-agent-passport-hermes.jpg", tag:"CONSOLE · AGENT CARD", alt:"Regent console: agent card with DID, verified owner and status"},
  {t:"An agent is born with its own key.", p:"The private key is generated where the agent runs and never leaves it. A bootstrap passport proves the key, and grants nothing.",
   e:'<b>POST /v1/agents/bootstrap</b><br>agent_token · market_status: <span class="s">unclaimed</span><br>authority: <span class="d">none</span>',
-  none:["IDENTITY ≠ AUTHORITY","A passport says who the agent is. Only a human can say what it may spend."]},
+  img:"/tour/f-agents-bootstrap.jpg", tag:"GET4AGENT.COM/AGENTS.MD · BOOTSTRAP LANE", alt:"The machine-readable AGENTS.md on get4agent.com: bootstrap passport lane, identity-only token, authority granted by a human"},
  {t:"Authority comes from a click, not a key.", p:"The owner approves the agent and carves a mandate out of their own limits: per purchase, per day, which merchant.",
   e:'<b>claim</b> → approved by owner<br>mandate: <span class="g">₸500 / purchase · ₸1,500 / day</span><br>scope: get4agent.com',
   img:"/tour/04-mandates-hermes.jpg", tag:"CONSOLE · SPENDING MANDATES", alt:"Regent console: spending mandates with per-purchase and daily limits"},
@@ -207,7 +207,7 @@ const SCENES = [
   img:"/tour/08c-demo-riyadh-after-revoke.jpg", tag:"CONSOLE · AFTER REVOKE", alt:"Regent console: agent card marked revoked after the kill switch"},
  {t:"Where the gates live is the client's choice.", p:"Cloud, a sidecar next to the agent, or fully inside the client's perimeter. The same two gates, the same receipts.",
   e:'<b>deploy</b>: cloud | sidecar | on-prem<br>same gates · same receipts<br>keys and data stay where the client decides',
-  none:["CLOUD · SIDECAR · ON-PREM","The engine that runs get4agent.com ships as a sidecar and on-prem. One code base."]},
+  img:"/tour/f-docs-sidecar.jpg", tag:"DOCS · RUN THE SIDECAR", alt:"Regent documentation: Run the Sidecar, the agent-side proxy that holds no provider credentials"},
 ];
 const qs = new URLSearchParams(location.search); const loop = qs.get('mode')==='loop';
 if (loop) document.body.classList.add('loop');
