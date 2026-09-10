@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Scene 2 probe — How an Agent Earns the Right to Spend</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Oxanium:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0B0F0E; --panel:#111716; --panel2:#0E1412; --ink:#F1F4F2; --mut:#93A09B; --faint:#5F6C67; --line:#243029;
+          --seal:#19D3BC; --seal-dim:#0F6F64; --gold:#D9B24C; --deny:#FF4D5E; --ok:#3FE08A;
+          --f-head:"Orbitron","Oxanium",sans-serif; --f-body:"Oxanium",system-ui,sans-serif; --f-mono:"Geist Mono",ui-monospace,Menlo,monospace; }
+  * { box-sizing:border-box }
+  html,body { background:var(--bg) }
+  body { margin:0; color:var(--ink); font:16px/1.5 var(--f-body); min-height:100vh; display:flex; flex-direction:column; overflow-x:hidden }
+  .top { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:14px 24px; border-bottom:1px solid var(--line); flex-wrap:wrap }
+  .brand { font:700 13px var(--f-head); letter-spacing:.16em; color:var(--ink); text-decoration:none; display:flex; align-items:center; gap:12px }
+  .brand span { font:500 11px var(--f-mono); letter-spacing:.12em; color:var(--mut) }
+  .step { font:600 12px var(--f-mono); color:var(--seal); letter-spacing:.1em; white-space:nowrap }
+  .lens { display:flex; gap:6px; align-items:center; font:500 11px var(--f-mono); letter-spacing:.08em; color:var(--mut) }
+  .lens span { margin-right:6px }
+  .chip { background:none; border:1px solid var(--line); color:var(--mut); border-radius:999px; padding:6px 12px; font:600 11px var(--f-mono); letter-spacing:.08em; cursor:pointer }
+  .chip:hover { color:var(--ink); border-color:var(--mut) }
+  .chip.on { color:var(--bg); background:var(--seal); border-color:var(--seal) }
+  .stage { flex:1; width:100%; max-width:1320px; margin:0 auto; padding:16px 24px 22px; display:grid; gap:14px; min-width:0 }
+  .film { display:grid; grid-template-columns:1.45fr .85fr; gap:18px; min-width:0 }
+  .film > * { min-width:0 }
+  .schem { background:var(--panel2); border:1px solid var(--line); border-radius:8px; padding:8px; display:flex }
+  svg { width:100%; height:auto; max-height:58vh; display:block; margin:auto }
+  /* running receipt */
+  .rcpt { background:#F3F1EA; color:#16211E; border-radius:8px; padding:18px 18px 16px; font:13px/1.55 var(--f-mono); position:relative; display:flex; flex-direction:column; gap:0;
+          box-shadow:0 0 0 1px var(--line), 0 18px 40px rgba(0,0,0,.45) }
+  .rcpt:before, .rcpt:after { content:""; position:absolute; left:0; right:0; height:8px; background:
+      radial-gradient(circle at 6px 0, transparent 5px, #F3F1EA 5.5px) repeat-x; background-size:12px 8px }
+  .rcpt:before { top:-7px; transform:rotate(180deg) } .rcpt:after { bottom:-7px }
+  .rcpt .hd { display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px dashed #B9B3A4; padding-bottom:10px; margin-bottom:8px }
+  .rcpt .hd b { font:700 12px var(--f-head); letter-spacing:.14em }
+  .rcpt .tag { font:600 10px var(--f-mono); letter-spacing:.14em; padding:3px 7px; border-radius:3px; background:#16211E; color:#F3F1EA }
+  .rcpt .tag.ill { background:#D9B24C; color:#16211E }
+  .rcpt .ln { display:grid; grid-template-columns:28px 1fr; gap:8px; padding:7px 0; border-bottom:1px dashed #DAD5C8; opacity:.28; transition:opacity .5s }
+  .rcpt .ln.on { opacity:1 } .rcpt .ln.next { opacity:.38 }
+  .rcpt .n { color:#55625D } .rcpt .k { font-weight:600 } .rcpt .v { color:#55625D; display:block }
+  .rcpt .v i { font-style:normal; color:#007A6E }
+  .rcpt .ft { margin-top:10px; padding-top:8px; border-top:1px dashed #B9B3A4; font-size:11px; color:#55625D }
+  .cap { display:grid; grid-template-columns:1.45fr .85fr; gap:22px; align-items:start; min-width:0 }
+  .cap > * { min-width:0 }
+  h1 { font:600 clamp(22px,2.8vw,32px)/1.15 var(--f-head); margin:0 0 8px; text-wrap:balance; overflow-wrap:anywhere }
+  p.lead { margin:0; color:var(--mut); font-size:16px; max-width:58ch }
+  .evt { background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--seal); padding:12px 14px; font:13px/1.6 var(--f-mono); color:var(--mut); overflow-x:auto }
+  .evt b { color:var(--ink) } .evt .s { color:var(--seal) } .evt .d { color:var(--deny) } .evt .o { color:var(--ok) }
+  .nav { display:flex; gap:10px; justify-content:center; align-items:center; padding:4px 0 0 }
+  .btn { background:none; border:1px solid var(--line); color:var(--mut); border-radius:4px; padding:6px 12px; font:12px var(--f-mono); cursor:pointer }
+  .btn:hover { color:var(--ink); border-color:var(--mut) }
+  .foot { text-align:center; color:var(--faint); font:12px var(--f-mono); padding:0 24px 18px }
+  .foot a { color:var(--mut); text-decoration:none }
+  /* ── scene 2 choreography ── */
+  @keyframes rise { from{translate:0 14px;opacity:0} to{translate:0 0;opacity:1} }
+  @keyframes draw { to{stroke-dashoffset:0} }
+  @keyframes pop { 0%{transform:scale(.4);opacity:0} 70%{transform:scale(1.15);opacity:1} 100%{transform:scale(1);opacity:1} }
+  @keyframes fly { 0%{transform:translate(0,0);opacity:0} 8%{opacity:1} 100%{transform:translate(var(--dx),var(--dy));opacity:1} }
+  @keyframes fadein { to{opacity:1} }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+  .a { opacity:0 }
+  .on .dev   { animation:rise .7s .2s ease both }
+  .on .keyd  { stroke-dasharray:320; stroke-dashoffset:320; opacity:1; animation:draw 1.1s .9s ease both }
+  .on .keyl  { animation:fadein .5s 1.9s ease both }
+  .on .lock  { transform-origin:center; transform-box:fill-box; animation:pop .5s 2.1s ease both }
+  .on .pub   { --dx:420px; --dy:-6px; animation:fly 1.3s 2.4s cubic-bezier(.4,0,.2,1) both }
+  .on .pubtrail { stroke-dasharray:440; stroke-dashoffset:440; opacity:.55; animation:draw 1.3s 2.4s ease both }
+  .on .pass  { stroke-dasharray:820; stroke-dashoffset:820; opacity:1; animation:draw .9s 3.5s ease both }
+  .on .f1 { animation:fadein .4s 4.1s ease both } .on .f2 { animation:fadein .4s 4.5s ease both }
+  .on .f3 { animation:fadein .4s 4.9s ease both } .on .f4 { animation:fadein .4s 5.3s ease both }
+  .on .capt { animation:rise .7s 5.7s ease both }
+  .on .glow { animation:pulse 1.8s 6s ease-in-out infinite }
+  @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} .a{opacity:1} .keyd,.pass,.pubtrail{stroke-dashoffset:0} .rcpt .ln{opacity:1} }
+  @media (max-width: 960px) { .film, .cap { grid-template-columns:1fr } svg { max-height:46vh } .top { padding:12px 16px } .stage { padding:12px 16px 18px } }
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="brand" href="/how-it-works">REGENT <span>HOW AN AGENT EARNS THE RIGHT TO SPEND</span></a>
+  <div class="lens"><span>TELL IT FOR</span>
+    <button class="chip" data-lens="bank">A BANK</button>
+    <button class="chip" data-lens="ticketing">A TICKETING PLATFORM</button>
+    <button class="chip" data-lens="market">OUR MARKETPLACE</button>
+  </div>
+  <div class="step">SCENE 2 / 7 · PROBE</div>
+</div>
+
+<div class="stage">
+<div class="film">
+<div class="schem">
+<svg id="scene" viewBox="0 0 1000 480" role="img" aria-label="An agent's key is generated on its own device; the public half travels into a passport that grants no authority" font-family="Oxanium, system-ui, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#19D3BC"/></marker>
+    <g id="agent"><polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11" fill="#111716" stroke="#19D3BC" stroke-width="2.2"/><circle cx="0" cy="0" r="5" fill="#19D3BC"/></g>
+  </defs>
+
+  <!-- the agent's own device -->
+  <g class="a dev">
+    <rect x="110" y="86" width="330" height="310" rx="14" fill="#0B0F0E" stroke="#243029" stroke-dasharray="5 5" stroke-width="1.6"/>
+    <text id="devLabel" x="275" y="72" text-anchor="middle" fill="#93A09B" font-size="11" font-family="Geist Mono" letter-spacing="2">THE AGENT'S OWN DEVICE</text>
+    <g transform="translate(275,330)"><use href="#agent"/><text y="46" text-anchor="middle" fill="#F1F4F2" font-size="14" font-weight="600" id="agentName">Agent</text></g>
+  </g>
+
+  <!-- key: drawn on the device -->
+  <g transform="translate(200,200)">
+    <path class="keyd" d="M0 0 m-30 0 a30 30 0 1 0 60 0 a30 30 0 1 0 -60 0 M30 0 H150 M120 0 v24 M96 0 v18" fill="none" stroke="#D9B24C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+    <text class="a keyl" x="60" y="-52" text-anchor="middle" fill="#D9B24C" font-size="12" font-family="Geist Mono" letter-spacing="2">KEY PAIR GENERATED HERE</text>
+    <!-- lock badge on the private half -->
+    <g class="a lock" transform="translate(-30,0)">
+      <circle r="17" fill="#0B0F0E" stroke="#D9B24C" stroke-width="2"/>
+      <rect x="-7" y="-3" width="14" height="11" rx="2" fill="#D9B24C"/><path d="M-4 -3 v-4 a4 4 0 0 1 8 0 v4" fill="none" stroke="#D9B24C" stroke-width="2"/>
+    </g>
+    <text class="a keyl" x="-30" y="46" text-anchor="middle" fill="#93A09B" font-size="11" font-family="Geist Mono">private half · never leaves</text>
+  </g>
+
+  <!-- public half flies to the passport -->
+  <path class="pubtrail" d="M330 200 C 470 200, 520 235, 750 234" fill="none" stroke="#19D3BC" stroke-width="1.5" stroke-dasharray="3 6" opacity="0"/>
+  <g class="pub" style="opacity:0" transform="translate(330,200)">
+    <circle r="11" fill="#0B0F0E" stroke="#19D3BC" stroke-width="2.2"/><circle r="4" fill="#19D3BC"/>
+    <text y="-20" text-anchor="middle" fill="#19D3BC" font-size="10" font-family="Geist Mono" letter-spacing="2">PUBLIC HALF</text>
+  </g>
+
+  <!-- passport -->
+  <g transform="translate(620,140)">
+    <rect class="pass" x="0" y="0" width="270" height="190" rx="12" fill="#111716" stroke="#19D3BC" stroke-width="2" opacity="0"/>
+    <text class="a f1" x="135" y="34" text-anchor="middle" fill="#19D3BC" font-size="11" font-family="Geist Mono" letter-spacing="3">PASSPORT</text>
+    <text class="a f1" x="135" y="58" text-anchor="middle" fill="#F1F4F2" font-size="16" font-weight="600">identity only</text>
+    <g class="a f2"><text x="22" y="94" fill="#93A09B" font-size="11" font-family="Geist Mono">agent key</text><text id="pKey" x="248" y="94" text-anchor="end" fill="#F1F4F2" font-size="11" font-family="Geist Mono">WgESIg_b…Pa7_KTo</text></g>
+    <g class="a f3"><text x="22" y="120" fill="#93A09B" font-size="11" font-family="Geist Mono">issued by</text><text id="pIss" x="248" y="120" text-anchor="end" fill="#F1F4F2" font-size="11" font-family="Geist Mono">get4agent.com</text></g>
+    <g class="a f4"><text x="22" y="146" fill="#93A09B" font-size="11" font-family="Geist Mono">authority</text><text x="248" y="146" text-anchor="end" fill="#FF4D5E" font-size="11" font-family="Geist Mono" font-weight="600">none</text></g>
+    <g class="a f4 glow"><text id="pValid" x="22" y="172" fill="#5F6C67" font-size="10" font-family="Geist Mono">valid 14 days · unclaimed</text></g>
+  </g>
+
+  <g class="a capt"><text id="capt" x="500" y="450" text-anchor="middle" fill="#93A09B" font-size="15">Free and instant. And it can do nothing yet.</text></g>
+</svg>
+</div>
+
+<div class="rcpt" id="rcpt">
+  <div class="hd"><b>RUNNING RECEIPT</b><span class="tag" id="rtag">PRODUCTION</span></div>
+  <div class="ln on" id="l1"><span class="n">01</span><span><span class="k">owner verified</span><span class="v" id="r1">KYC passed · responsible party = human</span></span></div>
+  <div class="ln" id="l2"><span class="n">02</span><span><span class="k">agent key born</span><span class="v" id="r2">Ed25519 · generated on device · passport: identity only, authority none</span></span></div>
+  <div class="ln next"><span class="n">03</span><span><span class="k">mandate</span><span class="v" id="r3">—</span></span></div>
+  <div class="ln next"><span class="n">04</span><span><span class="k">purchase</span><span class="v" id="r4">—</span></span></div>
+  <div class="ln next"><span class="n">05</span><span><span class="k">refusal</span><span class="v">—</span></span></div>
+  <div class="ln next"><span class="n">06</span><span><span class="k">kill switch</span><span class="v">—</span></span></div>
+  <div class="ln next"><span class="n">07</span><span><span class="k">where it runs</span><span class="v">—</span></span></div>
+  <div class="ft" id="rft">real passport minted 10 Sep 2026 on get4agent.com · jti 7d0a7b4e…</div>
+</div>
+</div>
+
+<div class="cap">
+  <div><h1 id="h"></h1><p class="lead" id="p"></p></div>
+  <div class="evt" id="evt"></div>
+</div>
+<div class="nav"><button class="btn" id="replay">↻ replay</button><button class="btn" id="next" title="not in the probe">scene 3 →</button></div>
+</div>
+<div class="foot">Probe of the animated tour with lenses. One scene, three tellings. · <a href="/how-it-works">current tour</a></div>
+
+<script>
+const LENSES = {
+  bank: { tag:"ILLUSTRATIVE", ill:true, agent:"Procurement agent", dev:"THE BANK'S OWN SERVER",
+    key:"generated on the server", iss:"the bank's agent platform", valid:"short-lived · renewable",
+    t:"The agent gets a key of its own, on the bank's server.",
+    p:"The private key is generated where the agent runs and never leaves the bank. The passport proves which agent this is to every internal system, and grants nothing: it cannot pay a single invoice yet.",
+    e:'<b>agent.key</b> → generated on premises<br>passport → <span class="s">identity only</span> · authority: <span class="d">none</span><br>owner: the bank, verified once',
+    capt:"A known agent. Not yet a trusted spender.",
+    r1:"the bank · KYB and officer KYC passed", r2:"key generated on the bank's server · passport: identity only, authority none",
+    ft:"illustrative telling · same mechanics, the bank's names" },
+  ticketing: { tag:"ILLUSTRATIVE", ill:true, agent:"Assistant agent", dev:"THE CLIENT'S PHONE",
+    key:"generated on the phone", iss:"the ticketing platform", valid:"short-lived · renewable",
+    t:"The assistant is born with a key of its own.",
+    p:"The key lives on the client's phone and never leaves it. The passport tells the ticketing platform which agent is asking, and grants nothing: it cannot buy a ticket yet.",
+    e:'<b>agent.key</b> → generated on the phone<br>passport → <span class="s">identity only</span> · authority: <span class="d">none</span><br>owner: the client, verified once',
+    capt:"The platform knows who is asking. Not yet what they may buy.",
+    r1:"the client · KYC passed", r2:"key generated on the client's phone · passport: identity only, authority none",
+    ft:"illustrative telling · same mechanics, a ticketing platform's names" },
+  market: { tag:"PRODUCTION", ill:false, agent:"Agent", dev:"THE AGENT'S OWN DEVICE",
+    key:"WgESIg_b…Pa7_KTo", iss:"get4agent.com", valid:"valid 14 days · unclaimed",
+    t:"An agent is born with its own key.",
+    p:"The private key is generated where the agent runs and never leaves it. A bootstrap passport proves the key, and grants nothing.",
+    e:'<b>POST /v1/agents/bootstrap</b> → aa-agent+jwt<br>sub key:WgESIg_b… · market_status: <span class="s">unclaimed</span><br>authority: <span class="d">none</span>',
+    capt:"Free and instant. And it can do nothing yet.",
+    r1:"owner · KYC passed · responsible party = human", r2:"Ed25519 · WgESIg_b…Pa7_KTo · passport aa-agent+jwt, authority none",
+    ft:"real passport minted 10 Sep 2026 on get4agent.com · jti 7d0a7b4e…" },
+};
+const qs = new URLSearchParams(location.search);
+let lens = LENSES[qs.get('lens')] ? qs.get('lens') : 'market';
+const $ = id => document.getElementById(id);
+function apply(){
+  const L = LENSES[lens];
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on', c.dataset.lens===lens));
+  $('agentName').textContent=L.agent; $('devLabel').textContent=L.dev; $('pKey').textContent=L.key; $('pIss').textContent=L.iss; $('pValid').textContent=L.valid;
+  $('capt').textContent=L.capt; $('h').textContent=L.t; $('p').textContent=L.p; $('evt').innerHTML=L.e;
+  $('rtag').textContent=L.tag; $('rtag').classList.toggle('ill', L.ill); $('r1').textContent=L.r1; $('r2').textContent=L.r2; $('rft').textContent=L.ft;
+  replay();
+}
+let t2=null;
+function replay(){
+  const s=$('scene'); s.classList.remove('on'); $('l2').classList.remove('on'); void s.getBoundingClientRect(); s.classList.add('on');
+  clearTimeout(t2); t2=setTimeout(()=>$('l2').classList.add('on'), 3900);
+}
+document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{ lens=c.dataset.lens; history.replaceState(null,'','?lens='+lens); apply(); });
+$('replay').onclick=replay;
+$('next').onclick=()=>alert('The probe holds one scene. Scenes 3 to 7 follow the same pattern once approved.');
+document.addEventListener('keydown',e=>{ if(e.key==='r') replay(); });
+apply();
+window.regentTour={ setLens:(l)=>{ if(LENSES[l]){ lens=l; apply(); } }, replay };
+</script>
+</body>
+</html>
