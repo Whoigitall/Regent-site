@@ -60,8 +60,17 @@
   .evt b { color:var(--ink) } .evt .s { color:var(--seal) } .evt .d { color:var(--deny) } .evt .o { color:var(--ok) } .evt .g { color:var(--gold) }
   .evt a { color:var(--seal); text-decoration:none; border-bottom:1px dotted var(--seal-dim) }
   .nav { display:flex; gap:10px; align-items:center; justify-content:center; padding:4px 0 0; flex-wrap:wrap }
-  .dot { width:34px; height:4px; border-radius:2px; background:var(--line); cursor:pointer; transition:background .3s; border:0; padding:0 }
-  .dot.on { background:var(--seal) } .dot:focus-visible { outline:2px solid var(--seal); outline-offset:3px }
+  .dot { width:34px; height:4px; border-radius:2px; background:var(--line); cursor:pointer; transition:width .3s; border:0; padding:0; position:relative; overflow:hidden }
+  .dot.on { width:56px } .dot:focus-visible { outline:2px solid var(--seal); outline-offset:3px }
+  /* the active dot fills over the scene's dwell time: the page is moving */
+  .dot.on::after { content:""; position:absolute; left:0; top:0; bottom:0; width:0; background:var(--seal); animation:fill var(--dwell,9.5s) linear forwards }
+  .nav.paused .dot.on::after { animation-play-state:paused }
+  .dot.done { background:var(--seal-dim) }
+  @keyframes fill { to{width:100%} }
+  /* booth screen has no dots: a hairline under the drawing fills instead */
+  #prog { height:2px; background:var(--line); border-radius:1px; overflow:hidden; display:none }
+  #prog i { display:block; height:100%; width:0; background:var(--seal); animation:fill var(--dwell,10.5s) linear forwards }
+  body.loop #prog { display:block }
   .btn { background:none; border:1px solid var(--line); color:var(--mut); border-radius:4px; padding:5px 10px; font:12px var(--f-mono); cursor:pointer }
   .btn:hover { color:var(--ink); border-color:var(--mut) }
   .foot { text-align:center; color:var(--faint); font:12px var(--f-mono); padding:0 24px 18px }
@@ -283,6 +292,7 @@
   <div><h1 id="h"></h1><p class="lead" id="p"></p></div>
   <div class="evt" id="evt"></div>
 </div>
+<div id="prog"><i id="progbar"></i></div>
 <div class="nav" id="nav"><button class="btn" id="play" aria-label="pause or play the tour">⏸ pause</button></div>
 </div>
 <div class="foot">Bank and ticketing are illustrative tellings. The marketplace telling is production: every id is a real decision on <a href="https://get4agent.com" target="_blank" rel="noreferrer">get4agent.com</a>, audit anchored on Solana devnet. · <a href="/">regentprotocol.org</a></div>
@@ -411,12 +421,18 @@ function paintReceipt(k){ const Z=L[lens]; $('rtag').textContent=Z.tag; $('rtag'
 function go(k){ i=(k+N)%N; const S=L[lens].s[i];
   document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on', c.dataset.lens===lens));
   document.querySelectorAll('.sc').forEach((el,n)=>{ el.classList.remove('on'); if(n===i){ paintScene(i); void el.getBoundingClientRect(); el.classList.add('on'); } });
-  document.querySelectorAll('.dot').forEach((d,n)=>d.classList.toggle('on',n===i));
+  document.querySelectorAll('.dot').forEach((d,n)=>{ d.classList.remove('on'); d.classList.toggle('done', n<i); if(n===i){ void d.offsetWidth; d.classList.add('on'); } });
   $('h').textContent=S.t; $('p').textContent=S.p; $('evt').innerHTML=S.e; $('stepLabel').textContent=`SCENE ${i+1} / ${N}`;
   paintReceipt(i); restart();
 }
 function next(){ if(loop && i===N-1){ lens = ORDER[(ORDER.indexOf(lens)+1)%ORDER.length]; go(0); } else go(i+1); }
-function restart(){ clearTimeout(timer); if(playing) timer=setTimeout(next, DWELL); }
+function restart(){ clearTimeout(timer); nav.classList.toggle('paused', !playing);
+  if(!playing) return;
+  // restart the fill so the bar and the timer always agree
+  const pb=$('progbar'); pb.style.animation='none'; void pb.offsetWidth; pb.style.animation='';
+  const d=document.querySelector('.dot.on'); if(d){ d.classList.remove('on'); void d.offsetWidth; d.classList.add('on'); }
+  timer=setTimeout(next, DWELL); }
+document.documentElement.style.setProperty('--dwell', DWELL+'ms');
 document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{ lens=c.dataset.lens; history.replaceState(null,'','?lens='+lens+(i?'&scene='+(i+1):'')); go(i); if(window.posthog) posthog.capture('tour_lens',{lens}); });
 $('play').onclick=function(){ playing=!playing; this.textContent=playing?'⏸ pause':'▶ play'; restart(); };
 document.addEventListener('keydown',e=>{ if(e.key==='ArrowRight'||e.key===' '){ e.preventDefault(); next(); } if(e.key==='ArrowLeft') go(i-1); if(e.key==='r') go(i); });
