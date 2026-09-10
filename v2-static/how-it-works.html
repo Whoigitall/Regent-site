@@ -37,7 +37,10 @@
   .stage { flex:1; width:100%; max-width:1320px; margin:0 auto; padding:16px 24px 20px; display:grid; gap:14px; min-width:0 }
   .film { display:grid; grid-template-columns:1.45fr .85fr; gap:18px; min-width:0 }
   .film > *, .cap > * { min-width:0 }
-  .schem { background:var(--panel2); border:1px solid var(--line); border-radius:8px; padding:8px; display:flex; cursor:pointer }
+  .schem { background:var(--panel2); border:1px solid var(--line); border-radius:8px; padding:8px; display:flex; cursor:pointer; position:relative }
+  .schem .step { position:absolute; left:14px; top:12px; background:rgba(11,15,14,.7); padding:4px 8px; border-radius:3px }
+  .schem .hint { position:absolute; right:14px; top:12px; font:500 11px var(--f-mono); letter-spacing:.08em; color:var(--faint) }
+  body.loop .schem .hint { display:none }
   svg { width:100%; height:auto; max-height:58vh; display:block; margin:auto }
   /* running receipt */
   .rcpt { background:#F3F1EA; color:#16211E; border-radius:8px; padding:18px 18px 16px; font:12.5px/1.5 var(--f-mono); position:relative; display:flex; flex-direction:column;
@@ -149,12 +152,12 @@
     <button class="chip" data-lens="ticketing">A TICKETING PLATFORM</button>
     <button class="chip" data-lens="market">OUR MARKETPLACE</button>
   </div>
-  <div class="step" id="stepLabel">SCENE 1 / 7</div>
 </div>
 
 <div class="stage">
 <div class="film">
-<div class="schem" id="schem" title="click: next scene">
+<div class="schem" id="schem">
+<div class="step" id="stepLabel">SCENE 1 / 7</div><div class="hint">click · next scene</div>
 <svg id="scene" viewBox="0 0 1000 480" role="img" aria-label="Animated tour: owner, agent key, mandate, purchase through two gates, refusal, kill switch, deployment" font-family="Oxanium, system-ui, sans-serif">
   <defs>
     <marker id="a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#19D3BC"/></marker>
