@@ -26,9 +26,9 @@ Online copy: `https://regentprotocol.org/riyadh` (same file, served by nginx fro
 
 Anything not shipped must carry a `Roadmap` chip. In `data.py`: a step gets `"roadmap": "…"`, a drawer item becomes `{"text": "…", "roadmap": True}`.
 
-## Swap brand tokens
+## Themes and brand tokens
 
-All colours, radii and durations are CSS custom properties at the top of `build.py` (`CSS` block, `:root`). Base `#0F1513` and seal accent `#00C9B7` are the site's brand tokens; the neutral ramp and the three outcome colours (`--allow`, `--esc`, `--deny`) are taken from the live site and the `/how-it-works` tour. Fonts: replace the `.woff2` files in `assets/` and the `@font-face` lines.
+The page ships two themes from the site's palette. **Light is the default** (paper `#F7F7F3`, seal `#007A6E`, ink `#16211E`); **dark** (`#0F1513` base, seal `#00C9B7`) is one tap away on the "Dark / Light" button in the top bar and is remembered per device in `localStorage`. All colours, radii and durations are CSS custom properties at the top of `build.py` (`CSS` block): `:root` holds the light set, `:root[data-theme="dark"]` the dark set; the neutral ramp and the three outcome colours (`--allow`, `--esc`, `--deny`) come from the live site and the `/how-it-works` tour. The logo PNGs are white on transparent and are inverted by CSS on the light theme (`--logo-invert`). Fonts: replace the `.woff2` files in `assets/` and the `@font-face` lines.
 
 ## Segment data structure
 
