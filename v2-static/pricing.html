@@ -814,11 +814,19 @@
 
 <!-- ══════════════════════ PRICING ══════════════════════ -->
 <div id="view-pricing">
+  <style>
+    #view-pricing .hero .oem-note { font-size: 15.5px; line-height: 1.6; color: var(--mut); max-width: 62ch; margin: -8px 0 24px; }
+    #view-pricing .hero .oem-note strong { color: var(--ink); }
+    #view-pricing .hero .oem-note a { color: var(--seal); text-decoration: underline; text-underline-offset: 3px; }
+    #view-pricing .tier .oem-ptr { font-size: 12.5px; line-height: 1.5; color: var(--mut); margin-top: 10px; }
+    @media (max-width: 640px) { #view-pricing .hero .oem-note { font-size: 14.5px; } }
+  </style>
 
   <div class="wrap hero" style="padding-bottom: 24px;">
     <div class="eyebrow">Pricing</div>
     <h1 style="font-size: clamp(26px, 3.6vw, 38px);">Compliance infrastructure,<br>priced like infrastructure.</h1>
     <p class="cat">Start free. Scale with usage. Every plan includes verifiable agent identity and tamper-evident audit anchoring; <strong>Growth and above add Mandates, Guardian, and the Control Panel.</strong> We price verified actions — not seats.</p>
+    <p class="oem-note"><strong>Direct and embedded are different buyers.</strong> This list covers organisations running Regent on their own estate. Platforms and vendors embedding Regent into a product they resell — payment platforms, processors, core banking and agent-platform vendors — are served under a separate OEM / embedded model: a platform licence plus a revenue share on verified actions at platform volumes. <a href="mailto:info@regentprotocol.org?subject=Regent%20OEM">Talk to us</a></p>
     <div class="mono" style="font-size: 12.5px; color: var(--faint); display: flex; gap: 18px; flex-wrap: wrap;">
       <span>Sub-cent chain anchoring</span><span>·</span><span>No per-seat pricing</span><span>·</span><span>Usage alerts &amp; hard caps</span>
     </div>
@@ -898,6 +906,7 @@
         </ul>
         <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20Enterprise" data-ph="pricing_tier_selected:enterprise">Talk to us</a>
         <div class="fnote">Typical contracts $30K–$75K / yr</div>
+        <div class="oem-ptr">OEM / embedded terms for platforms are separate — see the note above the plans.</div>
       </div>
     </div>
   </div>
@@ -984,7 +993,7 @@
     <div class="partner-banner">
       <div style="flex: 1; min-width: 280px;">
         <h3>Building with us early?</h3>
-        <p>Our first design partners get Enterprise features at Growth pricing for 12 months — in exchange for a named case study and a reference call.</p>
+        <p>Our first design partners get Enterprise features at Growth pricing for 12 months — in exchange for a named case study and a reference call. Design-partner terms apply to organisations running Regent on their own estate. Platforms embedding Regent into a product they resell are served under the OEM / embedded model above.</p>
       </div>
       <a class="btn btn-primary" href="/pilot">Apply for the pilot program</a>
     </div>
