@@ -681,28 +681,6 @@
   .quote blockquote { margin: 0 0 14px; font-size: 16.5px; line-height: 1.6; color: var(--ink); }
   .quote blockquote em { color: var(--seal); font-style: normal; }
   .qfoot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 12.5px; color: var(--mut); }
-  /* Money20/20 ME event band — official Brand Styling 2026:
-     primary gradient True White → Cyan #00FFFF → Green #00DC46, Rich Black type,
-     gold MIDDLE EAST from the logo lockup. */
-  .event-band {
-    display: flex; align-items: center; justify-content: center; gap: 22px; flex-wrap: wrap;
-    padding: 13px 20px;
-    background: linear-gradient(105deg, #FFFFFF 0%, #00FFFF 42%, #00DC46 100%);
-    color: #000000; text-decoration: none;
-  }
-  .event-band:hover { filter: saturate(1.15); text-decoration: none; }
-  .eb-lockup { display: flex; align-items: center; gap: 14px; }
-  .eb-m {
-    font-weight: 800; font-size: 15px; line-height: 0.98; letter-spacing: 0.02em;
-    color: #000000; text-align: left; font-family: var(--f-head);
-  }
-  .eb-me { display: flex; flex-direction: column; text-align: left;
-    color: #A8862D; font-weight: 800; font-size: 16px; letter-spacing: 0.04em; font-family: var(--f-head); }
-  .eb-me small { color: rgba(0,0,0,0.72); font-weight: 600; font-size: 10.5px; letter-spacing: 0.08em; font-family: var(--f-mono); margin-top: 2px; }
-  .eb-meet { font-size: 13.5px; color: #000000; }
-  .eb-meet strong { color: #3200FF; font-weight: 800; }
-  .event-band .eb-cta { color: #FFFFFF; background: #000000; font-weight: 700; font-size: 13.5px; white-space: nowrap; border-radius: 4px; padding: 7px 14px; }
-  .event-band:hover .eb-cta { color: #00FFFF; }
 
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; animation: none !important; }
@@ -805,15 +783,6 @@
 
 <div id="view-home">
 
-<!-- 0 · EVENT BAND — Money20/20 ME (remove after 2026-09-16) -->
-<a class="event-band" href="mailto:info@regentprotocol.org?subject=Meeting%20at%20Money20%2F20%20Middle%20East" data-ph="money2020_banner_clicked" aria-label="Meet us at Money20/20 Middle East, Riyadh, 14-16 September 2026, booth H2.P124">
-  <span class="eb-lockup" aria-hidden="true">
-    <span class="eb-m">.MONEY<br>20/20</span>
-    <span class="eb-me">MIDDLE EAST<small>14–16 SEPTEMBER 2026 · RIYADH</small></span>
-  </span>
-  <span class="eb-meet">Meet us there — Booth <strong>H2.P124</strong></span>
-  <span class="eb-cta">Book a meeting →</span>
-</a>
 
 <!-- 1 · HERO -->
 <div class="wrap hero">
@@ -2204,7 +2173,7 @@ await r.audit.ingest_event(IngestEventRequest(
         <p>Top-5 finals, live audience vote — organized by Superteam Kazakhstan. <a href="https://www.linkedin.com/company/superteam-kazakhstan/">Official announcement ↗</a></p>
       </div>
       <div class="cell">
-        <svg class="proof" viewBox="0 0 640 360" role="img" aria-label="Money20/20 Middle East 2026, Riyadh, 14–16 September — Startup Program, booth H2.P124">
+        <svg class="proof" viewBox="0 0 640 360" role="img" aria-label="Money20/20 Middle East 2026, Riyadh, 14–16 September — Startup Program">
           <defs><linearGradient id="m2g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="0.45" stop-color="#00FFFF"/><stop offset="1" stop-color="#00DC46"/></linearGradient></defs>
           <rect width="640" height="360" rx="8" fill="url(#m2g)"/>
           <g font-family="Orbitron, Oxanium, system-ui, sans-serif" font-weight="800" fill="#000000">
@@ -2216,7 +2185,7 @@ await r.audit.ingest_event(IngestEventRequest(
             <text x="352" y="196" font-size="36">EAST</text>
           </g>
           <text x="352" y="232" font-family="Geist Mono, ui-monospace, monospace" font-size="14" font-weight="600" fill="#000000" letter-spacing="1">14–16 SEPTEMBER 2026 · RIYADH</text>
-          <text x="56" y="306" font-family="Geist Mono, ui-monospace, monospace" font-size="15" font-weight="600" fill="#000000" letter-spacing="1">STARTUP PROGRAM · BOOTH H2.P124</text>
+          <text x="56" y="306" font-family="Geist Mono, ui-monospace, monospace" font-size="15" font-weight="600" fill="#000000" letter-spacing="1">STARTUP PROGRAM</text>
         </svg>
         <div class="k">Money20/20 Middle East 2026</div>
         <h3>Startup Program — selected</h3>
@@ -2246,7 +2215,7 @@ await r.audit.ingest_event(IngestEventRequest(
 
   <section data-reveal><div class="wrap">
     <div class="eyebrow">Team</div>
-    <h2>Founders &amp; advisor.</h2>
+    <h2>Founders &amp; Advisors.</h2>
     <div class="principles" style="margin-top: 20px;">
       <div class="cell">
         <div class="k">Founder &amp; CEO</div>
@@ -2268,6 +2237,12 @@ await r.audit.ingest_event(IngestEventRequest(
         <h3>Marco Comuzzi</h3>
         <p>Associate Professor at UNIST &mdash; blockchain, business process management, predictive analytics.</p>
         <p style="margin-top: 10px;"><a href="https://www.linkedin.com/in/mcomuzzi/">LinkedIn</a></p>
+      </div>
+      <div class="cell">
+        <div class="k">Executive Advisor</div>
+        <img class="fphoto" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2084%2084%22%3E%3Crect%20width%3D%2284%22%20height%3D%2284%22%20fill%3D%22%23F7F7F3%22%2F%3E%3Ctext%20x%3D%2242%22%20y%3D%2252%22%20text-anchor%3D%22middle%22%20font-family%3D%22Oxanium%2C%20system-ui%2C%20sans-serif%22%20font-size%3D%2230%22%20font-weight%3D%22600%22%20fill%3D%22%2355625D%22%3EAB%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Alexandr Bondarenko" loading="lazy">
+        <h3>Alexandr Bondarenko</h3>
+        <p>Fintech expert, Executive MBA. Co-founder of Terricon Valley, former CEO of Wooppay.</p>
       </div>
     </div>
   </div></section>

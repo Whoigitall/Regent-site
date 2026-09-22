@@ -681,28 +681,6 @@
   .quote blockquote { margin: 0 0 14px; font-size: 16.5px; line-height: 1.6; color: var(--ink); }
   .quote blockquote em { color: var(--seal); font-style: normal; }
   .qfoot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 12.5px; color: var(--mut); }
-  /* Money20/20 ME event band — official Brand Styling 2026:
-     primary gradient True White → Cyan #00FFFF → Green #00DC46, Rich Black type,
-     gold MIDDLE EAST from the logo lockup. */
-  .event-band {
-    display: flex; align-items: center; justify-content: center; gap: 22px; flex-wrap: wrap;
-    padding: 13px 20px;
-    background: linear-gradient(105deg, #FFFFFF 0%, #00FFFF 42%, #00DC46 100%);
-    color: #000000; text-decoration: none;
-  }
-  .event-band:hover { filter: saturate(1.15); text-decoration: none; }
-  .eb-lockup { display: flex; align-items: center; gap: 14px; }
-  .eb-m {
-    font-weight: 800; font-size: 15px; line-height: 0.98; letter-spacing: 0.02em;
-    color: #000000; text-align: left; font-family: var(--f-head);
-  }
-  .eb-me { display: flex; flex-direction: column; text-align: left;
-    color: #A8862D; font-weight: 800; font-size: 16px; letter-spacing: 0.04em; font-family: var(--f-head); }
-  .eb-me small { color: rgba(0,0,0,0.72); font-weight: 600; font-size: 10.5px; letter-spacing: 0.08em; font-family: var(--f-mono); margin-top: 2px; }
-  .eb-meet { font-size: 13.5px; color: #000000; }
-  .eb-meet strong { color: #3200FF; font-weight: 800; }
-  .event-band .eb-cta { color: #FFFFFF; background: #000000; font-weight: 700; font-size: 13.5px; white-space: nowrap; border-radius: 4px; padding: 7px 14px; }
-  .event-band:hover .eb-cta { color: #00FFFF; }
 
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; animation: none !important; }
@@ -811,15 +789,6 @@
 
 <div id="view-home">
 
-<!-- 0 · EVENT BAND — Money20/20 ME (remove after 2026-09-16) -->
-<a class="event-band" href="mailto:info@regentprotocol.org?subject=Meeting%20at%20Money20%2F20%20Middle%20East" data-ph="money2020_banner_clicked" aria-label="Meet us at Money20/20 Middle East, Riyadh, 14-16 September 2026, booth H2.P124">
-  <span class="eb-lockup" aria-hidden="true">
-    <span class="eb-m">.MONEY<br>20/20</span>
-    <span class="eb-me">MIDDLE EAST<small>14–16 SEPTEMBER 2026 · RIYADH</small></span>
-  </span>
-  <span class="eb-meet">Meet us there — Booth <strong>H2.P124</strong></span>
-  <span class="eb-cta">Book a meeting →</span>
-</a>
 
 <!-- 1 · HERO -->
 <div class="wrap hero">
