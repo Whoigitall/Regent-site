@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Sitemap: https://regentprotocol.org/sitemap.xml
+
+# Machine-readable entry points for agents and crawlers:
+#   https://regentprotocol.org/llms.txt        what Regent is and the three doors for agents
+#   https://regentprotocol.org/AGENTS.md       instructions for AI agents
+#   https://docs.regentprotocol.org/llms.txt   documentation index
