@@ -452,6 +452,10 @@
   /* ── about ── */
   .about-thesis { font-family: var(--f-head); font-size: 19px; font-weight: 500; line-height: 1.6; max-width: 44ch; margin: 0; }
   .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; margin-top: 26px; }
+  /* Team cards: portrait and text centred inside the cell (the other .principles
+     grids on the site stay left-aligned — this is scoped to .team only). */
+  .principles.team .cell { text-align: center; }
+  .principles.team .fphoto { margin-left: auto; margin-right: auto; }
   /* Founders sit above the three advisors: same card width, the pair centred. */
   .principles.founders { grid-template-columns: repeat(2, minmax(250px, 1fr)); max-width: 66.666%; margin-left: auto; margin-right: auto; }
   @media (max-width: 860px) { .principles.founders { max-width: none; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); } }
