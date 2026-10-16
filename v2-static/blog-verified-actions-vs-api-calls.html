@@ -452,13 +452,51 @@
   /* ── about ── */
   .about-thesis { font-family: var(--f-head); font-size: 19px; font-weight: 500; line-height: 1.6; max-width: 44ch; margin: 0; }
   .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; margin-top: 26px; }
-  /* Team cards: portrait and text centred inside the cell (the other .principles
-     grids on the site stay left-aligned — this is scoped to .team only). */
-  .principles.team .cell { text-align: center; }
-  .principles.team .fphoto { margin-left: auto; margin-right: auto; }
-  /* Founders sit above the three advisors: same card width, the pair centred. */
-  .principles.founders { grid-template-columns: repeat(2, minmax(250px, 1fr)); max-width: 66.666%; margin-left: auto; margin-right: auto; }
-  @media (max-width: 860px) { .principles.founders { max-width: none; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); } }
+  /* Team block (Sayat's layout, 16.10): separate cards, founders wide with the
+     portrait beside the text, advisors centred. Scoped to .rp-team; all colours and
+     faces come from the site tokens, so dark mode follows automatically. */
+  .rp-team { --rp-gap: 24px; --rp-radius: 16px; font-family: var(--f-body); margin-top: 26px;
+             display: flex; flex-direction: column; gap: 44px; }
+  .rp-team *, .rp-team *::before, .rp-team *::after { box-sizing: border-box; }
+  .rp-team__group { display: flex; flex-direction: column; gap: var(--rp-gap); }
+  .rp-team__group-head { display: flex; align-items: center; gap: 16px; }
+  .rp-team__group-label { margin: 0; font: 500 12px/1.5 var(--f-mono); letter-spacing: 0.16em;
+                          text-transform: uppercase; color: var(--faint); }
+  .rp-team__group-head::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .rp-team__grid { display: grid; gap: var(--rp-gap); margin: 0; padding: 0; list-style: none; }
+  .rp-team__grid--founders { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rp-team__grid--advisors { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 1024px) { .rp-team__grid--advisors { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 860px)  { .rp-team__grid--founders { grid-template-columns: 1fr; } }
+  @media (max-width: 640px)  { .rp-team__grid--advisors { grid-template-columns: 1fr; } }
+  .rp-card { height: 100%; background: var(--card); border: 1px solid var(--line);
+             border-radius: var(--rp-radius); transition: background-color .2s ease, border-color .2s ease; }
+  .rp-card:hover { background: var(--well); border-color: var(--seal); }
+  .rp-card__photo { position: relative; flex-shrink: 0; overflow: hidden; background: var(--well);
+                    border: 1px solid var(--line); display: grid; place-items: center;
+                    font-family: var(--f-head); font-weight: 600; color: var(--seal); }
+  .rp-card__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .rp-card__role { font: 500 11px/1.5 var(--f-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--seal); }
+  .rp-card__name { margin: 0; font-family: var(--f-body); font-weight: 600; line-height: 1.2; }
+  .rp-card__bio { margin: 0; line-height: 1.6; color: var(--mut); }
+  .rp-card__link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px;
+                   font-size: 14px; font-weight: 600; color: var(--seal); text-decoration: none; }
+  .rp-card__link:hover { color: var(--ink); }
+  .rp-card__link svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .rp-card--founder { padding: 32px; display: flex; gap: 28px; align-items: flex-start; }
+  .rp-card--founder .rp-card__photo { width: 136px; height: 136px; border-radius: 12px; font-size: 40px; }
+  .rp-card--founder .rp-card__body { flex: 1; min-width: 0; align-self: stretch; display: flex; flex-direction: column; gap: 10px; }
+  .rp-card--founder .rp-card__name { font-size: 24px; }
+  .rp-card--founder .rp-card__bio { font-size: 15px; }
+  .rp-card--founder .rp-card__link { margin-top: auto; padding-top: 8px; }
+  @media (max-width: 480px) { .rp-card--founder { flex-direction: column; padding: 24px; }
+                              .rp-card--founder .rp-card__photo { width: 112px; height: 112px; font-size: 32px; } }
+  .rp-card--advisor { padding: 32px 28px 24px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+  .rp-card--advisor .rp-card__photo { width: 104px; height: 104px; border-radius: 50%; font-size: 30px; margin-bottom: 10px; }
+  .rp-card--advisor .rp-card__name { font-size: 20px; }
+  .rp-card--advisor .rp-card__bio { font-size: 14px; margin-top: 6px; }
+  .rp-card--advisor .rp-card__footer { margin-top: auto; width: 100%; padding-top: 16px;
+                                       border-top: 1px solid var(--line); display: flex; justify-content: center; }
   .fphoto {
     width: 84px; height: 84px; object-fit: cover; border-radius: 4px;
     border: 1px solid var(--line); display: block; margin-bottom: 14px;
