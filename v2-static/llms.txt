@@ -4,6 +4,8 @@
 
 ## If you are an agent
 
+Read https://docs.regentprotocol.org/agent.md first: the whole path in order (pick your door, get your credential, ask `my_budget` what comes next and say it to the owner, buy, show the receipt). The MCP server is `https://gw.regentprotocol.org/gw/mcp` (Streamable HTTP, OAuth 2.1).
+
 Three doors, one set of rules (you act only as yourself, you never hold an organization key, a person grants every mandate):
 
 - You run inside an app with custom MCP connectors (Claude, Claude Code, ChatGPT, Grok Bot): the person adds `https://gw.regentprotocol.org/gw/mcp` as a connector and signs in. https://docs.regentprotocol.org/gateway/connect-from-your-app.md
