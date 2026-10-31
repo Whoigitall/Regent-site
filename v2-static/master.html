@@ -1161,7 +1161,7 @@ await r.audit.ingest_event(IngestEventRequest(
         <div class="tag">For regulated institutions, banks, and payment infrastructure providers.</div>
         <ul>
           <li>Volume actions from $0.001–0.003</li>
-          <li>Immutable archive (add-on): Celestia DA + Merkle proofs</li>
+          <li>Evidence archive (add-on): Merkle proofs, retention matched to your regulator</li>
           <li>Regulatory evidence packs (add-on)</li>
           <li>Custom SLA · dedicated infra · SSO</li>
           <li>Professional services &amp; regulator mapping</li>
@@ -1225,9 +1225,9 @@ await r.audit.ingest_event(IngestEventRequest(
         <p>EU AI Act Art. 12/14 record-keeping, NIST AI RMF mapping, SOC 2 audit export — evidence exports and mappings for your reviewers, not regulator approval.</p>
       </div>
       <div class="addon">
-        <h3>Immutable Archive</h3>
+        <h3>Evidence Archive</h3>
         <div class="pr">$0.50 / GB / mo · or flat $5K–$25K / yr</div>
-        <p>Full payloads on Celestia DA with Merkle proofs, retention matched to your regulator.</p>
+        <p>Full audit payloads kept with Merkle proofs against the anchored roots, retention matched to your regulator.</p>
       </div>
       <div class="addon">
         <h3>Professional Services</h3>
@@ -1241,11 +1241,11 @@ await r.audit.ingest_event(IngestEventRequest(
     <div>
       <div class="eyebrow">Why our costs are different</div>
       <h2>Sub-cent chain costs.<br>Published, not promised.</h2>
-      <p class="lede">Regent anchors audit trails on Solana and stores immutable payloads on Celestia. On-chain anchoring costs fractions of a cent per action — which is why per-transaction compliance is economically viable, and why our pricing sits structurally below legacy GRC contracts.</p>
+      <p class="lede">Regent anchors the Merkle roots of audit batches on Solana; the payloads stay off-chain and are provable against those roots. On-chain anchoring costs fractions of a cent per action — which is why per-transaction compliance is economically viable, and why our pricing sits structurally below legacy GRC contracts.</p>
     </div>
     <div class="statgrid">
       <div class="stat"><div class="n">&lt;$0.01</div><div class="l">chain cost to anchor one verified action</div></div>
-      <div class="stat"><div class="n">~$0.03–0.07</div><div class="l">per MB, Celestia DA immutable storage (chain characteristic)</div></div>
+      <div class="stat"><div class="n">1 root</div><div class="l">on chain per audit batch, whatever its size</div></div>
       <div class="stat"><div class="n">$0</div><div class="l">per-seat fees on every plan</div></div>
       <div class="stat"><div class="n">2 mo</div><div class="l">free on annual prepay (Growth &amp; Scale)</div></div>
     </div>
@@ -1317,7 +1317,7 @@ await r.audit.ingest_event(IngestEventRequest(
     <h2>Three layers, one decision path.</h2>
     <div class="grid grid-4" style="margin-top: 24px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));">
       <div class="cell"><div class="k">Settlement · Solana</div><h3>On-chain programs</h3><p>Three Anchor programs on devnet — <span class="mono">agent-registry</span>, <span class="mono">mandate-registry</span>, <span class="mono">audit-anchor</span> — hold agent identities, mandate commitments, and Merkle roots of audit batches.</p></div>
-      <div class="cell"><div class="k">Evidence · Celestia DA</div><h3>Audit payload storage</h3><p>Full audit payloads as data-availability blobs with Merkle proofs. What is committed cannot be silently altered; what is stored where is documented, layer by layer.</p></div>
+      <div class="cell"><div class="k">Evidence · Hash chain</div><h3>Audit payload storage</h3><p>Full audit payloads in a hash-chained log, batched into Merkle trees whose roots are anchored on Solana. What is committed cannot be silently altered; what is stored where is documented, layer by layer.</p></div>
       <div class="cell"><div class="k">Control · Guardian</div><h3>Risk engine</h3><p>Rule engine plus behavioural scoring (Isolation Forest with SHAP explanations, drift detection) — allow, hold for a human, or stop.</p></div>
       <div class="cell"><div class="k">Surface</div><h3>Platform &amp; SDK</h3><p>Dashboard for operators — agents, mandates, audit log, kill switch — and a Python SDK plus REST API for integration.</p></div>
     </div>
@@ -1335,15 +1335,15 @@ await r.audit.ingest_event(IngestEventRequest(
 
   <section data-reveal><div class="wrap">
     <div class="eyebrow">Chain choices</div>
-    <h2>Why Solana. Why Celestia.</h2>
+    <h2>Why Solana. Why only roots on chain.</h2>
     <div class="split" style="margin-top: 24px;">
       <div class="ledgerlist" style="padding: 20px 22px;">
         <h3 style="margin-top: 0;">Solana — settlement &amp; anchoring</h3>
         <p style="font-size: 14px; color: var(--mut); margin: 8px 0 0;">Per-transaction anchoring at fractions of a cent is what makes per-action compliance economically viable. Cost and finality are network characteristics of Solana, not Regent performance promises — current figures live in the network's own documentation.</p>
       </div>
       <div class="ledgerlist" style="padding: 20px 22px;">
-        <h3 style="margin-top: 0;">Celestia — data availability</h3>
-        <p style="font-size: 14px; color: var(--mut); margin: 8px 0 0;">Dedicated DA for audit payloads (~$0.03&ndash;0.07&nbsp;/&nbsp;MB, chain characteristic) with cryptographic guarantees on what was committed. Tamper-evidence is stated precisely: commitments are permanent; storage layers are documented per artifact.</p>
+        <h3 style="margin-top: 0;">Payloads off-chain — proofs on chain</h3>
+        <p style="font-size: 14px; color: var(--mut); margin: 8px 0 0;">Only the Merkle root of each audit batch goes on chain, so no payment details or personal data are ever published, and any single record can be proven against its root. Tamper-evidence is stated precisely: commitments are permanent; storage layers are documented per artifact.</p>
       </div>
     </div>
   </div></section>
@@ -1532,7 +1532,7 @@ await r.audit.ingest_event(IngestEventRequest(
         <text x="450" y="120" text-anchor="middle" stroke="none" fill="currentColor" font-size="12.5">AgentID · Mandates · Guardian</text>
         <text x="450" y="142" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.6" font-size="11.5">decides before execution</text>
         <rect x="700" y="40" width="180" height="64" rx="4"/><text x="790" y="66" text-anchor="middle" stroke="none" fill="currentColor" font-weight="600">Settlement</text><text x="790" y="86" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.6" font-size="11.5">Solana programs (devnet)</text>
-        <rect x="700" y="130" width="180" height="64" rx="4"/><text x="790" y="156" text-anchor="middle" stroke="none" fill="currentColor" font-weight="600">Audit evidence</text><text x="790" y="176" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.6" font-size="11.5">Merkle batches · Celestia DA</text>
+        <rect x="700" y="130" width="180" height="64" rx="4"/><text x="790" y="156" text-anchor="middle" stroke="none" fill="currentColor" font-weight="600">Audit evidence</text><text x="790" y="176" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.6" font-size="11.5">Merkle batches · Solana roots</text>
         <rect x="290" y="252" width="320" height="40" rx="4"/><text x="450" y="277" text-anchor="middle" stroke="none" fill="currentColor" font-weight="600">Control Panel — human operator</text>
         <path d="M200 145 H288" marker-end="url(#arr)"/><text x="242" y="136" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.7" font-size="11">authorize</text>
         <path d="M610 100 H698" marker-end="url(#arr)"/><text x="654" y="90" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.7" font-size="11">anchors</text>
@@ -2368,7 +2368,7 @@ await r.audit.ingest_event(IngestEventRequest(
 <h2>4. User Accounts</h2>
 <p>To access certain features, you may need to create an account. You are responsible for maintaining the confidentiality of your account credentials and for all activities under your account. You agree to notify us immediately of any unauthorized use.</p>
 <h2>5. Blockchain Interactions</h2>
-<p>Transactions on Solana and Celestia are irreversible. You are solely responsible for verifying transaction details before signing. We are not responsible for lost funds, failed transactions, or smart contract interactions initiated by you.</p>
+<p>Transactions on Solana are irreversible. You are solely responsible for verifying transaction details before signing. We are not responsible for lost funds, failed transactions, or smart contract interactions initiated by you.</p>
 <h2>6. Prohibited Activities</h2>
 <p>You agree not to:</p><ul>
 <li>Use the Services for illegal, fraudulent, or unauthorized purposes.</li>
@@ -2424,7 +2424,7 @@ await r.audit.ingest_event(IngestEventRequest(
 <li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets.</li>
 <li><strong>Consent:</strong> With your explicit consent for specific purposes.</li></ul>
 <h2>5. Blockchain Data</h2>
-<p>Data stored on Solana and Celestia blockchains is public and immutable by design. This includes AgentID metadata, audit anchors, and transaction records. We cannot delete or modify on-chain data. Users should be aware that blockchain interactions create permanent, publicly visible records.</p>
+<p>Data written to the Solana blockchain is public and immutable by design. This includes AgentID metadata, audit anchors, and transaction records. We cannot delete or modify on-chain data. Users should be aware that blockchain interactions create permanent, publicly visible records.</p>
 <h2>6. Data Security</h2>
 <p>We implement industry-standard security measures to protect your personal data, including encryption in transit and at rest, access controls, and regular security audits. However, no method of transmission over the internet or electronic storage is 100% secure.</p>
 <h2>7. Your Rights</h2>

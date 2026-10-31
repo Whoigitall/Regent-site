@@ -39,7 +39,7 @@ ROUTES = {
     "technology": {
         "path": "/technology", "file": "technology.html",
         "title": "Technology — Regent Protocol",
-        "desc": "The architecture behind verifiable agent finance: Solana settlement programs, Celestia DA audit storage, the Guardian risk engine, and a Python SDK. Live on devnet.",
+        "desc": "The architecture behind verifiable agent finance: Solana settlement programs, Merkle-anchored audit evidence, the Guardian risk engine, and a Python SDK. Live on devnet.",
     },
     "pilot": {
         "path": "/pilot", "file": "pilot.html",

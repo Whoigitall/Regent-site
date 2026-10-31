@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <title>Technology — Regent Protocol</title>
-<meta name="description" content="The architecture behind verifiable agent finance: Solana settlement programs, Celestia DA audit storage, the Guardian risk engine, and a Python SDK. Live on devnet.">
+<meta name="description" content="The architecture behind verifiable agent finance: Solana settlement programs, Merkle-anchored audit evidence, the Guardian risk engine, and a Python SDK. Live on devnet.">
 <meta property="og:title" content="Technology — Regent Protocol">
-<meta property="og:description" content="The architecture behind verifiable agent finance: Solana settlement programs, Celestia DA audit storage, the Guardian risk engine, and a Python SDK. Live on devnet.">
+<meta property="og:description" content="The architecture behind verifiable agent finance: Solana settlement programs, Merkle-anchored audit evidence, the Guardian risk engine, and a Python SDK. Live on devnet.">
 <meta property="og:site_name" content="Regent Protocol">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
@@ -852,7 +852,7 @@
     <h2>Three layers, one decision path.</h2>
     <div class="grid grid-4" style="margin-top: 24px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));">
       <div class="cell"><div class="k">Settlement · Solana</div><h3>On-chain programs</h3><p>Three Anchor programs on devnet — <span class="mono">agent-registry</span>, <span class="mono">mandate-registry</span>, <span class="mono">audit-anchor</span> — hold agent identities, mandate commitments, and Merkle roots of audit batches.</p></div>
-      <div class="cell"><div class="k">Evidence · Celestia DA</div><h3>Audit payload storage</h3><p>Full audit payloads as data-availability blobs with Merkle proofs. What is committed cannot be silently altered; what is stored where is documented, layer by layer.</p></div>
+      <div class="cell"><div class="k">Evidence · Hash chain</div><h3>Audit payload storage</h3><p>Full audit payloads in a hash-chained log, batched into Merkle trees whose roots are anchored on Solana. What is committed cannot be silently altered; what is stored where is documented, layer by layer.</p></div>
       <div class="cell"><div class="k">Control · Guardian</div><h3>Risk engine</h3><p>Rule engine plus behavioural scoring (Isolation Forest with SHAP explanations, drift detection) — allow, hold for a human, or stop.</p></div>
       <div class="cell"><div class="k">Surface</div><h3>Platform &amp; SDK</h3><p>Dashboard for operators — agents, mandates, audit log, kill switch — and a Python SDK plus REST API for integration.</p></div>
     </div>
@@ -870,15 +870,15 @@
 
   <section data-reveal><div class="wrap">
     <div class="eyebrow">Chain choices</div>
-    <h2>Why Solana. Why Celestia.</h2>
+    <h2>Why Solana. Why only roots on chain.</h2>
     <div class="split" style="margin-top: 24px;">
       <div class="ledgerlist" style="padding: 20px 22px;">
         <h3 style="margin-top: 0;">Solana — settlement &amp; anchoring</h3>
         <p style="font-size: 14px; color: var(--mut); margin: 8px 0 0;">Per-transaction anchoring at fractions of a cent is what makes per-action compliance economically viable. Cost and finality are network characteristics of Solana, not Regent performance promises — current figures live in the network's own documentation.</p>
       </div>
       <div class="ledgerlist" style="padding: 20px 22px;">
-        <h3 style="margin-top: 0;">Celestia — data availability</h3>
-        <p style="font-size: 14px; color: var(--mut); margin: 8px 0 0;">Dedicated DA for audit payloads (~$0.03&ndash;0.07&nbsp;/&nbsp;MB, chain characteristic) with cryptographic guarantees on what was committed. Tamper-evidence is stated precisely: commitments are permanent; storage layers are documented per artifact.</p>
+        <h3 style="margin-top: 0;">Payloads off-chain — proofs on chain</h3>
+        <p style="font-size: 14px; color: var(--mut); margin: 8px 0 0;">Only the Merkle root of each audit batch goes on chain, so no payment details or personal data are ever published, and any single record can be proven against its root. Tamper-evidence is stated precisely: commitments are permanent; storage layers are documented per artifact.</p>
       </div>
     </div>
   </div></section>

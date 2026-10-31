@@ -17,7 +17,7 @@ Start with the agent skill: https://docs.regentprotocol.org/skill.md
 ## Pages
 
 - [Home](https://regentprotocol.org/): what Regent does — the financial action flow from AgentID through mandate check, Guardian decision, and audit proof
-- [Technology](https://regentprotocol.org/technology): architecture — Solana settlement programs (devnet), Celestia DA audit storage, Guardian risk engine, Python SDK
+- [Technology](https://regentprotocol.org/technology): architecture — Solana settlement programs (devnet), Merkle-anchored audit evidence, Guardian risk engine, Python SDK
 - [Pricing](https://regentprotocol.org/pricing): usage-based launch pricing — Developer $0, Growth $299/mo, Scale $999/mo, Enterprise from $2,500/mo; the unit is a verified action, never seats
 - [Pilot Program](https://regentprotocol.org/pilot): structured 14-day engagement; application form online
 - [About](https://regentprotocol.org/about): team and thesis
