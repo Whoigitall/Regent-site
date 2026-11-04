@@ -226,3 +226,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+    # the built pages are what visitors read: refuse to leave a forbidden phrase in them
+    import check_phrases
+    sys.exit(check_phrases.main())

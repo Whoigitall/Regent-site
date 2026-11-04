@@ -1,0 +1,14 @@
+{
+  "phrases": [
+    "SOC\\s*2\\s*Type\\s*(II|2)",
+    "SOC\\s*2[^.<>]{0,40}\\bin progress",
+    "in progress[^.<>]{0,40}SOC\\s*2",
+    "EU AI Act,?\\s*Article",
+    "Celestia",
+    "KYA[- ]verified",
+    "KYA passport",
+    "FIPS[- ]140",
+    "\\binheritance\\b"
+  ],
+  "allow": []
+}
