@@ -26,7 +26,8 @@ def main() -> int:
     cfg = json.loads((HERE / "forbidden-phrases.json").read_text())
     phrases = [(p, re.compile(p, re.IGNORECASE)) for p in cfg["phrases"]]
     allow = [re.compile(p, re.IGNORECASE) for p in cfg.get("allow", [])]
-    files = sorted(set(HERE.glob("*.html")) | set(HERE.glob("*.txt")))
+    # Standalone pages live in their own folder (beta/, riyadh/); deploy.sh copies them too.
+    files = sorted(set(HERE.glob("*.html")) | set(HERE.glob("*.txt")) | set(HERE.glob("*/index.html")))
     files = [f for f in files if f.name != "master.html"]
     hits: list[tuple[str, str, str]] = []
     scanned = 0

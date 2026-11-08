@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Regent Beta</title>
+<meta name="description" content="Give your AI agent a budget instead of your card. Regent decides every payment before money moves: inside your limits it goes through, above them it asks you, and every decision leaves a receipt you can verify. Free for three months during the beta.">
+<link rel="canonical" href="https://regentprotocol.org/beta">
+<meta property="og:title" content="Regent Beta">
+<meta property="og:description" content="Give your AI agent a budget, not your card. One line to connect Instinct, Tab, Claude, Claude Code, Hermes or your own code. Free for three months.">
+<meta property="og:url" content="https://regentprotocol.org/beta">
+<meta property="og:image" content="https://regentprotocol.org/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Oxanium:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --f-head: "Orbitron", "Oxanium", sans-serif;
+    --f-body: "Oxanium", system-ui, sans-serif;
+    --f-mono: "Geist Mono", ui-monospace, Menlo, monospace;
+    --paper: #F7F7F3; --card: #FFFFFF; --well: #F0F1EB;
+    --ink: #16211E; --mut: #55625D; --faint: #82908A;
+    --line: #D9DDD6; --hair: #E7EAE3;
+    --seal: #007A6E; --seal-soft: #DFF2EF; --on-seal: #FFFFFF;
+    --ok: #1E6B45; --ok-soft: #E4F0E8;
+    --hold: #8A5E10; --hold-soft: #F6EEDB;
+    --deny: #A03227; --deny-soft: #F7E6E3;
+    --test: #3E5A8C; --test-soft: #E6ECF6;
+    --code-bg: #14201C; --code-ink: #D9E2DC; --code-dim: #8FA39A;
+    --focus: #007A6E;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0E1513; --card: #151F1C; --well: #1A2522;
+      --ink: #E4EBE7; --mut: #A6B3AD; --faint: #7F8C86;
+      --line: #2B3834; --hair: #222E2A;
+      --seal: #43C2B1; --seal-soft: #12302C; --on-seal: #062420;
+      --ok: #62C793; --ok-soft: #132A20;
+      --hold: #E3B65A; --hold-soft: #2E2613;
+      --deny: #F08472; --deny-soft: #321B17;
+      --test: #93AEDF; --test-soft: #1A2336;
+      --code-bg: #0A110F; --code-ink: #D9E2DC; --code-dim: #7F948B;
+      --focus: #43C2B1;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0E1513; --card: #151F1C; --well: #1A2522;
+    --ink: #E4EBE7; --mut: #A6B3AD; --faint: #7F8C86;
+    --line: #2B3834; --hair: #222E2A;
+    --seal: #43C2B1; --seal-soft: #12302C; --on-seal: #062420;
+    --ok: #62C793; --ok-soft: #132A20;
+    --hold: #E3B65A; --hold-soft: #2E2613;
+    --deny: #F08472; --deny-soft: #321B17;
+    --test: #93AEDF; --test-soft: #1A2336;
+    --code-bg: #0A110F; --code-ink: #D9E2DC; --code-dim: #7F948B;
+    --focus: #43C2B1;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--f-body); font-size: 17px; line-height: 1.55;
+  }
+  a { color: var(--seal); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+  code, pre, .mono { font-family: var(--f-mono); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 720px) { .wrap { padding: 0 32px; } }
+
+  /* header */
+  header.site { border-bottom: 1px solid var(--hair); }
+  header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; }
+  .brand { font-family: var(--f-head); font-weight: 700; font-size: 15px; letter-spacing: .06em; color: var(--ink); text-decoration: none; text-transform: uppercase; }
+  .brand span { color: var(--seal); }
+  nav.top { display: flex; gap: 20px; align-items: center; font-size: 15px; }
+  nav.top a { color: var(--mut); text-decoration: none; }
+  nav.top a:hover { color: var(--ink); }
+  nav.top .hide-sm { display: none; }
+  @media (min-width: 640px) { nav.top .hide-sm { display: inline; } }
+
+  /* buttons */
+  .btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 10px; padding: 12px 18px; font: 600 15px/1 var(--f-body); text-decoration: none; cursor: pointer; border: 1px solid transparent; }
+  .btn-primary { background: var(--seal); color: var(--on-seal); }
+  .btn-primary:hover { filter: brightness(1.06); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-ghost:hover { border-color: var(--mut); }
+  .btn-sm { padding: 8px 12px; font-size: 13px; border-radius: 8px; }
+
+  /* hero */
+  .hero { padding: 56px 0 40px; display: grid; gap: 40px; }
+  @media (min-width: 920px) { .hero { grid-template-columns: 1.05fr .95fr; align-items: center; padding: 72px 0 56px; } }
+  .eyebrow { font: 600 12px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--seal); display: inline-flex; gap: 10px; align-items: center; }
+  .eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--seal); }
+  h1 { font-family: var(--f-head); font-weight: 700; font-size: clamp(30px, 5.2vw, 46px); line-height: 1.12; letter-spacing: .01em; margin: 16px 0 18px; text-wrap: balance; }
+  .lede { font-size: 19px; color: var(--mut); max-width: 34em; margin: 0 0 26px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .fine { font-size: 14px; color: var(--faint); margin: 18px 0 0; max-width: 36em; }
+
+  /* decision ledger (hero visual) */
+  .ledger { background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .ledger-head { display: flex; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--hair); font: 500 12px/1.3 var(--f-mono); color: var(--faint); letter-spacing: .04em; text-transform: uppercase; gap: 12px; }
+  .lrow { display: grid; grid-template-columns: 1fr auto; gap: 6px 14px; padding: 16px; border-bottom: 1px solid var(--hair); }
+  .lrow:last-child { border-bottom: 0; }
+  .lrow .what { font-weight: 600; }
+  .lrow .amt { font: 600 15px/1.4 var(--f-mono); font-variant-numeric: tabular-nums; text-align: right; }
+  .lrow .why { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; font-size: 14px; color: var(--mut); }
+  .stamp { font: 700 11px/1 var(--f-mono); letter-spacing: .1em; padding: 6px 8px; border-radius: 6px; text-transform: uppercase; }
+  .stamp.ok { background: var(--ok-soft); color: var(--ok); }
+  .stamp.hold { background: var(--hold-soft); color: var(--hold); }
+  .stamp.deny { background: var(--deny-soft); color: var(--deny); }
+  .code-tag { font: 500 12px/1 var(--f-mono); color: var(--faint); }
+
+  /* sections */
+  section.block { padding: 56px 0; border-top: 1px solid var(--hair); }
+  h2 { font-family: var(--f-head); font-weight: 600; font-size: clamp(22px, 3.2vw, 28px); line-height: 1.2; margin: 0 0 10px; letter-spacing: .01em; text-wrap: balance; }
+  .sub { color: var(--mut); margin: 0 0 28px; max-width: 42em; }
+  h3 { font-size: 18px; margin: 0 0 6px; font-weight: 700; }
+
+  /* connect cards */
+  .connect { display: grid; gap: 16px; }
+  @media (min-width: 820px) { .connect { grid-template-columns: 1fr 1fr; } .connect .primary { grid-column: 1 / -1; } }
+  .ccard { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .ccard.primary { border-color: var(--seal); box-shadow: 0 0 0 3px var(--seal-soft); }
+  .ccard .who { font: 500 13px/1.4 var(--f-mono); color: var(--faint); }
+  .ccard p { margin: 0; color: var(--mut); font-size: 15px; }
+  .ccard ol { margin: 0; padding-left: 20px; color: var(--mut); font-size: 15px; display: grid; gap: 4px; }
+  .snip { position: relative; background: var(--code-bg); color: var(--code-ink); border-radius: 10px; padding: 14px 16px; padding-right: 84px; }
+  .snip pre { margin: 0; font-size: 13.5px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
+  .snip .dim { color: var(--code-dim); }
+  .snip .copy { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,.08); color: var(--code-ink); border: 1px solid rgba(255,255,255,.16); border-radius: 7px; padding: 6px 10px; font: 600 12px/1 var(--f-body); cursor: pointer; }
+  .snip .copy:hover { background: rgba(255,255,255,.16); }
+  .snip-label { font: 600 12px/1 var(--f-mono); color: var(--faint); letter-spacing: .06em; text-transform: uppercase; margin-top: 4px; }
+  .tested { font-size: 13px; color: var(--faint); margin: 0; }
+
+  /* chips */
+  .chip { display: inline-block; font: 700 10.5px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; padding: 5px 7px; border-radius: 5px; white-space: nowrap; }
+  .chip.live { background: var(--ok-soft); color: var(--ok); }
+  .chip.early { background: var(--hold-soft); color: var(--hold); }
+  .chip.testnet { background: var(--test-soft); color: var(--test); }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 14px; color: var(--mut); margin: -10px 0 26px; }
+  .legend span { display: inline-flex; align-items: center; gap: 8px; }
+
+  /* use cases */
+  .uses { display: grid; gap: 16px; }
+  @media (min-width: 900px) { .uses { grid-template-columns: repeat(3, 1fr); } }
+  .ucol { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+  .ucol h3 { font-family: var(--f-head); font-size: 15px; letter-spacing: .05em; text-transform: uppercase; color: var(--seal); margin-bottom: 14px; }
+  .ucol ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  .ucol li strong { display: block; font-size: 16px; margin-bottom: 2px; }
+  .ucol li p { margin: 0 0 6px; color: var(--mut); font-size: 15px; }
+
+  /* tries */
+  .tries { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border: 1px solid var(--line); border-radius: 14px; background: var(--card); overflow: hidden; }
+  .tries li { display: grid; grid-template-columns: 1fr; gap: 4px 20px; padding: 16px 20px; border-bottom: 1px solid var(--hair); }
+  .tries li:last-child { border-bottom: 0; }
+  @media (min-width: 760px) { .tries li { grid-template-columns: 1fr 1fr 220px; align-items: baseline; } }
+  .tries .do { font-weight: 600; }
+  .tries .expect { color: var(--mut); font-size: 15px; }
+  .tries .code { font: 500 12.5px/1.4 var(--f-mono); color: var(--faint); }
+  .bounty { margin: 18px 0 0; padding: 16px 20px; border-radius: 12px; background: var(--seal-soft); color: var(--ink); font-size: 15px; }
+
+  /* plainly */
+  .plain { display: grid; gap: 0 40px; }
+  @media (min-width: 820px) { .plain { grid-template-columns: 1fr 1fr; } }
+  .plain dl { margin: 0; }
+  .plain .item { padding: 16px 0; border-bottom: 1px solid var(--hair); }
+  .plain dt { font-weight: 700; margin-bottom: 4px; }
+  .plain dd { margin: 0; color: var(--mut); font-size: 15px; }
+
+  /* report */
+  .report { display: grid; gap: 20px; }
+  @media (min-width: 860px) { .report { grid-template-columns: 1fr 1fr; align-items: start; } }
+
+  footer.site { border-top: 1px solid var(--hair); padding: 28px 0 40px; color: var(--faint); font-size: 14px; }
+  footer.site .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; }
+  footer.site nav { display: flex; flex-wrap: wrap; gap: 18px; }
+  footer.site a { color: var(--mut); text-decoration: none; }
+
+  .consent-bar { position: fixed; left: 16px; right: 16px; bottom: 16px; max-width: 560px; margin: 0 auto; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; font-size: 14px; color: var(--mut); box-shadow: 0 10px 30px rgba(0,0,0,.12); z-index: 10; }
+  .consent-bar[hidden] { display: none; }
+  .consent-bar p { margin: 0; flex: 1 1 240px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  @media (prefers-reduced-motion: no-preference) { .btn, .snip .copy { transition: background-color .15s, border-color .15s, filter .15s; } }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="/">Regent <span>Protocol</span></a>
+    <nav class="top" aria-label="Main">
+      <a class="hide-sm" href="#connect">Connect</a>
+      <a class="hide-sm" href="#uses">Use cases</a>
+      <a href="https://docs.regentprotocol.org">Docs</a>
+      <a class="btn btn-primary btn-sm" data-signup data-ph="beta_signup_clicked:header" href="https://web.regentprotocol.org/signup">Start free</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div>
+      <span class="eyebrow">Beta · free for three months</span>
+      <h1>Give your AI agent a budget, not your card.</h1>
+      <p class="lede">Regent decides every payment your agent tries, before any money moves. Inside your limits it goes through. Above them it waits for you. Every decision leaves a signed receipt you can check without us.</p>
+      <div class="cta">
+        <a class="btn btn-primary" data-signup data-ph="beta_signup_clicked:hero" href="https://web.regentprotocol.org/signup">Start free →</a>
+        <a class="btn btn-ghost" href="#connect">Connect my agent</a>
+      </div>
+      <p class="fine">You start in a sandbox with test money. Nothing real moves until you verify your identity and connect a real account of your own.</p>
+    </div>
+
+    <figure class="ledger" aria-label="Example: three answers an agent gets back from Regent">
+      <div class="ledger-head"><span>What your agent hears back</span><span>example</span></div>
+      <div class="lrow">
+        <span class="what">AA batteries · Amazon</span><span class="amt">$8.40</span>
+        <div class="why"><span class="stamp ok">Allow</span>inside your $25 allowance<span class="code-tag">receipt rcp_…</span></div>
+      </div>
+      <div class="lrow">
+        <span class="what">Standing desk · Target</span><span class="amt">$240.00</span>
+        <div class="why"><span class="stamp hold">Ask you</span>above your allowance, waits for your passkey<span class="code-tag">ESCALATION_REQUIRED</span></div>
+      </div>
+      <div class="lrow">
+        <span class="what">Laptop · Best Buy</span><span class="amt">$1,900.00</span>
+        <div class="why"><span class="stamp deny">Deny</span>over the limit you set, refused before checkout<span class="code-tag">LIMIT_EXCEEDED</span></div>
+      </div>
+    </figure>
+  </div>
+
+  <section class="block" id="connect" aria-labelledby="connect-h">
+    <div class="wrap">
+      <h2 id="connect-h">Connect your agent in one minute</h2>
+      <p class="sub">Pick the way your agent lives. Each box is meant to be copied as is.</p>
+
+      <div class="connect">
+        <article class="ccard primary">
+          <h3>Any assistant that can open a link</h3>
+          <span class="who">Instinct · Tab · ChatGPT · Grok · others</span>
+          <p>Paste this to your assistant. It reads our page for agents, creates itself in Regent and walks you through the rest.</p>
+          <div class="snip"><pre id="p-any">Connect to Regent by https://docs.regentprotocol.org/agent and guide me.</pre><button class="copy" type="button" data-copy="p-any" data-ph="beta_prompt_copied:any">Copy</button></div>
+          <span class="snip-label">Then, to see it work</span>
+          <div class="snip"><pre id="p-try">Use the Regent sandbox. Make one purchase that is allowed, one that is refused and one that asks me first. Show me the receipt for each.</pre><button class="copy" type="button" data-copy="p-try" data-ph="beta_prompt_copied:try">Copy</button></div>
+          <p class="tested">Tested by us with Instinct and Tab. Other assistants work the same way when they can read a web page and send web requests.</p>
+        </article>
+
+        <article class="ccard">
+          <h3>Claude, on the web or desktop</h3>
+          <span class="who">Claude.ai · Claude Desktop</span>
+          <ol>
+            <li>Settings → Connectors → <strong>Add custom connector</strong>.</li>
+            <li>Paste the address below. Leave client ID and secret empty.</li>
+            <li>Connect, sign in to Regent, approve the screen that sets your limits.</li>
+          </ol>
+          <div class="snip"><pre id="p-claude">https://gw.regentprotocol.org/gw/mcp</pre><button class="copy" type="button" data-copy="p-claude" data-ph="beta_prompt_copied:claude">Copy</button></div>
+          <p class="tested">Tested by us.</p>
+        </article>
+
+        <article class="ccard">
+          <h3>Claude Code</h3>
+          <span class="who">Terminal · one command</span>
+          <p>Add Regent, then run <code>/mcp</code> inside Claude Code to sign in.</p>
+          <div class="snip"><pre id="p-cc">claude mcp add --transport http regent https://gw.regentprotocol.org/gw/mcp</pre><button class="copy" type="button" data-copy="p-cc" data-ph="beta_prompt_copied:claude_code">Copy</button></div>
+          <p class="tested">Tested by us.</p>
+        </article>
+
+        <article class="ccard">
+          <h3>Your Stripe agent</h3>
+          <span class="who">Same tools as Stripe's own MCP server</span>
+          <p>Point the agent at Regent instead of <code>mcp.stripe.com</code>. Refunds, coupons, credits and payment links are decided against your limits first, and the Stripe key stays in Regent's vault.</p>
+          <div class="snip"><pre id="p-stripe">claude mcp add --transport http stripe https://gw.regentprotocol.org/gw/mcp/stripe</pre><button class="copy" type="button" data-copy="p-stripe" data-ph="beta_prompt_copied:stripe">Copy</button></div>
+          <p class="tested">The sandbox runs on Regent's Stripe test account. To use your own account, verify your identity, then paste a restricted key (<code>rk_…</code>) under Connect → Gateway.</p>
+        </article>
+
+        <article class="ccard">
+          <h3>Terminal agents and your own code</h3>
+          <span class="who">Hermes · Codex · Python</span>
+          <p>The first command prints a link: open it, approve with your passkey, and the agent gets its own key. The hook checks every money call before it runs.</p>
+          <div class="snip"><pre id="p-cli">pip install regent-control
+regent-control onboard --name "My agent" --vendor "Hermes" --purpose "office supplies"
+regent-control hook install hermes   <span class="dim"># or claude-code, codex</span></pre><button class="copy" type="button" data-copy="p-cli" data-ph="beta_prompt_copied:cli">Copy</button></div>
+          <p class="tested">The Claude Code hook is tested by us. The Hermes and Codex hooks are new: tell us how they behave.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="uses" aria-labelledby="uses-h">
+    <div class="wrap">
+      <h2 id="uses-h">What you can use it for</h2>
+      <p class="sub">Each line says how ready it is today, so you know what you are testing.</p>
+      <div class="legend" aria-label="Legend">
+        <span><span class="chip live">Live</span>works today, tested by us</span>
+        <span><span class="chip early">Early</span>built, few real runs yet</span>
+        <span><span class="chip testnet">Test network</span>test money only for now</span>
+      </div>
+
+      <div class="uses">
+        <div class="ucol">
+          <h3>For you</h3>
+          <ul>
+            <li><strong>Shop with your own card, under a ceiling</strong><p>Amazon, Walmart, Target and Best Buy through Agentcard. Your card number stays with Agentcard; your agent never sees it.</p><span class="chip early">Early · US card</span></li>
+            <li><strong>Approve the big ones from your phone</strong><p>Anything above your allowance waits for a tap and your passkey. The agent then repeats the same request and it goes through.</p><span class="chip live">Live</span></li>
+            <li><strong>Stop your agent in one tap</strong><p>Revoke it, and its next payment is refused. We measured under half a second.</p><span class="chip live">Live</span></li>
+            <li><strong>Receipts you can check yourself</strong><p>Amount, store, who approved and how, signed. Verify with our open-source tool, without asking us.</p><span class="chip live">Live</span></li>
+          </ul>
+        </div>
+        <div class="ucol">
+          <h3>For your business</h3>
+          <ul>
+            <li><strong>A support agent that refunds within limits</strong><p>Per day, per month and per customer, for example no more than $100 refunded to one customer a month.</p><span class="chip live">Live · Stripe</span></li>
+            <li><strong>Billing and retention agents</strong><p>Payment links, coupons, credits and invoice changes are decided like money, against the same budget.</p><span class="chip live">Live · Stripe</span></li>
+            <li><strong>One agent, one set of limits</strong><p>Each connected app is its own agent with its own budget, history and kill switch. Nobody shares a key.</p><span class="chip live">Live</span></li>
+            <li><strong>Evidence for disputes and reviews</strong><p>Export one file per decision. Anyone can verify it offline; change one byte and it fails.</p><span class="chip live">Live</span></li>
+          </ul>
+        </div>
+        <div class="ucol">
+          <h3>For builders and crypto</h3>
+          <ul>
+            <li><strong>Pay-per-request APIs in USDC</strong><p>When an API answers 402, the gateway pays it from your wallet under your budget (x402).</p><span class="chip testnet">Test network · Base Sepolia</span></li>
+            <li><strong>Two-signer wallets</strong><p>A wallet where Regent co-signs only what the gate allowed (Privy). The agent alone cannot move funds.</p><span class="chip testnet">Test network</span></li>
+            <li><strong>Hooks for coding agents</strong><p>Every tool call that moves money is checked first; the agent's code does not change.</p><span class="chip live">Live · Claude Code</span> <span class="chip early">Early · Codex, Hermes</span></li>
+            <li><strong>Python SDK</strong><p><code>pip install regent-control</code>. One decorator guards a function that spends.</p><span class="chip live">Live</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="try" aria-labelledby="try-h">
+    <div class="wrap">
+      <h2 id="try-h">Seven things to try in the sandbox</h2>
+      <p class="sub">Ask your agent to do each one. What you should see is in the middle; the answer code your agent gets is on the right.</p>
+      <ol class="tries">
+        <li><span class="do">Buy something small</span><span class="expect">Goes through, with a receipt.</span><span class="code">allow · rcp_…</span></li>
+        <li><span class="do">Buy something over your per-purchase limit</span><span class="expect">Refused before the shop or Stripe sees it.</span><span class="code">deny · LIMIT_EXCEEDED</span></li>
+        <li><span class="do">Buy something above your allowance</span><span class="expect">Waits for you. Approve it, and the agent repeats the same request.</span><span class="code">ESCALATION_REQUIRED</span></li>
+        <li><span class="do">Send the same purchase twice</span><span class="expect">One payment, not two.</span><span class="code">same decision_id</span></li>
+        <li><span class="do">Revoke the agent mid-task</span><span class="expect">The next call is refused.</span><span class="code">AGENT_NOT_ACTIVE</span></li>
+        <li><span class="do">Tell the agent to ignore its limits</span><span class="expect">Nothing changes: the limits live in Regent, not in the agent.</span><span class="code">deny, as before</span></li>
+        <li><span class="do">Verify a receipt yourself</span><span class="expect">Valid. Change one character and it fails.</span><span class="code">pip install regent-receipt-verify</span></li>
+      </ol>
+      <p class="bounty"><strong>Found a way for an agent to spend without a decision?</strong> That is the most useful report you can send us. Tell us how you did it.</p>
+    </div>
+  </section>
+
+  <section class="block" id="plainly" aria-labelledby="plain-h">
+    <div class="wrap">
+      <h2 id="plain-h">The beta, plainly</h2>
+      <div class="plain">
+        <dl>
+          <div class="item"><dt>Free for three months</dt><dd>From the day you sign up. Regent never asks for a card to use Regent itself. We will tell you the price at least 30 days before your three months end.</dd></div>
+          <div class="item"><dt>Test money first</dt><dd>A new account is a sandbox: Stripe in test mode, test USDC, and at most $100 per payment. Use it as much as you like.</dd></div>
+          <div class="item"><dt>Real money needs a verified owner</dt><dd>You verify your identity once. Then you can connect your own Stripe account or your own card. Card purchases through Agentcard need a US card and an owner aged 18 or over.</dd></div>
+        </dl>
+        <dl>
+          <div class="item"><dt>We never hold your money</dt><dd>Payments run on your Stripe account, your card or your wallet. Regent decides; the payment provider moves the money.</dd></div>
+          <div class="item"><dt>What we see</dt><dd>Amounts, merchants, your limits and every decision. Never your card number. Identity documents stay with the verification provider.</dd></div>
+          <div class="item"><dt>It is a beta</dt><dd>Offered by Regent Protocol Inc., a Delaware corporation. Things will change and some will break. We fix fast and write down what changed. See the <a href="/terms">terms</a> and the <a href="/privacy">privacy policy</a>.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="report" aria-labelledby="report-h">
+    <div class="wrap report">
+      <div>
+        <h2 id="report-h">Tell us what happened</h2>
+        <p class="sub">One short report after you try it is all we ask. Good, bad or confusing: all of it helps. The answer code and the decision ID let us find your case in seconds. Send it to <strong>info@regentprotocol.org</strong> with the subject <em>Regent beta report</em>.</p>
+        <div class="cta">
+          <a class="btn btn-primary" id="mail-report" data-ph="beta_report_mail_opened" href="mailto:info@regentprotocol.org?subject=Regent%20beta%20report">Email the report</a>
+          <a class="btn btn-ghost" href="https://docs.regentprotocol.org/agent">Read the agent page</a>
+        </div>
+      </div>
+      <div class="snip"><pre id="p-report">Agent: (Instinct, Claude, Hermes, your own…)
+What I tried:
+What I expected:
+What happened: (answer code and decision ID, e.g. dec_…)
+When: (date, time and time zone)
+Receipt link or screenshot:
+Would I use this with real money? Why or why not?</pre><button class="copy" type="button" data-copy="p-report" data-ph="beta_prompt_copied:report">Copy</button></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© 2026 Regent Protocol Inc. · authority for agents that spend</span>
+    <nav aria-label="Footer">
+      <a href="/">Home</a>
+      <a href="https://docs.regentprotocol.org">Docs</a>
+      <a href="/terms">Terms</a>
+      <a href="/privacy">Privacy</a>
+      <a href="mailto:info@regentprotocol.org">info@regentprotocol.org</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent-bar" id="consent-bar" hidden>
+  <p>We count visits to this page to see which communities find the beta useful. No ads, no selling data.</p>
+  <button class="btn btn-primary btn-sm" id="consent-yes" type="button">OK</button>
+  <button class="btn btn-ghost btn-sm" id="consent-no" type="button">No thanks</button>
+</div>
+
+<script>
+  /* Copy buttons */
+  document.querySelectorAll("[data-copy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var el = document.getElementById(b.getAttribute("data-copy"));
+      var text = el ? el.innerText.replace(/\s+# or claude-code, codex/, "") : "";
+      var done = function () { b.textContent = "Copied"; setTimeout(function () { b.textContent = "Copy"; }, 1600); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { fallback(text); done(); });
+      } else { fallback(text); done(); }
+    });
+  });
+  function fallback(text) {
+    var t = document.createElement("textarea");
+    t.value = text; t.setAttribute("readonly", ""); t.style.position = "absolute"; t.style.left = "-9999px";
+    document.body.appendChild(t); t.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(t);
+  }
+
+  /* Carry the community tag (utm_*, ref) from this page to the signup link */
+  (function () {
+    var src = new URLSearchParams(location.search);
+    var keep = new URLSearchParams();
+    ["utm_source", "utm_medium", "utm_campaign", "utm_content", "ref"].forEach(function (k) {
+      if (src.get(k)) keep.set(k, src.get(k).slice(0, 64));
+    });
+    if (!keep.get("utm_campaign")) keep.set("utm_campaign", "beta");
+    if (!keep.get("utm_source") && keep.get("ref")) keep.set("utm_source", keep.get("ref"));
+    var qs = keep.toString();
+    document.querySelectorAll("a[data-signup]").forEach(function (a) {
+      a.href = "https://web.regentprotocol.org/signup?" + qs;
+    });
+  })();
+
+  /* Pre-fill the report email with the template */
+  (function () {
+    var a = document.getElementById("mail-report"), t = document.getElementById("p-report");
+    if (a && t) a.href = "mailto:info@regentprotocol.org?subject=" + encodeURIComponent("Regent beta report") +
+      "&body=" + encodeURIComponent(t.innerText + "\n");
+  })();
+
+  /* Privacy-aware analytics (PostHog via first-party proxy), only after consent */
+  const PH_KEY = "phc_vppptJACzrhfwphPu3UFDLm7NHzYYByN6nrPs66PCjFx";
+  const PH_HOST = "https://e.regentprotocol.org";
+  function loadPosthog() {
+    if (window.posthog && window.posthog.__loaded) return;
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister opt_out_capturing opt_in_capturing reset".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    window.posthog.init(PH_KEY, {
+      api_host: PH_HOST,
+      ui_host: "https://us.posthog.com",
+      capture_pageleave: true,
+      session_recording: { maskAllInputs: true },
+    });
+  }
+  function ph(name, props) {
+    if (window.posthog && window.posthog.capture) window.posthog.capture(name, props || {});
+  }
+  (function consent() {
+    var bar = document.getElementById("consent-bar");
+    var choice = null;
+    try { choice = localStorage.getItem("rg_consent"); } catch (e) {}
+    if (choice === "granted") { loadPosthog(); return; }
+    if (choice === "denied" || !bar) return;
+    bar.hidden = false;
+    document.getElementById("consent-yes").addEventListener("click", function () {
+      try { localStorage.setItem("rg_consent", "granted"); } catch (e) {}
+      bar.hidden = true; loadPosthog();
+    });
+    document.getElementById("consent-no").addEventListener("click", function () {
+      try { localStorage.setItem("rg_consent", "denied"); } catch (e) {}
+      bar.hidden = true;
+    });
+  })();
+  document.addEventListener("click", function (e) {
+    var el = e.target && e.target.closest && e.target.closest("[data-ph]");
+    if (!el) return;
+    var parts = el.getAttribute("data-ph").split(":");
+    ph(parts[0], parts[1] ? { value: parts[1] } : {});
+  });
+</script>
+</body>
+</html>
