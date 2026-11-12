@@ -8,7 +8,13 @@
     "KYA[- ]verified",
     "KYA passport",
     "FIPS[- ]140",
-    "\\binheritance\\b"
+    "\\binheritance\\b",
+    "\\$\\s?299\\b",
+    "\\$\\s?999\\b",
+    "%\\s*of approved",
+    "per verified action",
+    "prices verified actions",
+    "meter verified actions"
   ],
   "allow": []
 }

@@ -29,7 +29,7 @@ ROUTES = {
     "pricing": {
         "path": "/pricing", "file": "pricing.html",
         "title": "Pricing — Regent Protocol",
-        "desc": "Usage-based pricing for verifiable agent infrastructure. Free developer tier; Growth $299/mo and Scale $999/mo add mandates, Guardian, and the Control Panel; Enterprise from $2,500/mo. No per-seat pricing.",
+        "desc": "Regent never takes a percentage of a payment and the price never depends on the decision. Free during the beta; after it a fixed price per governed agent. Checking a receipt is free, always.",
     },
     "about": {
         "path": "/about", "file": "about.html",
@@ -127,25 +127,14 @@ ORG_LD = {
     ],
 }
 
-# Offers mirror the governance rate card exactly (launch pricing).
+# One offer while the beta is free (12.11.2026): launch prices are published on the page
+# later, and structured data must not advertise a price the page does not show.
 PRICING_LD = {
     "@context": "https://schema.org", "@type": "Product",
     "name": "Regent Protocol", "description": ROUTES["pricing"]["desc"],
     "brand": {"@type": "Brand", "name": "Regent Protocol"},
     "offers": [
-        {"@type": "Offer", "name": "Developer", "price": "0", "priceCurrency": "USD"},
-        {"@type": "Offer", "name": "Growth", "price": "299", "priceCurrency": "USD",
-         "priceSpecification": {"@type": "UnitPriceSpecification", "price": "299",
-                                "priceCurrency": "USD", "billingIncrement": 1,
-                                "unitText": "month"}},
-        {"@type": "Offer", "name": "Scale", "price": "999", "priceCurrency": "USD",
-         "priceSpecification": {"@type": "UnitPriceSpecification", "price": "999",
-                                "priceCurrency": "USD", "billingIncrement": 1,
-                                "unitText": "month"}},
-        {"@type": "Offer", "name": "Enterprise", "price": "2500", "priceCurrency": "USD",
-         "priceSpecification": {"@type": "UnitPriceSpecification", "price": "2500",
-                                "priceCurrency": "USD", "billingIncrement": 1,
-                                "unitText": "month"}},
+        {"@type": "Offer", "name": "Beta", "price": "0", "priceCurrency": "USD"},
     ],
 }
 

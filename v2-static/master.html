@@ -1081,226 +1081,108 @@ await r.audit.ingest_event(IngestEventRequest(
 
 <!-- ══════════════════════ PRICING ══════════════════════ -->
 <div id="view-pricing" hidden>
-  <style>
-    #view-pricing .hero .oem-note { font-size: 15.5px; line-height: 1.6; color: var(--mut); max-width: 62ch; margin: -8px 0 24px; }
-    #view-pricing .hero .oem-note strong { color: var(--ink); }
-    #view-pricing .hero .oem-note a { color: var(--seal); text-decoration: underline; text-underline-offset: 3px; }
-    #view-pricing .tier .oem-ptr { font-size: 12.5px; line-height: 1.5; color: var(--mut); margin-top: 10px; }
-    @media (max-width: 640px) { #view-pricing .hero .oem-note { font-size: 14.5px; } }
-  </style>
 
   <div class="wrap hero" style="padding-bottom: 24px;">
     <div class="eyebrow">Pricing</div>
-    <h1 style="font-size: clamp(26px, 3.6vw, 38px);">Compliance infrastructure,<br>priced like infrastructure.</h1>
-    <p class="cat">Start free. Scale with usage. Every plan includes verifiable agent identity and tamper-evident audit anchoring; <strong>Growth and above add Mandates, Guardian, and the Control Panel.</strong> We price verified actions — not seats.</p>
-    <p class="oem-note"><strong>Direct and embedded are different buyers.</strong> This list covers organisations running Regent on their own estate. Platforms and vendors embedding Regent into a product they resell — payment platforms, processors, core banking and agent-platform vendors — are served under a separate OEM / embedded model: a platform licence plus a revenue share on verified actions at platform volumes. <a href="mailto:info@regentprotocol.org?subject=Regent%20OEM">Talk to us</a></p>
-    <div class="mono" style="font-size: 12.5px; color: var(--faint); display: flex; gap: 18px; flex-wrap: wrap;">
-      <span>Sub-cent chain anchoring</span><span>·</span><span>No per-seat pricing</span><span>·</span><span>Usage alerts &amp; hard caps</span>
-    </div>
-    <div class="launch-note">LAUNCH PRICING — commercial availability follows published status</div>
-
-    <div class="toggle-row">
-      <div class="toggle" role="group" aria-label="Billing period">
-        <button aria-pressed="true" data-bill="mo">Monthly</button>
-        <button aria-pressed="false" data-bill="yr">Annual <span class="free-badge">2 months free</span></button>
-      </div>
-      <span class="toggle-note">Annual prepay: 2 months free on Growth and Scale.</span>
-    </div>
-
-    <div class="tiers">
-      <div class="tier">
-        <div class="tname">Developer</div>
-        <div class="price">$0</div>
-        <div class="per">forever</div>
-        <div class="tag">For hackathons, solo builders, and teams exploring KYA.</div>
-        <ul>
-          <li>5,000 verified actions / month</li>
-          <li>1,000 agent identities (AgentID)</li>
-          <li>30-day audit history</li>
-          <li>Devnet access</li>
-          <li>Community &amp; docs support</li>
-          <li class="no">Mandates, Guardian, Control Panel</li>
-        </ul>
-        <a class="btn btn-secondary" href="https://docs.regentprotocol.org/quickstart/three-steps" data-ph="pricing_tier_selected:developer">Start building</a>
-        <div class="fnote">Overage: $0.01 / verified action</div>
-      </div>
-
-      <div class="tier hot">
-        <div class="popbadge">MOST POPULAR</div>
-        <div class="tname">Growth</div>
-        <div class="price" data-mo="$299" data-yr="$249">$299</div>
-        <div class="per" data-mo="/ month" data-yr="/ mo, billed annually">/ month</div>
-        <div class="tag">For agentic AI startups and fintech teams in production.</div>
-        <ul>
-          <li>15,000 verified actions / month</li>
-          <li>Mandate engine + Guardian + Control Panel</li>
-          <li>5,000 agent identities</li>
-          <li>50 GB audit storage · 12-month retention</li>
-          <li>Email support · 24h response target</li>
-          <li class="no">Human-KYC binding (optional, pass-through at cost)</li>
-        </ul>
-        <a class="btn btn-primary" href="mailto:info@regentprotocol.org?subject=Regent%20Growth" data-ph="pricing_tier_selected:growth">Start with Growth</a>
-        <div class="fnote">Overage: $0.005 / verified action</div>
-      </div>
-
-      <div class="tier">
-        <div class="tname">Scale</div>
-        <div class="price" data-mo="$999" data-yr="$833">$999</div>
-        <div class="per" data-mo="/ month" data-yr="/ mo, billed annually">/ month</div>
-        <div class="tag">For platforms running fleets of financial agents.</div>
-        <ul>
-          <li>75,000 verified actions / month</li>
-          <li>Everything in Growth</li>
-          <li>100 GB audit storage · 12-month retention</li>
-          <li>Expanded AgentID allowance</li>
-          <li>Priority support</li>
-        </ul>
-        <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20Scale" data-ph="pricing_tier_selected:scale">Talk to us</a>
-        <div class="fnote">Overage: $0.005 / verified action</div>
-      </div>
-
-      <div class="tier">
-        <div class="tname">Enterprise</div>
-        <div class="price" style="font-size: 22px; padding-top: 10px;">From $2,500</div>
-        <div class="per">/ month</div>
-        <div class="tag">For regulated institutions, banks, and payment infrastructure providers.</div>
-        <ul>
-          <li>Volume actions from $0.001–0.003</li>
-          <li>Evidence archive (add-on): Merkle proofs, retention matched to your regulator</li>
-          <li>Regulatory evidence packs (add-on)</li>
-          <li>Custom SLA · dedicated infra · SSO</li>
-          <li>Professional services &amp; regulator mapping</li>
-        </ul>
-        <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20Enterprise" data-ph="pricing_tier_selected:enterprise">Talk to us</a>
-        <div class="fnote">Typical contracts $30K–$75K / yr</div>
-        <div class="oem-ptr">OEM / embedded terms for platforms are separate — see the note above the plans.</div>
-      </div>
-    </div>
+    <h1 style="font-size: clamp(26px, 3.6vw, 38px);">We never take a percentage<br>of your payments.</h1>
+    <p class="cat">You pay for agents under control, not for what they spend. The price does not depend on the amount, and it does not depend on whether a payment was allowed, refused or sent to you for approval.</p>
+    <div class="launch-note">THE BETA IS FREE — launch prices for companies and platforms are published on this page before the first beta accounts reach the end of their three months</div>
   </div>
 
   <section data-reveal><div class="wrap">
-    <div class="eyebrow">Usage</div>
-    <h2>Pay for what you verify.</h2>
-    <p class="lede">Every unit is metered. No seats, no surprises — usage alerts and hard caps live in the Control Panel.</p>
+    <div class="eyebrow">Three rules</div>
+    <h2>What the price can never be.</h2>
+    <div class="principles">
+      <div class="cell">
+        <div class="k">Rule one</div>
+        <h3>Never a percentage</h3>
+        <p>A receipt for a $40,000 transfer costs the same as one for $4. Regent is not a party to the payment and does not earn from its size: not on the site, not in a contract, not in the marketplace.</p>
+      </div>
+      <div class="cell">
+        <div class="k">Rule two</div>
+        <h3>Never tied to the decision</h3>
+        <p>Allowed, refused or sent to a person for approval: one price. We have no reason to approve more.</p>
+      </div>
+      <div class="cell">
+        <div class="k">Rule three</div>
+        <h3>Checking a receipt is free, always</h3>
+        <p>Offline, against a saved key file, without an account and without us.</p>
+      </div>
+    </div>
+    <p style="margin-top: 18px;">We earn when an agent is governed, not when it spends.</p>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">During the beta</div>
+    <h2>Free for three months.</h2>
+    <p>From the day you sign up. A new account is a sandbox for 30 days, then you go live; the three months count from the first day. The price that applies afterwards is published at least 30 days before your three months end, and it stays fixed for beta participants for twelve months. Regent does not ask for a card to use Regent.</p>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px;">
+      <a class="btn btn-primary" href="/beta" data-ph="cta_beta_clicked:pricing">See the beta</a>
+      <a class="btn btn-secondary" href="https://docs.regentprotocol.org/resources/pricing">Pricing in the docs</a>
+    </div>
+  </div></section>
+
+  <section data-reveal><div class="wrap">
+    <div class="eyebrow">Plans</div>
+    <h2>Who pays, and for what.</h2>
     <div class="tblshell"><div class="tblwrap">
       <table class="cmp">
-        <tr><th>Metered unit</th><th>Developer</th><th>Growth</th><th>Scale</th><th>Enterprise</th></tr>
-        <tr><td>Verified action</td><td>5,000 free, then $0.01</td><td>15,000 incl., then $0.005</td><td>75,000 incl., then $0.005</td><td>$0.001–0.003 (volume)</td></tr>
-        <tr><td>Agent identity (AgentID)</td><td>1,000 free</td><td>5,000 incl., then $0.10</td><td>Expanded allowance</td><td>Custom</td></tr>
-        <tr><td>Audit storage</td><td>30-day history</td><td>50 GB · 12 months</td><td>100 GB · 12 months</td><td>Custom · immutable archive add-on</td></tr>
-        <tr><td>Human-KYC binding (optional)</td><td class="dash">—</td><td>Pass-through at cost</td><td>Pass-through at cost</td><td>Pass-through at cost</td></tr>
+        <tr><th>Who</th><th>Price</th></tr>
+        <tr><td>Checking receipts</td><td>free</td></tr>
+        <tr><td>Sandbox</td><td>free: test rail, practice budgets, real decisions and receipts labelled sandbox</td></tr>
+        <tr><td>A person or a developer</td><td>free: up to 2 governed agents and 5,000 decisions a month in production, with your own rails</td></tr>
+        <tr><td>Companies</td><td>a fixed price per governed agent a month</td></tr>
+        <tr><td>Platforms that give their own users agents</td><td>a fixed price per active agent a month, under an annual agreement</td></tr>
+        <tr><td>Banks and regulated companies</td><td>a fixed annual agreement: Regent inside your perimeter, evidence packages for the regulator, service levels in the contract</td></tr>
       </table>
     </div></div>
+    <p style="margin-top: 16px;">A first production integration for a bank or another regulated company is sold as a fixed-price pilot of six weeks, credited in full against the first year.</p>
   </div></section>
 
   <section data-reveal><div class="wrap">
-    <div class="eyebrow">Comparison</div>
-    <h2>Compare plans.</h2>
-    <div class="tblshell"><div class="tblwrap">
-      <table class="cmp">
-        <tr><th>Feature</th><th>Developer</th><th>Growth</th><th>Scale</th><th>Enterprise</th></tr>
-        <tr class="cat"><td colspan="5">Identity &amp; agents</td></tr>
-        <tr><td>Technical AgentID issuance</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-        <tr><td>Human-KYC binding (optional)</td><td class="dash">—</td><td>Pass-through</td><td>Pass-through</td><td>Pass-through</td></tr>
-        <tr><td>White-label identity issuance</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="yes">✓</td></tr>
-        <tr class="cat"><td colspan="5">Audit &amp; compliance</td></tr>
-        <tr><td>Tamper-evident audit chain (hashes, Merkle batches, anchoring)</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-        <tr><td>Regulatory evidence packs (EU AI Act Art. 12/14, NIST AI RMF, SOC 2 export)</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td>Add-on</td></tr>
-        <tr><td>Audit retention</td><td>30 days</td><td>12 months</td><td>12 months</td><td>Custom, immutable</td></tr>
-        <tr class="cat"><td colspan="5">Control &amp; platform</td></tr>
-        <tr><td>Mandate engine (programmable spending rules)</td><td class="dash">—</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-        <tr><td>Guardian risk controls</td><td class="dash">—</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-        <tr><td>Control Panel dashboard</td><td class="dash">—</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-        <tr><td>SSO &amp; dedicated infrastructure</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="yes">✓</td></tr>
-        <tr class="cat"><td colspan="5">Support</td></tr>
-        <tr><td>Community &amp; docs</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-        <tr><td>Email support, 24h response target</td><td class="dash">—</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-        <tr><td>Custom SLA &amp; dedicated support</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="yes">✓</td></tr>
-      </table>
-    </div></div>
-  </div></section>
-
-  <section data-reveal><div class="wrap">
-    <div class="eyebrow">Enterprise add-ons</div>
-    <h2>Modular compliance, assembled to your regulatory perimeter.</h2>
-    <div class="addons">
-      <div class="addon">
-        <h3>Regulatory Evidence Packs</h3>
-        <div class="pr">$5K–$15K / yr</div>
-        <p>EU AI Act Art. 12/14 record-keeping, NIST AI RMF mapping, SOC 2 audit export — evidence exports and mappings for your reviewers, not regulator approval.</p>
-      </div>
-      <div class="addon">
-        <h3>Evidence Archive</h3>
-        <div class="pr">$0.50 / GB / mo · or flat $5K–$25K / yr</div>
-        <p>Full audit payloads kept with Merkle proofs against the anchored roots, retention matched to your regulator.</p>
-      </div>
-      <div class="addon">
-        <h3>Professional Services</h3>
-        <div class="pr">$200–$300 / hr · or fixed-scope</div>
-        <p>Integration, mandate design, and regulator mapping with our solutions team.</p>
-      </div>
-    </div>
-  </div></section>
-
-  <section data-reveal><div class="wrap transparency">
-    <div>
-      <div class="eyebrow">Why our costs are different</div>
-      <h2>Sub-cent chain costs.<br>Published, not promised.</h2>
-      <p class="lede">Regent anchors the Merkle roots of audit batches on Solana; the payloads stay off-chain and are provable against those roots. On-chain anchoring costs fractions of a cent per action — which is why per-transaction compliance is economically viable, and why our pricing sits structurally below legacy GRC contracts.</p>
-    </div>
-    <div class="statgrid">
-      <div class="stat"><div class="n">&lt;$0.01</div><div class="l">chain cost to anchor one verified action</div></div>
-      <div class="stat"><div class="n">1 root</div><div class="l">on chain per audit batch, whatever its size</div></div>
-      <div class="stat"><div class="n">$0</div><div class="l">per-seat fees on every plan</div></div>
-      <div class="stat"><div class="n">2 mo</div><div class="l">free on annual prepay (Growth &amp; Scale)</div></div>
-    </div>
-  </div></section>
-
-  <section data-reveal><div class="wrap">
-    <div class="partner-banner">
-      <div style="flex: 1; min-width: 280px;">
-        <h3>Building with us early?</h3>
-        <p>Our first design partners get Enterprise features at Growth pricing for 12 months — in exchange for a named case study and a reference call. Design-partner terms apply to organisations running Regent on their own estate. Platforms embedding Regent into a product they resell are served under the OEM / embedded model above.</p>
-      </div>
-      <a class="btn btn-primary" href="#/pilot">Apply for the pilot program</a>
-    </div>
+    <div class="eyebrow">What is counted</div>
+    <h2>The agent, not the traffic.</h2>
+    <p><strong>A governed agent</strong> is an agent identity that made at least one decision in the month. Agents in a sandbox and revoked agents are never counted.</p>
+    <p><strong>A decision</strong> is one money decision per purchase, whatever the answer. A purchase that waited for your approval and then went through is one decision, not two. A repeat with the same idempotency key is counted once. Reads and calls that move no money are not counted.</p>
+    <p><strong>Identity verification</strong> of an owner is passed through at the provider's own price, with no markup from us. During the beta it is free.</p>
+    <p>Why the unit is the agent: <a href="/blog/verified-actions-vs-api-calls">Why we price the agent, not the action</a>.</p>
   </div></section>
 
   <section data-reveal><div class="wrap">
     <div class="eyebrow">Pricing FAQ</div>
     <h2 style="margin-bottom: 22px;">Questions buyers actually ask.</h2>
     <details class="faq">
-      <summary>What is a verified action?</summary>
-      <div class="a">One financial-agent decision that needs proof — an authorization checked against a mandate, or an audit record committed to the evidence chain — not every API call. Technically, each verified action produces an <span class="mono">anchor</span>: a hash committed on Solana with Merkle batch proofs.</div>
+      <summary>Do you charge per transaction?</summary>
+      <div class="a">No. There is no percentage and no fee that grows with the amount. A plan includes a number of decisions for each agent; that number is a fuse against a runaway loop, not the way we earn.</div>
     </details>
     <details class="faq">
-      <summary>What happens if I exceed my included actions?</summary>
-      <div class="a">Developer overage is billed at $0.01 per verified action, Growth and Scale at $0.005. You can set usage alerts and hard caps in the Control Panel, so there are no surprise bills.</div>
+      <summary>How long do you keep my history?</summary>
+      <div class="a">Every receipt stays verifiable for ten years wherever you keep it. On our side the history is kept ten years for an organization on a paid plan and three years for a free account. You can export it at any time.</div>
     </details>
     <details class="faq">
-      <summary>Do you charge per seat?</summary>
-      <div class="a">No. Regent prices infrastructure, not headcount. Your whole team can use the Control Panel on any paid plan.</div>
+      <summary>Can I check a receipt without you?</summary>
+      <div class="a">Yes. Save the key file with your receipts and verify offline: <span class="mono">pip install regent-receipt-verify</span> or <span class="mono">npx @regent-protocol/receipt-verify</span>.</div>
     </details>
     <details class="faq">
-      <summary>Is there a discount for annual billing?</summary>
-      <div class="a">Yes. Annual prepay includes 2 months free on Growth and Scale. Enterprise terms are contractual.</div>
+      <summary>Do you need a licence to do this?</summary>
+      <div class="a">We do not hold or move money. The licence and the permissions sit with your payment rail.</div>
     </details>
     <details class="faq">
-      <summary>Is human KYC included?</summary>
-      <div class="a">Technical AgentID issuance is included in every plan. Optional human-KYC binding — verifying the person behind an agent through a licensed provider — is a separate, pass-through-at-cost step on paid plans.</div>
+      <summary>What does the marketplace cost a seller?</summary>
+      <div class="a">Nothing as a share of sales. There is no commission on get4agent: no percentage and no fee per sale. Listing is free during the pilot, and for the first 100 partners it stays free for twelve months.</div>
     </details>
     <details class="faq">
-      <summary>Can Regent handle our regulator's evidence format?</summary>
-      <div class="a">Enterprise evidence packs export receipts and audit batches in the shapes reviewers ask for: record-keeping under the EU AI Act, NIST AI RMF, and SOC 2 evidence requests. They are evidence exports and mappings for your own compliance review, not a certification. Custom regulator mapping is available through professional services.</div>
+      <summary>What about pay-per-request payments?</summary>
+      <div class="a">They run on a test network today. Their price will be published before they leave it.</div>
     </details>
   </div></section>
 
   <section data-reveal><div class="wrap" style="text-align: left;">
     <h2>Make every agent accountable.</h2>
-    <p class="lede" style="margin-bottom: 22px;">Start free, anchor your first audit trail, and scale when your agents do.</p>
+    <p class="lede" style="margin-bottom: 22px;">Start in the sandbox, go live when you are ready, and pay nothing during the beta.</p>
     <div style="display: flex; gap: 12px; flex-wrap: wrap;">
       <a class="btn btn-primary" href="https://docs.regentprotocol.org/quickstart/three-steps">Start building</a>
-      <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20pilot">Talk to us</a>
+      <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20pricing">Talk to us</a>
     </div>
   </div></section>
 
@@ -1463,7 +1345,7 @@ await r.audit.ingest_event(IngestEventRequest(
     <details class="faq"><summary>How long is the pilot engagement?</summary><div class="a">14 days of structured work with our engineers, then a decision: continue on a paid plan, extend the evaluation, or part ways with your integration notes in hand.</div></details>
     <details class="faq"><summary>What do we need to prepare?</summary><div class="a">A workflow where an agent takes financial actions, one engineer with API access, and the limits you want enforced. We bring the rest.</div></details>
     <details class="faq"><summary>Is there a free way to evaluate first?</summary><div class="a">Yes &mdash; the Developer tier is free and self-serve: register agents, write mandates, authorize actions on devnet before talking to anyone.</div></details>
-    <details class="faq"><summary>Can we switch plans later?</summary><div class="a">Yes. Plans meter verified actions, so moving between tiers is a billing change, not a re-integration.</div></details>
+    <details class="faq"><summary>Can we switch plans later?</summary><div class="a">Yes. Plans count governed agents, so moving between them is a billing change, not a re-integration.</div></details>
     <details class="faq"><summary>What happens after we apply?</summary><div class="a">We reply by email with a short qualification call proposal &mdash; typically within two business days.</div></details>
   </div></section>
 
@@ -1792,7 +1674,7 @@ status:        anchored</div>
     <div style="background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 6px 24px; margin-top: 8px;">
       <div class="case"><div class="t">Monitoring</div><p>Agents, mandates, and the audit log in one place — each decision with its reason and its evidence status.</p></div>
       <div class="case"><div class="t">Intervention</div><p>Approve held actions, adjust mandates, and revoke: the kill switch suspends all the agent's mandates — the first refused authorize follows within ~0.5 s in our benchmarks.</p></div>
-      <div class="case"><div class="t">No seats</div><p>Your whole team uses the panel on any paid plan — Regent prices verified actions, not headcount.</p></div>
+      <div class="case"><div class="t">No seats</div><p>Your whole team uses the panel — Regent prices governed agents, not headcount.</p></div>
     </div>
   </div></section>
   <section data-reveal><div class="wrap">
