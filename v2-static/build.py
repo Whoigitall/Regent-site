@@ -49,7 +49,7 @@ ROUTES = {
     "terms": {
         "path": "/terms", "file": "terms.html",
         "title": "Terms of Use — Regent Protocol",
-        "desc": "Terms of Use for the Regent Protocol website, dashboard, APIs, and related services.",
+        "desc": "Terms of Use for Regent Protocol: what the Services are and are not, your responsibility for your agents, receipts, the beta, plans and prices, retention, liability and disputes.",
     },
     "privacy": {
         "path": "/privacy", "file": "privacy.html",
