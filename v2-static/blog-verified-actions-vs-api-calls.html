@@ -912,13 +912,13 @@
     <p>The old unit was one decision that needed proof: an authorization checked against a mandate, or an audit record committed to the evidence chain. It was a better meter than API calls, but it was still a meter on activity. The more decisions an agent asked for, the larger the bill.</p>
     <p>The unit now is the <em>governed agent</em>: an agent identity that made at least one decision in the month. An agent in a sandbox is not counted, and neither is one you revoked.</p>
     <h2>Why not a percentage of the payment?</h2>
-    <p>Because it would make us a party to the payment. A layer whose job is to stop an agent from spending has no business earning more when the agent spends more. And the receipt we sign is only worth something to a counterparty, an auditor or an insurer if it was produced by someone the transaction did not pay. A receipt for a $40,000 transfer costs the same as one for $4, on every rail and in every contract.</p>
-    <h2>Why not a price per decision?</h2>
-    <p>Two reasons. It punishes the right behaviour: a company that puts every payment behind the gate would pay more than one that routes half of them around it. And a price per decision invites the question of which decisions. Ours must not depend on the answer. Allowed, refused or sent to a person for approval costs the same, and a purchase that waited for approval and then went through is one decision, not two.</p>
+    <p>Because it would make us a party to the payment. A layer whose job is to stop an agent from spending has no business earning more when the agent spends more. And the receipt we sign is only worth something to a counterparty, an auditor or an insurer if it was produced by someone the transaction did not pay. Governing a $40,000 transfer costs the same as governing a $4 one, on every rail and in every contract.</p>
+    <h2>Why the bill does not grow with every decision</h2>
+    <p>Two reasons. A meter on every decision punishes the right behaviour: a company that puts every payment behind the gate would pay more than one that routes half of them around it. And such a meter invites the question of which decisions. Ours must not depend on the answer. Allowed, refused or sent to a person for approval costs the same, and a purchase that waited for approval and then went through is one decision, not two.</p>
     <h2>Why not seats?</h2>
     <p>Seats measure humans; this system governs agents. The bill should grow when the fleet of agents grows, not when your team does and not when an agent gets busier.</p>
     <h2>What a plan still counts</h2>
-    <p>Each plan includes a number of money decisions per agent a month. That number is a fuse against a runaway loop, not the way we earn. Reads, status checks and tool calls that move no money are not counted at all.</p>
+    <p>Each plan includes a number of money decisions per agent a month. That number is a fuse against a runaway loop, not the way we earn. On the company and platform plans a decision above it costs a tenth of a cent: enough to cover a machine stuck in a loop, and not where our revenue comes from. Reads, status checks and tool calls that move no money are not counted at all.</p>
     <h2>What stays free</h2>
     <p>Checking a receipt, always: offline, against a saved key file, without an account and without us. <span class="mono">pip install regent-receipt-verify</span> or <span class="mono">npx @regent-protocol/receipt-verify</span>. A record you cannot check for free is not much of a record.</p>
     <h2>Related</h2>

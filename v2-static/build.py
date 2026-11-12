@@ -29,7 +29,7 @@ ROUTES = {
     "pricing": {
         "path": "/pricing", "file": "pricing.html",
         "title": "Pricing — Regent Protocol",
-        "desc": "Regent never takes a percentage of a payment and the price never depends on the decision. Free during the beta; after it a fixed price per governed agent. Checking a receipt is free, always.",
+        "desc": "Regent never takes a percentage of a payment. Free up to 2 agents; Plus $9 a month; Business $12 per governed agent a month; platforms $0.50 per agent; banks from $30,000 a year. Checking a receipt is free, always.",
     },
     "about": {
         "path": "/about", "file": "about.html",
@@ -127,14 +127,26 @@ ORG_LD = {
     ],
 }
 
-# One offer while the beta is free (12.11.2026): launch prices are published on the page
-# later, and structured data must not advertise a price the page does not show.
+# Offers mirror the launch pricing published on the page (24.11.2026): the same five
+# plans, the same units. Structured data must never advertise a price the page does not show.
 PRICING_LD = {
     "@context": "https://schema.org", "@type": "Product",
     "name": "Regent Protocol", "description": ROUTES["pricing"]["desc"],
     "brand": {"@type": "Brand", "name": "Regent Protocol"},
     "offers": [
-        {"@type": "Offer", "name": "Beta", "price": "0", "priceCurrency": "USD"},
+        {"@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD"},
+        {"@type": "Offer", "name": "Plus", "price": "9", "priceCurrency": "USD",
+         "priceSpecification": {"@type": "UnitPriceSpecification", "price": "9",
+                                "priceCurrency": "USD", "unitText": "month"}},
+        {"@type": "Offer", "name": "Business", "price": "12", "priceCurrency": "USD",
+         "priceSpecification": {"@type": "UnitPriceSpecification", "price": "12",
+                                "priceCurrency": "USD", "unitText": "governed agent per month"}},
+        {"@type": "Offer", "name": "Platform", "price": "0.50", "priceCurrency": "USD",
+         "priceSpecification": {"@type": "UnitPriceSpecification", "price": "0.50",
+                                "priceCurrency": "USD", "unitText": "governed agent per month"}},
+        {"@type": "Offer", "name": "Banks and regulated companies", "price": "30000", "priceCurrency": "USD",
+         "priceSpecification": {"@type": "UnitPriceSpecification", "price": "30000",
+                                "priceCurrency": "USD", "unitText": "year"}},
     ],
 }
 

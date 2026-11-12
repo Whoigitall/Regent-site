@@ -1086,25 +1086,25 @@ await r.audit.ingest_event(IngestEventRequest(
     <div class="eyebrow">Pricing</div>
     <h1 style="font-size: clamp(26px, 3.6vw, 38px);">We never take a percentage<br>of your payments.</h1>
     <p class="cat">You pay for agents under control, not for what they spend. The price does not depend on the amount, and it does not depend on whether a payment was allowed, refused or sent to you for approval.</p>
-    <div class="launch-note">THE BETA IS FREE — launch prices for companies and platforms are published on this page before the first beta accounts reach the end of their three months</div>
+    <div class="launch-note">LAUNCH PRICING — the beta is free for three months</div>
   </div>
 
   <section data-reveal><div class="wrap">
-    <div class="eyebrow">Three rules</div>
+    <div class="eyebrow">Three promises</div>
     <h2>What the price can never be.</h2>
     <div class="principles">
       <div class="cell">
-        <div class="k">Rule one</div>
+        <div class="k">One</div>
         <h3>Never a percentage</h3>
-        <p>A receipt for a $40,000 transfer costs the same as one for $4. Regent is not a party to the payment and does not earn from its size: not on the site, not in a contract, not in the marketplace.</p>
+        <p>Governing a $40,000 transfer costs the same as governing a $4 one. Not on the site, not in a contract, not in the marketplace.</p>
       </div>
       <div class="cell">
-        <div class="k">Rule two</div>
+        <div class="k">Two</div>
         <h3>Never tied to the decision</h3>
-        <p>Allowed, refused or sent to a person for approval: one price. We have no reason to approve more.</p>
+        <p>Allowed, refused, escalated: one price. We have no reason to approve more.</p>
       </div>
       <div class="cell">
-        <div class="k">Rule three</div>
+        <div class="k">Three</div>
         <h3>Checking a receipt is free, always</h3>
         <p>Offline, against a saved key file, without an account and without us.</p>
       </div>
@@ -1113,39 +1113,100 @@ await r.audit.ingest_event(IngestEventRequest(
   </div></section>
 
   <section data-reveal><div class="wrap">
-    <div class="eyebrow">During the beta</div>
-    <h2>Free for three months.</h2>
-    <p>From the day you sign up. A new account is a sandbox for 30 days, then you go live; the three months count from the first day. The price that applies afterwards is published at least 30 days before your three months end, and it stays fixed for beta participants for twelve months. Regent does not ask for a card to use Regent.</p>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px;">
-      <a class="btn btn-primary" href="/beta" data-ph="cta_beta_clicked:pricing">See the beta</a>
-      <a class="btn btn-secondary" href="https://docs.regentprotocol.org/resources/pricing">Pricing in the docs</a>
-    </div>
-  </div></section>
-
-  <section data-reveal><div class="wrap">
     <div class="eyebrow">Plans</div>
-    <h2>Who pays, and for what.</h2>
-    <div class="tblshell"><div class="tblwrap">
-      <table class="cmp">
-        <tr><th>Who</th><th>Price</th></tr>
-        <tr><td>Checking receipts</td><td>free</td></tr>
-        <tr><td>Sandbox</td><td>free: test rail, practice budgets, real decisions and receipts labelled sandbox</td></tr>
-        <tr><td>A person or a developer</td><td>free: up to 2 governed agents and 5,000 decisions a month in production, with your own rails</td></tr>
-        <tr><td>Companies</td><td>a fixed price per governed agent a month</td></tr>
-        <tr><td>Platforms that give their own users agents</td><td>a fixed price per active agent a month, under an annual agreement</td></tr>
-        <tr><td>Banks and regulated companies</td><td>a fixed annual agreement: Regent inside your perimeter, evidence packages for the regulator, service levels in the contract</td></tr>
-      </table>
-    </div></div>
-    <p style="margin-top: 16px;">A first production integration for a bank or another regulated company is sold as a fixed-price pilot of six weeks, credited in full against the first year.</p>
+    <h2>One price per agent under control.</h2>
+    <p><strong>In every plan, Free included:</strong> budgets and limits per payment, per day, per month and per counterparty; approval by a person above the amount you choose; a kill switch; a signed receipt for every decision, refusals included.</p>
+    <p><strong>Verify, free, always:</strong> check any receipt against a saved key file, with no account, no contract and no call to Regent. <span class="mono">pip install regent-receipt-verify</span>, <span class="mono">npx -p @regent-protocol/receipt-verify regent-verify</span>, or the web verifier.</p>
+
+    <div class="tiers">
+      <div class="tier">
+        <div class="tname">Free</div>
+        <div class="price">$0</div>
+        <div class="per">&nbsp;</div>
+        <div class="tag">For a person with their own agents, and for a developer building one.</div>
+        <ul>
+          <li>Up to 2 governed agents</li>
+          <li>5,000 decisions a month across those agents</li>
+          <li>Sandbox without limits</li>
+          <li>Approvals with your passkey</li>
+          <li>Your first identity check is on us</li>
+          <li>History kept for 3 years; every receipt stays verifiable for 10</li>
+          <li>Self-serve, documentation and the community</li>
+        </ul>
+        <a class="btn btn-primary" href="https://web.regentprotocol.org/signup" data-ph="pricing_tier_selected:free">Start free</a>
+      </div>
+
+      <div class="tier">
+        <div class="tname">Plus</div>
+        <div class="price">$9</div>
+        <div class="per">a month</div>
+        <div class="tag">For a person who runs more agents.</div>
+        <ul>
+          <li>Up to 10 governed agents</li>
+          <li>12,000 decisions a month across them</li>
+          <li>Face confirmation on approvals above an amount you choose</li>
+          <li>History kept for 3 years</li>
+          <li>Email support, an answer within 72 hours on working days</li>
+          <li>Above 12,000, the agents wait until the next month; write to us and we set a higher limit</li>
+        </ul>
+        <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20Plus" data-ph="pricing_tier_selected:plus">Write to us</a>
+      </div>
+
+      <div class="tier hot">
+        <div class="tname">Business</div>
+        <div class="price">$12</div>
+        <div class="per">per governed agent a month</div>
+        <div class="tag">For a company whose agents move its money. Minimum 10 agents.</div>
+        <ul>
+          <li>10,000 decisions per agent a month; above that $0.001 per decision</li>
+          <li>Team access with roles, single sign-on, export for your auditor</li>
+          <li>History kept for 10 years</li>
+          <li>Email support on working days, ahead of Free and Plus</li>
+        </ul>
+        <a class="btn btn-primary" href="mailto:info@regentprotocol.org?subject=Regent%20Business" data-ph="pricing_tier_selected:business">Write to us</a>
+        <div class="fnote">10 agents $120 · 25 agents $300 · 100 agents $1,200 · 250 agents $3,000 a month. Above 250: talk to us.</div>
+      </div>
+
+      <div class="tier">
+        <div class="tname">Platform</div>
+        <div class="price">$0.50</div>
+        <div class="per">per governed agent a month</div>
+        <div class="tag">For a product that gives its own users agents and embeds Regent for them: you issue the agent and support the user, we decide the money.</div>
+        <ul>
+          <li>1,000 decisions per agent a month; above that $0.001 per decision</li>
+          <li>Billed monthly against an annual minimum of $10,000</li>
+          <li>From 25,000 agents $0.40, from 100,000 agents $0.30</li>
+          <li>You pay only for agents that made a decision that month</li>
+          <li>The six-week pilot is free for platforms</li>
+        </ul>
+        <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20for%20platforms" data-ph="pricing_tier_selected:platform">Talk to us</a>
+      </div>
+
+      <div class="tier" style="grid-column: 1 / -1;">
+        <div class="tname">Banks and regulated companies</div>
+        <div class="price">from $30,000</div>
+        <div class="per">a year</div>
+        <div class="tag" style="min-height: 0;">For a bank, a payment company or a custodian that answers to a regulator.</div>
+        <ul style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0 28px;">
+          <li>Regent inside your own perimeter</li>
+          <li>Evidence packages for your regulator and your auditor</li>
+          <li>Availability and support times written into the contract</li>
+          <li>A pilot of six weeks for $5,000, credited in full against the first year</li>
+        </ul>
+        <a class="btn btn-secondary" style="align-self: flex-start;" href="mailto:info@regentprotocol.org?subject=Regent%20pilot" data-ph="pricing_tier_selected:bank">Talk to us</a>
+      </div>
+    </div>
+
+    <p class="fine" style="margin-top: 22px; color: var(--faint); font-size: 13.5px; max-width: 60em;">During the beta every feature is available on every account and no plan limit is enforced. Plan boundaries and the decision fuse apply from the day paid plans start. Prices are in US dollars, excluding taxes. <em>Last updated 24 November 2026.</em></p>
   </div></section>
 
   <section data-reveal><div class="wrap">
     <div class="eyebrow">What is counted</div>
     <h2>The agent, not the traffic.</h2>
     <p><strong>A governed agent</strong> is an agent identity that made at least one decision in the month. Agents in a sandbox and revoked agents are never counted.</p>
-    <p><strong>A decision</strong> is one money decision per purchase, whatever the answer. A purchase that waited for your approval and then went through is one decision, not two. A repeat with the same idempotency key is counted once. Reads and calls that move no money are not counted.</p>
-    <p><strong>Identity verification</strong> of an owner is passed through at the provider's own price, with no markup from us. During the beta it is free.</p>
-    <p>Why the unit is the agent: <a href="/blog/verified-actions-vs-api-calls">Why we price the agent, not the action</a>.</p>
+    <p><strong>A decision</strong> is one money decision per purchase, whatever the answer. A refused payment counts: an agent we stopped was still governed. A purchase that waited for your approval and then went through is one decision, not two; one your approver declined is also one. A repeat with the same idempotency key is counted once. Reads and calls that move no money are not counted.</p>
+    <p><strong>Not in the price: identity verification.</strong> Passed through at the provider's own price, with no markup from us. During the beta it is free.</p>
+    <p>Why the unit is the agent: <a href="/blog/verified-actions-vs-api-calls">Why we price the agent, not the action</a>. What is live and what is planned: <a href="https://docs.regentprotocol.org/resources/status">Status</a>.</p>
   </div></section>
 
   <section data-reveal><div class="wrap">
@@ -1156,16 +1217,24 @@ await r.audit.ingest_event(IngestEventRequest(
       <div class="a">No. There is no percentage and no fee that grows with the amount. A plan includes a number of decisions for each agent; that number is a fuse against a runaway loop, not the way we earn.</div>
     </details>
     <details class="faq">
-      <summary>How long do you keep my history?</summary>
-      <div class="a">Every receipt stays verifiable for ten years wherever you keep it. On our side the history is kept ten years for an organization on a paid plan and three years for a free account. You can export it at any time.</div>
+      <summary>What happens when I reach the limit on Free?</summary>
+      <div class="a">During the beta nothing is refused for volume. From the day paid plans start, a payment above the cap is refused with a clear code until the next month or until you move to a paid plan. Nothing is ever let through unchecked.</div>
     </details>
     <details class="faq">
-      <summary>Can I check a receipt without you?</summary>
-      <div class="a">Yes. Save the key file with your receipts and verify offline: <span class="mono">pip install regent-receipt-verify</span> or <span class="mono">npx @regent-protocol/receipt-verify</span>.</div>
+      <summary>What happens when the beta ends?</summary>
+      <div class="a">You choose a plan or stay on Free. The launch price on this page stays yours for twelve months after your beta period ends.</div>
+    </details>
+    <details class="faq">
+      <summary>How long do you keep my history?</summary>
+      <div class="a">Every receipt stays verifiable for ten years wherever you keep it, as long as you saved the key file with it. On our side the history is kept ten years on Business and above, and three years on Free and Plus. You can export it at any time, and we tell you 30 days before anything is removed.</div>
     </details>
     <details class="faq">
       <summary>Do you need a licence to do this?</summary>
       <div class="a">We do not hold or move money. The licence and the permissions sit with your payment rail.</div>
+    </details>
+    <details class="faq">
+      <summary>Can I check a receipt without you?</summary>
+      <div class="a">Yes. Save the key file with your receipts and verify offline; the commands are at the top of the plans.</div>
     </details>
     <details class="faq">
       <summary>What does the marketplace cost a seller?</summary>
@@ -1178,10 +1247,10 @@ await r.audit.ingest_event(IngestEventRequest(
   </div></section>
 
   <section data-reveal><div class="wrap" style="text-align: left;">
-    <h2>Make every agent accountable.</h2>
+    <h2>No percentage of payments. Ever.</h2>
     <p class="lede" style="margin-bottom: 22px;">Start in the sandbox, go live when you are ready, and pay nothing during the beta.</p>
     <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-      <a class="btn btn-primary" href="https://docs.regentprotocol.org/quickstart/three-steps">Start building</a>
+      <a class="btn btn-primary" href="https://web.regentprotocol.org/signup">Start free</a>
       <a class="btn btn-secondary" href="mailto:info@regentprotocol.org?subject=Regent%20pricing">Talk to us</a>
     </div>
   </div></section>
@@ -1939,13 +2008,13 @@ await r.audit.ingest_event(IngestEventRequest(
     <p>The old unit was one decision that needed proof: an authorization checked against a mandate, or an audit record committed to the evidence chain. It was a better meter than API calls, but it was still a meter on activity. The more decisions an agent asked for, the larger the bill.</p>
     <p>The unit now is the <em>governed agent</em>: an agent identity that made at least one decision in the month. An agent in a sandbox is not counted, and neither is one you revoked.</p>
     <h2>Why not a percentage of the payment?</h2>
-    <p>Because it would make us a party to the payment. A layer whose job is to stop an agent from spending has no business earning more when the agent spends more. And the receipt we sign is only worth something to a counterparty, an auditor or an insurer if it was produced by someone the transaction did not pay. A receipt for a $40,000 transfer costs the same as one for $4, on every rail and in every contract.</p>
-    <h2>Why not a price per decision?</h2>
-    <p>Two reasons. It punishes the right behaviour: a company that puts every payment behind the gate would pay more than one that routes half of them around it. And a price per decision invites the question of which decisions. Ours must not depend on the answer. Allowed, refused or sent to a person for approval costs the same, and a purchase that waited for approval and then went through is one decision, not two.</p>
+    <p>Because it would make us a party to the payment. A layer whose job is to stop an agent from spending has no business earning more when the agent spends more. And the receipt we sign is only worth something to a counterparty, an auditor or an insurer if it was produced by someone the transaction did not pay. Governing a $40,000 transfer costs the same as governing a $4 one, on every rail and in every contract.</p>
+    <h2>Why the bill does not grow with every decision</h2>
+    <p>Two reasons. A meter on every decision punishes the right behaviour: a company that puts every payment behind the gate would pay more than one that routes half of them around it. And such a meter invites the question of which decisions. Ours must not depend on the answer. Allowed, refused or sent to a person for approval costs the same, and a purchase that waited for approval and then went through is one decision, not two.</p>
     <h2>Why not seats?</h2>
     <p>Seats measure humans; this system governs agents. The bill should grow when the fleet of agents grows, not when your team does and not when an agent gets busier.</p>
     <h2>What a plan still counts</h2>
-    <p>Each plan includes a number of money decisions per agent a month. That number is a fuse against a runaway loop, not the way we earn. Reads, status checks and tool calls that move no money are not counted at all.</p>
+    <p>Each plan includes a number of money decisions per agent a month. That number is a fuse against a runaway loop, not the way we earn. On the company and platform plans a decision above it costs a tenth of a cent: enough to cover a machine stuck in a loop, and not where our revenue comes from. Reads, status checks and tool calls that move no money are not counted at all.</p>
     <h2>What stays free</h2>
     <p>Checking a receipt, always: offline, against a saved key file, without an account and without us. <span class="mono">pip install regent-receipt-verify</span> or <span class="mono">npx @regent-protocol/receipt-verify</span>. A record you cannot check for free is not much of a record.</p>
     <h2>Related</h2>
