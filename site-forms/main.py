@@ -1,8 +1,9 @@
 """site-forms — the two forms behind regentprotocol.org.
 
 /pilot: the pilot application. /beta-feedback: a beta tester's report, from the /beta
-page or from the console's "Report a problem". Both become an email to the team inbox,
-with Reply-To set to the sender when they left an address. No database — the inbox is
+page or from the console's "Report a problem". Each becomes an email, applications to
+the founders and reports to the beta mailbox, with Reply-To set to the sender when they
+left an address. No database — the inbox is
 the CRM at this stage. Honeypot field + nginx rate limiting keep the bots out.
 
 A report may carry one screenshot. People paste keys into reports and leave them on
@@ -53,6 +54,11 @@ SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD", "")
 # CEO + CTO inboxes (comma-separated, overridable via env)
 TO_EMAILS = [e.strip() for e in os.environ.get(
     "TO_EMAILS", "ae.aubakirov@gmail.com,prosayat@gmail.com"
+).split(",") if e.strip()]
+# Beta reports carry testers' addresses, amounts and merchants: they go to a company
+# mailbox, not to personal ones. Pilot applications keep going to TO_EMAILS.
+FEEDBACK_TO_EMAILS = [e.strip() for e in os.environ.get(
+    "FEEDBACK_TO_EMAILS", "beta@regentprotocol.org"
 ).split(",") if e.strip()]
 
 
@@ -243,7 +249,7 @@ async def beta_feedback(body: BetaFeedback) -> dict:
     msg = EmailMessage()
     msg["Subject"] = "Beta report — " + ("console" if body.source == "console" else "beta page")
     msg["From"] = formataddr(("Regent Protocol site", SMTP_USERNAME))
-    msg["To"] = ", ".join(TO_EMAILS)
+    msg["To"] = ", ".join(FEEDBACK_TO_EMAILS)
     if body.email:
         msg["Reply-To"] = body.email
     msg.set_content("\n".join(lines))

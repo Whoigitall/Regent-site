@@ -210,3 +210,11 @@ def test_the_pilot_mail_carries_the_note_and_no_live_link_even_in_its_subject(cl
     body = msg.get_payload(decode=True).decode()
     assert main.UNVERIFIED_NOTE in body and "evil.example" not in body
 
+
+def test_reports_go_to_the_beta_mailbox_and_applications_to_the_founders(client):
+    client.post("/beta-feedback", json={"report": "A report for the beta mailbox."})
+    client.post("/pilot", json=PILOT)
+    report, application = FakeSMTP.sent
+    assert report["To"] == "beta@regentprotocol.org"
+    assert application["To"] == ", ".join(main.TO_EMAILS) and "beta@" not in application["To"]
+
