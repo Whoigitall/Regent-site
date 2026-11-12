@@ -124,6 +124,7 @@
   /* connect cards */
   .connect { display: grid; gap: 16px; }
   @media (min-width: 820px) { .connect { grid-template-columns: 1fr 1fr; } .connect .primary { grid-column: 1 / -1; } }
+  .ccard[id] { scroll-margin-top: 16px; }
   .ccard { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
   .ccard.primary { border-color: var(--seal); box-shadow: 0 0 0 3px var(--seal-soft); }
   .ccard .who { font: 500 13px/1.4 var(--f-mono); color: var(--faint); }
@@ -142,6 +143,7 @@
   .chip.live { background: var(--ok-soft); color: var(--ok); }
   .chip.early { background: var(--hold-soft); color: var(--hold); }
   .chip.testnet { background: var(--test-soft); color: var(--test); }
+  .chip.soon { background: var(--well); color: var(--mut); }
   .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 14px; color: var(--mut); margin: -10px 0 26px; }
   .legend span { display: inline-flex; align-items: center; gap: 8px; }
 
@@ -239,36 +241,52 @@
       <div class="ledger-head"><span>What your agent hears back</span><span>example</span></div>
       <div class="lrow">
         <span class="what">AA batteries · Amazon</span><span class="amt">$8.40</span>
-        <div class="why"><span class="stamp ok">Allow</span>inside your $25 allowance<span class="code-tag">receipt rcp_…</span></div>
+        <div class="why"><span class="stamp ok">Allow</span>inside your $10 allowance<span class="code-tag">receipt rcp_…</span></div>
       </div>
       <div class="lrow">
-        <span class="what">Standing desk · Target</span><span class="amt">$240.00</span>
+        <span class="what">Desk lamp · Target</span><span class="amt">$38.00</span>
         <div class="why"><span class="stamp hold">Ask you</span>above your allowance, waits for your passkey<span class="code-tag">ESCALATION_REQUIRED</span></div>
       </div>
       <div class="lrow">
         <span class="what">Laptop · Best Buy</span><span class="amt">$1,900.00</span>
-        <div class="why"><span class="stamp deny">Deny</span>over the limit you set, refused before checkout<span class="code-tag">LIMIT_EXCEEDED</span></div>
+        <div class="why"><span class="stamp deny">Deny</span>over the limit you set, refused before checkout<span class="code-tag">MANDATE_LIMIT_EXCEEDED</span></div>
       </div>
     </figure>
   </div>
 
   <section class="block" id="connect" aria-labelledby="connect-h">
     <div class="wrap">
-      <h2 id="connect-h">Connect your agent in one minute</h2>
-      <p class="sub">Pick the way your agent lives. Each box is meant to be copied as is.</p>
+      <h2 id="connect-h">Connect your agent</h2>
+      <p class="sub">Pick the way your agent lives. An agent in the sandbox connects in about a minute; your own Stripe account takes about ten, six of them yours. Each dark box is meant to be copied as is.</p>
 
       <div class="connect">
-        <article class="ccard primary">
+        <article class="ccard primary" id="stripe">
+          <h3>A business with its own Stripe account</h3>
+          <span class="who">Support · billing · marketplaces</span>
+          <p>Your own Stripe connects after you go live: an identity check and a passkey, about five minutes. From then on every refund, charge, credit, coupon and payment link your agent attempts is decided against your limits first, and the Stripe key stays in Regent's vault. The agent never holds it.</p>
+          <ol>
+            <li><a data-signup data-ph="beta_signup_clicked:stripe" href="https://web.regentprotocol.org/signup">Sign up</a> and confirm your email.</li>
+            <li>Verify your identity (a document and a selfie, about three minutes), then press <strong>Go live</strong> on the same screen. It is one-way.</li>
+            <li>Add a passkey in Settings: budgets and approvals are signed with it.</li>
+            <li>In Stripe: Developers → API keys → <strong>Create restricted key</strong>. Write: Payment Intents, Charges, Refunds, Transfers, Invoices, Webhook Endpoints. Read: Account information.</li>
+            <li>In the console: Connect → Gateway → paste the <code>rk_…</code> key. Regent registers the webhooks itself.</li>
+            <li>Connect the agent with one of the boxes below, or point a Stripe agent at Regent instead of <code>mcp.stripe.com</code>:</li>
+          </ol>
+          <div class="snip"><pre id="p-stripe">claude mcp add --transport http stripe https://gw.regentprotocol.org/gw/mcp/stripe</pre><button class="copy" type="button" data-copy="p-stripe" data-ph="beta_prompt_copied:stripe">Copy</button></div>
+          <p class="tested">Tested by us in Stripe test mode: payment, payment link, refund, transfer to a seller and invoice, each closed by Stripe's own webhook. Before you go live the same tools run on Regent's Stripe test account. Platforms that pay sellers: see <a href="https://docs.regentprotocol.org/gateway/stripe">the Stripe page</a> for the extra permissions. Stripe App: soon in the Stripe Marketplace.</p>
+        </article>
+
+        <article class="ccard">
           <h3>Any assistant that can open a link</h3>
           <span class="who">Instinct · Tab · ChatGPT · Grok · others</span>
           <p>Paste this to your assistant. It reads our page for agents, creates itself in Regent and walks you through the rest.</p>
           <div class="snip"><pre id="p-any">Connect to Regent by https://docs.regentprotocol.org/agent and guide me.</pre><button class="copy" type="button" data-copy="p-any" data-ph="beta_prompt_copied:any">Copy</button></div>
           <span class="snip-label">Then, to see it work</span>
           <div class="snip"><pre id="p-try">Use the Regent sandbox. Make one purchase that is allowed, one that is refused and one that asks me first. Show me the receipt for each.</pre><button class="copy" type="button" data-copy="p-try" data-ph="beta_prompt_copied:try">Copy</button></div>
-          <p class="tested">Tested by us with Instinct and Tab. Other assistants work the same way when they can read a web page and send web requests.</p>
+          <p class="tested">Tested by us with Instinct and Tab. Other assistants work the same way when they can read a web page and send web requests. Never send your assistant a screenshot of the console or any key.</p>
         </article>
 
-        <article class="ccard">
+        <article class="ccard" id="claude">
           <h3>Claude, on the web or desktop</h3>
           <span class="who">Claude.ai · Claude Desktop</span>
           <ol>
@@ -286,14 +304,6 @@
           <p>Add Regent, then run <code>/mcp</code> inside Claude Code to sign in.</p>
           <div class="snip"><pre id="p-cc">claude mcp add --transport http regent https://gw.regentprotocol.org/gw/mcp</pre><button class="copy" type="button" data-copy="p-cc" data-ph="beta_prompt_copied:claude_code">Copy</button></div>
           <p class="tested">Tested by us.</p>
-        </article>
-
-        <article class="ccard">
-          <h3>Your Stripe agent</h3>
-          <span class="who">Same tools as Stripe's own MCP server</span>
-          <p>Point the agent at Regent instead of <code>mcp.stripe.com</code>. Refunds, coupons, credits and payment links are decided against your limits first, and the Stripe key stays in Regent's vault.</p>
-          <div class="snip"><pre id="p-stripe">claude mcp add --transport http stripe https://gw.regentprotocol.org/gw/mcp/stripe</pre><button class="copy" type="button" data-copy="p-stripe" data-ph="beta_prompt_copied:stripe">Copy</button></div>
-          <p class="tested">The sandbox runs on Regent's Stripe test account. To use your own account, verify your identity, then paste a restricted key (<code>rk_…</code>) under Connect → Gateway.</p>
         </article>
 
         <article class="ccard">
@@ -317,6 +327,7 @@ regent-control hook install hermes   <span class="dim"># or claude-code, codex</
         <span><span class="chip live">Live</span>works today, tested by us</span>
         <span><span class="chip early">Early</span>built, few real runs yet</span>
         <span><span class="chip testnet">Test network</span>test money only for now</span>
+        <span><span class="chip soon">Soon</span>waits on a partner, not on you</span>
       </div>
 
       <div class="uses">
@@ -336,6 +347,7 @@ regent-control hook install hermes   <span class="dim"># or claude-code, codex</
             <li><strong>Billing and retention agents</strong><p>Payment links, coupons, credits and invoice changes are decided like money, against the same budget.</p><span class="chip live">Live · Stripe</span></li>
             <li><strong>One agent, one set of limits</strong><p>Each connected app is its own agent with its own budget, history and kill switch. Nobody shares a key.</p><span class="chip live">Live</span></li>
             <li><strong>Evidence for disputes and reviews</strong><p>Export one file per decision. Anyone can verify it offline; change one byte and it fails.</p><span class="chip live">Live</span></li>
+            <li><strong>Cards your agent holds</strong><p>Every authorization on a Stripe Issuing card decided in real time, before the card network answers. Available when Stripe enables Issuing on your account; <a href="#report">tell us</a> if you want to be first.</p><span class="chip soon">Soon · Stripe Issuing</span></li>
           </ul>
         </div>
         <div class="ucol">
@@ -357,7 +369,7 @@ regent-control hook install hermes   <span class="dim"># or claude-code, codex</
       <p class="sub">Ask your agent to do each one. What you should see is in the middle; the answer code your agent gets is on the right.</p>
       <ol class="tries">
         <li><span class="do">Buy something small</span><span class="expect">Goes through, with a receipt.</span><span class="code">allow · rcp_…</span></li>
-        <li><span class="do">Buy something over your per-purchase limit</span><span class="expect">Refused before the shop or Stripe sees it.</span><span class="code">deny · LIMIT_EXCEEDED</span></li>
+        <li><span class="do">Buy something over your per-purchase limit</span><span class="expect">Refused before the shop or Stripe sees it.</span><span class="code">deny · MANDATE_LIMIT_EXCEEDED</span></li>
         <li><span class="do">Buy something above your allowance</span><span class="expect">Waits for you. Approve it, and the agent repeats the same request.</span><span class="code">ESCALATION_REQUIRED</span></li>
         <li><span class="do">Send the same purchase twice</span><span class="expect">One payment, not two.</span><span class="code">same decision_id</span></li>
         <li><span class="do">Revoke the agent mid-task</span><span class="expect">The next call is refused.</span><span class="code">AGENT_NOT_ACTIVE</span></li>
@@ -373,8 +385,8 @@ regent-control hook install hermes   <span class="dim"># or claude-code, codex</
       <h2 id="plain-h">The beta, plainly</h2>
       <div class="plain">
         <dl>
-          <div class="item"><dt>Free for three months</dt><dd>From the day you sign up. Regent never asks for a card to use Regent itself. We will tell you the price at least 30 days before your three months end.</dd></div>
-          <div class="item"><dt>Test money first</dt><dd>A new account is a sandbox: Stripe in test mode, test USDC, and at most $100 per payment. Use it as much as you like.</dd></div>
+          <div class="item"><dt>Free for three months</dt><dd>Sandbox for 30 days, then go live, free for three months in total from the day you sign up. Regent never asks for a card to use Regent itself. We will tell you the price at least 30 days before your three months end.</dd></div>
+          <div class="item"><dt>Test money first</dt><dd>A new account is a sandbox: Stripe in test mode, test USDC, and at most $100 per payment. It lasts 30 days; going live keeps everything you built in it.</dd></div>
           <div class="item"><dt>Real money needs a verified owner</dt><dd>You verify your identity once. Then you can connect your own Stripe account or your own card. Card purchases through Agentcard need a US card and an owner aged 18 or over.</dd></div>
         </dl>
         <dl>
