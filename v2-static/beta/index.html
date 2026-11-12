@@ -268,7 +268,7 @@
             <li><a data-signup data-ph="beta_signup_clicked:stripe" href="https://web.regentprotocol.org/signup">Sign up</a> and confirm your email.</li>
             <li>Verify your identity (a document and a selfie, about three minutes), then press <strong>Go live</strong> on the same screen. It is one-way.</li>
             <li>Add a passkey in Settings: budgets and approvals are signed with it.</li>
-            <li>In Stripe: Developers → API keys → <strong>Create restricted key</strong>. Write: Payment Intents, Charges, Refunds, Transfers, Invoices, Webhook Endpoints. Read: Account information.</li>
+            <li>In Stripe: Developers → API keys → <strong>Create restricted key</strong>. Write: Payment Intents, Charges, Refunds, Transfers, Invoices, Webhook Endpoints. Read: Account information. Add Payment Links, Coupons or Credit notes only if your agent uses them: the key stays the outer wall.</li>
             <li>In the console: Connect → Gateway → paste the <code>rk_…</code> key. Regent registers the webhooks itself.</li>
             <li>Connect the agent with one of the boxes below, or point a Stripe agent at Regent instead of <code>mcp.stripe.com</code>:</li>
           </ol>
