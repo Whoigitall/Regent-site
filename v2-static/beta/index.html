@@ -102,8 +102,8 @@
   .btn-sm { padding: 8px 12px; font-size: 13px; border-radius: 8px; }
 
   /* hero */
-  .hero { padding: 56px 0 40px; display: grid; gap: 40px; }
-  @media (min-width: 920px) { .hero { grid-template-columns: 1.05fr .95fr; align-items: center; padding: 72px 0 56px; } }
+  .hero { padding-top: 56px; padding-bottom: 40px; display: grid; gap: 40px; }
+  @media (min-width: 920px) { .hero { grid-template-columns: 1.05fr .95fr; align-items: center; padding-top: 72px; padding-bottom: 56px; } }
   .eyebrow { font: 600 12px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--seal); display: inline-flex; gap: 10px; align-items: center; }
   .eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--seal); }
   h1 { font-family: var(--f-head); font-weight: 700; font-size: clamp(30px, 5.2vw, 46px); line-height: 1.12; letter-spacing: .01em; margin: 16px 0 18px; text-wrap: balance; }
@@ -156,6 +156,7 @@
   .snip .dim { color: var(--code-dim); }
   .snip .copy { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,.08); color: var(--code-ink); border: 1px solid rgba(255,255,255,.16); border-radius: 7px; padding: 6px 10px; font: 600 12px/1 var(--f-body); cursor: pointer; }
   .snip .copy:hover { background: rgba(255,255,255,.16); }
+  @media (max-width: 560px) { .snip { padding: 50px 14px 14px; } .snip pre { font-size: 12.5px; } .snip .copy { padding: 9px 12px; } }
   .snip-label { font: 600 12px/1 var(--f-mono); color: var(--faint); letter-spacing: .06em; text-transform: uppercase; margin-top: 4px; }
   .tested { font-size: 13px; color: var(--faint); margin: 0; }
 
@@ -398,7 +399,7 @@ regent-control hook install hermes   <span class="dim"># or claude-code, codex</
   <section class="block" id="try" aria-labelledby="try-h">
     <div class="wrap">
       <h2 id="try-h">Seven things to try in the sandbox</h2>
-      <p class="sub">Ask your agent to do each one. What you should see is in the middle; the answer code your agent gets is on the right.</p>
+      <p class="sub">Ask your agent to do each one. Each line shows what you should see and the answer code your agent gets.</p>
       <ol class="tries">
         <li><span class="do">Buy something small</span><span class="expect">Goes through, with a receipt.</span><span class="code">allow · rcp_…</span></li>
         <li><span class="do">Buy something over your per-purchase limit</span><span class="expect">Refused before the shop or Stripe sees it.</span><span class="code">deny · MANDATE_LIMIT_EXCEEDED</span></li>
