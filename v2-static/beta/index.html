@@ -77,9 +77,6 @@
   header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; }
   .brand { font-family: var(--f-head); font-weight: 700; font-size: 15px; letter-spacing: .06em; color: var(--ink); text-decoration: none; text-transform: uppercase; }
   .brand span { color: var(--seal); }
-  /* the one programme membership we may state, in words: the member badge comes from NVIDIA's portal */
-  .brandblock { display: grid; gap: 5px; padding: 12px 0; }
-  .member { font: 500 10.5px/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
   nav.top { display: flex; gap: 20px; align-items: center; font-size: 15px; }
   nav.top a { color: var(--mut); text-decoration: none; }
   nav.top a:hover { color: var(--ink); }
@@ -87,7 +84,6 @@
   nav.top a.btn-primary, nav.top a.btn-primary:hover { color: var(--on-seal); }
   nav.top { flex-shrink: 0; }
   nav.top .btn { white-space: nowrap; }
-  .brandblock { min-width: 0; }
   nav.top .hide-sm { display: none; }
   @media (min-width: 640px) { nav.top .hide-sm { display: inline; } }
 
@@ -233,10 +229,7 @@
 
 <header class="site">
   <div class="wrap">
-    <div class="brandblock">
-      <a class="brand" href="/">Regent <span>Protocol</span></a>
-      <span class="member">Member of the NVIDIA Inception program</span>
-    </div>
+    <a class="brand" href="/">Regent <span>Protocol</span></a>
     <nav class="top" aria-label="Main">
       <a class="hide-sm" href="#connect">Connect</a>
       <a class="hide-sm" href="#uses">Use cases</a>
