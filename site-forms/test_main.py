@@ -34,6 +34,7 @@ class FakeSMTP:
 @pytest.fixture
 def client(monkeypatch):
     FakeSMTP.sent = []
+    main._sent.update(day="", count=0)
     monkeypatch.setattr(main.smtplib, "SMTP_SSL", FakeSMTP)
     monkeypatch.setattr(main, "SMTP_PASSWORD", "x")
     return TestClient(main.app)
@@ -139,3 +140,73 @@ def test_the_pilot_form_still_works(client):
     r = client.post("/pilot", json={"email": "a@b.co", "company": "Acme", "role": "CTO", "act_for": "customers",
                                     "stage": "pilot", "workflow": "Refund agent on Stripe, 200 actions a month."})
     assert r.status_code == 200 and FakeSMTP.sent[0]["Subject"] == "Pilot application — Acme"
+
+
+# ── a public form: links broken on purpose, a ceiling on mails a day ──────────────
+
+PILOT = {"email": "cto@example.com", "company": "Acme", "role": "CTO", "act_for": "customers",
+         "stage": "pilot", "workflow": "Agents refund customers within limits."}
+
+
+def test_a_link_in_a_report_arrives_broken_and_the_mail_says_who_wrote_it(client):
+    r = client.post("/beta-feedback", json={
+        "report": "Urgent, your key leaked: log in at https://regent-protocol.evil.example/login or www.evil.example now"})
+    assert r.status_code == 200
+    text = FakeSMTP.sent[0].get_content()
+    assert text.splitlines()[1] == main.UNVERIFIED_NOTE
+    assert "://" not in text.replace("[://]", "") and "https[://]regent-protocol[.]evil[.]example/login" in text
+    assert "www[.]evil[.]example" in text and "evil.example" not in text
+
+
+@pytest.mark.parametrize("plain", [
+    "regent-control 0.14.0 answered ESCALATION_REQUIRED for dec_82c44e343894 at 14:05.",
+    "Paid $7.50, e.g. twice. Then it stopped",
+])
+def test_ordinary_report_text_is_left_as_written(plain):
+    assert main.defang(plain) == plain
+
+
+def test_defang_breaks_every_form_a_mail_client_would_link():
+    assert main.defang("http://1.2.3.4/x") == "http[://]1[.]2[.]3[.]4/x"
+    assert main.defang("see evil.com/login and main.py") == "see evil[.]com/login and main[.]py"
+    assert main.defang("write to boss@evil.com") == "write to boss@evil[.]com"
+
+
+def test_a_key_is_still_removed_when_it_sits_inside_a_link(client):
+    r = client.post("/beta-feedback", json={"report": "it called https://x.example/?k=sk_live_51abcDEF123456 and failed"})
+    assert r.json()["redacted"] == 1
+    text = FakeSMTP.sent[0].get_content()
+    assert "51abcDEF123456" not in text and "sk_live_[removed]" in text
+
+
+def test_the_day_has_a_ceiling_shared_by_both_forms_and_it_lifts_the_next_day(client, monkeypatch):
+    monkeypatch.setattr(main, "DAILY_MAIL_CAP", 2)
+    assert client.post("/beta-feedback", json={"report": "First report of the day."}).status_code == 200
+    assert client.post("/pilot", json=PILOT).status_code == 200
+    r = client.post("/beta-feedback", json={"report": "Third mail of the day."})
+    assert r.status_code == 503 and r.json()["detail"]["code"] == "FORMS_BUSY"
+    assert "info@regentprotocol.org" in r.json()["detail"]["message"]
+    assert client.post("/pilot", json=PILOT).status_code == 503
+    assert len(FakeSMTP.sent) == 2
+    main._sent["day"] = "2000-01-01"          # yesterday's count does not carry over
+    assert client.post("/beta-feedback", json={"report": "A report the next day."}).status_code == 200
+    assert len(FakeSMTP.sent) == 3
+
+
+def test_what_sends_no_mail_uses_none_of_the_days_ceiling(client, monkeypatch):
+    monkeypatch.setattr(main, "DAILY_MAIL_CAP", 1)
+    client.post("/beta-feedback", json={"report": "A bot wrote this one.", "website": "http://spam"})
+    client.post("/beta-feedback", json={"report": "Not a picture attached.", "screenshot": {"data": b64(b"%PDF-1.7" + b"0" * 64)}})
+    client.post("/beta-feedback", json={"report": "short"})
+    assert main._sent["count"] == 0
+    assert client.post("/beta-feedback", json={"report": "The one real report."}).status_code == 200
+
+
+def test_the_pilot_mail_carries_the_note_and_no_live_link_even_in_its_subject(client):
+    r = client.post("/pilot", json=dict(PILOT, company="Acme http://evil.example", workflow="See evil.example/deck for our flow."))
+    assert r.status_code == 200
+    (msg,) = FakeSMTP.sent
+    assert "evil.example" not in msg["Subject"] and "://" not in msg["Subject"].replace("[://]", "")
+    body = msg.get_payload(decode=True).decode()
+    assert main.UNVERIFIED_NOTE in body and "evil.example" not in body
+

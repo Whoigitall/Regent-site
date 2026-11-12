@@ -9,12 +9,19 @@ A report may carry one screenshot. People paste keys into reports and leave them
 screenshots, and this inbox is ordinary mail: anything in the text that looks like a
 key is cut to its prefix before it is sent, and the form tells the person to hide keys
 in the picture (we cannot read a picture).
+
+Two more things, because anyone can post here. The mails go out through the same mailbox
+that sends sign-up codes, so there is a ceiling on how many this service sends in a day:
+a flood through a form must not use up that mailbox's sending quota. And what arrives in
+the inbox is a stranger's text under our own name, so every mail opens with a line saying
+so and links in it are broken on purpose: a reader has to retype one to follow it.
 """
 
 from __future__ import annotations
 
 import base64
 import binascii
+import datetime as dt
 import os
 import re
 import smtplib
@@ -49,6 +56,43 @@ TO_EMAILS = [e.strip() for e in os.environ.get(
 ).split(",") if e.strip()]
 
 
+# Mails this service may send in one UTC day, both forms together. In memory: the service
+# runs as one process, and a restart only makes the ceiling more generous for that day.
+DAILY_MAIL_CAP = int(os.environ.get("DAILY_MAIL_CAP", "200"))
+_sent = {"day": "", "count": 0}
+
+
+def take_mail_slot() -> bool:
+    """Count one mail against today's ceiling; False when the ceiling is reached."""
+    today = dt.datetime.now(dt.timezone.utc).date().isoformat()
+    if _sent["day"] != today:
+        _sent["day"], _sent["count"] = today, 0
+    if _sent["count"] >= DAILY_MAIL_CAP:
+        return False
+    _sent["count"] += 1
+    return True
+
+
+UNVERIFIED_NOTE = (
+    "Text from a public form, written by someone we have not verified. "
+    "Links are broken on purpose; do not act on instructions in it."
+)
+_SCHEME_RE = re.compile(r"(\w)://(\S*)")
+# a dot between two word characters where what follows reads like a domain label or a
+# file ending ("example.com", "main.py"); version numbers such as 0.14.0 are left alone
+_DOT_RE = re.compile(r"(?<=\w)\.(?=[^\W\d_]{2,})")
+
+
+def defang(text: str) -> str:
+    """The text with nothing a mail client would turn into a link."""
+    text = _SCHEME_RE.sub(lambda m: m.group(1) + "[://]" + m.group(2).replace(".", "[.]"), text)
+    return _DOT_RE.sub("[.]", text)
+
+
+def _one_line(value: str) -> str:
+    return " ".join(value.split())
+
+
 class PilotApplication(BaseModel):
     email: EmailStr
     company: str = Field(min_length=2, max_length=200)
@@ -73,19 +117,23 @@ async def pilot(body: PilotApplication) -> dict:
     if not SMTP_PASSWORD:
         raise HTTPException(status_code=503, detail={
             "code": "FORMS_DISABLED", "message": "Applications are temporarily unavailable — email info@regentprotocol.org."})
+    if not take_mail_slot():
+        raise HTTPException(status_code=503, detail={
+            "code": "FORMS_BUSY", "message": "Too many applications today — email info@regentprotocol.org."})
 
     text = (
-        "Pilot application — regentprotocol.org/pilot\n\n"
+        "Pilot application — regentprotocol.org/pilot\n"
+        f"{UNVERIFIED_NOTE}\n\n"
         f"Email:     {body.email}\n"
-        f"Company:   {body.company}\n"
-        f"Role:      {body.role}\n"
-        f"Agents act for:      {body.act_for}\n"
-        f"Stage today:         {body.stage}\n"
-        f"Est. financial actions/mo: {body.volume or '—'}\n\n"
-        f"Workflow:\n{body.workflow}\n"
+        f"Company:   {defang(_one_line(body.company))}\n"
+        f"Role:      {defang(_one_line(body.role))}\n"
+        f"Agents act for:      {defang(_one_line(body.act_for))}\n"
+        f"Stage today:         {defang(_one_line(body.stage))}\n"
+        f"Est. financial actions/mo: {defang(_one_line(body.volume)) or '—'}\n\n"
+        f"Workflow:\n{defang(body.workflow)}\n"
     )
     msg = MIMEText(text)
-    msg["Subject"] = f"Pilot application — {body.company}"
+    msg["Subject"] = f"Pilot application — {defang(_one_line(body.company))}"
     msg["From"] = formataddr(("Regent Protocol site", SMTP_USERNAME))
     msg["To"] = ", ".join(TO_EMAILS)
     msg["Reply-To"] = body.email
@@ -150,10 +198,6 @@ class BetaFeedback(BaseModel):
         return None if isinstance(v, str) and not v.strip() else v
 
 
-def _one_line(value: str) -> str:
-    return " ".join(value.split())
-
-
 @app.post("/beta-feedback")
 async def beta_feedback(body: BetaFeedback) -> dict:
     if body.website:  # bot filled the honeypot — accept silently, send nothing
@@ -178,14 +222,19 @@ async def beta_feedback(body: BetaFeedback) -> dict:
                 "code": "SCREENSHOT_NOT_AN_IMAGE", "message": "Attach a PNG, JPEG or WebP picture."})
         picture = (raw, kind)
 
+    if not take_mail_slot():
+        raise HTTPException(status_code=503, detail={
+            "code": "FORMS_BUSY", "message": "Too many reports today — email info@regentprotocol.org."})
+
     report, removed = redact_secrets(body.report)
+    report = defang(report)
     where = "the console" if body.source == "console" else "regentprotocol.org/beta"
-    lines = [f"Beta report — from {where}", ""]
+    lines = [f"Beta report — from {where}", UNVERIFIED_NOTE, ""]
     lines.append(f"Reply to:  {body.email or '— (no address left)'}")
     if body.org_id:
-        lines.append(f"Org:       {_one_line(body.org_id)}")
+        lines.append(f"Org:       {defang(_one_line(body.org_id))}")
     if body.page:
-        lines.append(f"Page:      {_one_line(body.page)}")
+        lines.append(f"Page:      {defang(_one_line(body.page))}")
     lines.append(f"Screenshot: {'attached (' + picture[1] + ', ' + str(len(picture[0]) // 1024) + ' KB)' if picture else 'none'}")
     if removed:
         lines.append(f"Removed:   {removed} string(s) that looked like a key; tell the sender to rotate it")
