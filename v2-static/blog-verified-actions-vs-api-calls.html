@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Verified actions vs API calls</title>
-<meta name="description" content="A verified action is one financial-agent decision that needs proof — not every API call. The unit behind Regent's pricing, precisely.">
-<meta property="og:title" content="Verified actions vs API calls">
-<meta property="og:description" content="A verified action is one financial-agent decision that needs proof — not every API call. The unit behind Regent's pricing, precisely.">
+<title>Why we price the agent, not the action</title>
+<meta name="description" content="Regent prices the agent under control: never a percentage of a payment, never a fee that depends on the decision. Why the old per-action meter was dropped.">
+<meta property="og:title" content="Why we price the agent, not the action">
+<meta property="og:description" content="Regent prices the agent under control: never a percentage of a payment, never a fee that depends on the decision. Why the old per-action meter was dropped.">
 <meta property="og:site_name" content="Regent Protocol">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
@@ -742,7 +742,7 @@
 <meta property="og:image" content="https://regentprotocol.org/og-image.png">
 <meta property="og:type" content="website">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Regent Protocol", "url": "https://regentprotocol.org", "logo": "https://regentprotocol.org/logo-icon.png", "email": "info@regentprotocol.org", "sameAs": ["https://www.linkedin.com/company/regentprotocol/", "https://x.com/whoigital", "https://www.youtube.com/@regentprotocol", "https://github.com/abay94/regent-platform"]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Verified actions vs API calls", "description": "A verified action is one financial-agent decision that needs proof — not every API call. The unit behind Regent's pricing, precisely.", "author": {"@type": "Person", "name": "Abay Aubakirov", "jobTitle": "Co-founder & CTO"}, "publisher": {"@type": "Organization", "name": "Regent Protocol", "url": "https://regentprotocol.org"}, "datePublished": "2026-08-28", "dateModified": "2026-08-28", "mainEntityOfPage": "https://regentprotocol.org/blog/verified-actions-vs-api-calls"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Why we price the agent, not the action", "description": "Regent prices the agent under control: never a percentage of a payment, never a fee that depends on the decision. Why the old per-action meter was dropped.", "author": {"@type": "Person", "name": "Abay Aubakirov", "jobTitle": "Co-founder & CTO"}, "publisher": {"@type": "Organization", "name": "Regent Protocol", "url": "https://regentprotocol.org"}, "datePublished": "2026-08-28", "dateModified": "2026-08-28", "mainEntityOfPage": "https://regentprotocol.org/blog/verified-actions-vs-api-calls"}</script>
 </head>
 <body>
 
@@ -903,19 +903,26 @@
 <div id="view-post-verified-actions">
   <div class="wrap pg-hero post">
     <div class="eyebrow"><a href="/blog">Guides</a></div>
-    <h1>Verified actions vs API calls</h1>
-    <div class="byline"><span>Abay Aubakirov · Co-founder &amp; CTO</span><span>Published 2026-08-28</span><span>Updated 2026-08-28</span></div>
-    <p class="cat" style="font-size: 16px; margin-top: 18px;">A verified action is one financial-agent decision that needs proof — an authorization checked against a mandate, or an audit record committed to the evidence chain. It is not every API call your agent makes, and the difference is the whole pricing model.</p>
+    <h1>Why we price the agent, not the action</h1>
+    <div class="byline"><span>Abay Aubakirov · Co-founder &amp; CTO</span><span>Published 2026-08-28</span><span>Rewritten 2026-11-12</span></div>
+    <p class="cat" style="font-size: 16px; margin-top: 18px;">Until November 2026 this page explained a meter we called the verified action. We dropped it. Regent now prices the agent that is under control, not what the agent does and never what it spends. This is why.</p>
   </div>
   <section data-reveal><div class="wrap post">
-    <h2>The unit, precisely</h2>
-    <p>When an agent asks to move money, two things can produce a verified action: the <em>authorization</em> (the mandate said yes or no — either answer is a decision worth proving) and the <em>audit record</em> (the action's evidence, hashed and anchored). A metadata read, a status poll, a list request — none of these are verified actions. Technically, each verified action produces an <span class="mono">anchor</span>: a hash committed on Solana with Merkle batch proofs.</p>
-    <h2>Why not price API calls?</h2>
-    <p>Because the value is the proof, not the traffic. An agent might make a thousand calls around one payment; only the decisions about that payment carry compliance weight. Pricing the traffic would punish chatty integrations and reward silent ones — backwards from what a control layer should encourage.</p>
+    <h2>What changed</h2>
+    <p>The old unit was one decision that needed proof: an authorization checked against a mandate, or an audit record committed to the evidence chain. It was a better meter than API calls, but it was still a meter on activity. The more decisions an agent asked for, the larger the bill.</p>
+    <p>The unit now is the <em>governed agent</em>: an agent identity that made at least one decision in the month. An agent in a sandbox is not counted, and neither is one you revoked.</p>
+    <h2>Why not a percentage of the payment?</h2>
+    <p>Because it would make us a party to the payment. A layer whose job is to stop an agent from spending has no business earning more when the agent spends more. And the receipt we sign is only worth something to a counterparty, an auditor or an insurer if it was produced by someone the transaction did not pay. A receipt for a $40,000 transfer costs the same as one for $4, on every rail and in every contract.</p>
+    <h2>Why not a price per decision?</h2>
+    <p>Two reasons. It punishes the right behaviour: a company that puts every payment behind the gate would pay more than one that routes half of them around it. And a price per decision invites the question of which decisions. Ours must not depend on the answer. Allowed, refused or sent to a person for approval costs the same, and a purchase that waited for approval and then went through is one decision, not two.</p>
     <h2>Why not seats?</h2>
-    <p>Seats measure humans; this system governs agents. Your whole team uses the <a href="/platform/control-panel">Control Panel</a> on any paid plan. The meter is the thing that scales with risk: how many financial decisions needed a verifiable answer. Plans and included volumes are on the <a href="/pricing">pricing page</a> — usage alerts and hard caps live in the panel, so the meter never surprises you.</p>
+    <p>Seats measure humans; this system governs agents. The bill should grow when the fleet of agents grows, not when your team does and not when an agent gets busier.</p>
+    <h2>What a plan still counts</h2>
+    <p>Each plan includes a number of money decisions per agent a month. That number is a fuse against a runaway loop, not the way we earn. Reads, status checks and tool calls that move no money are not counted at all.</p>
+    <h2>What stays free</h2>
+    <p>Checking a receipt, always: offline, against a saved key file, without an account and without us. <span class="mono">pip install regent-receipt-verify</span> or <span class="mono">npx @regent-protocol/receipt-verify</span>. A record you cannot check for free is not much of a record.</p>
     <h2>Related</h2>
-    <p><a href="/blog/what-is-know-your-agent">What is KYA?</a> · <a href="/pricing">Pricing</a> · <a href="https://docs.regentprotocol.org/rest-api/mandates">Authorize API</a></p>
+    <p><a href="/pricing">Pricing</a> · <a href="https://docs.regentprotocol.org/resources/pricing">Pricing in the docs</a> · <a href="https://docs.regentprotocol.org/concepts/receipt">The receipt</a></p>
   </div></section>
 </div><!-- /view-post-verified-actions -->
 
