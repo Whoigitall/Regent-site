@@ -173,8 +173,28 @@
   .plain dd { margin: 0; color: var(--mut); font-size: 15px; }
 
   /* report */
-  .report { display: grid; gap: 20px; }
-  @media (min-width: 860px) { .report { grid-template-columns: 1fr 1fr; align-items: start; } }
+  .report { display: grid; gap: 28px; }
+  @media (min-width: 860px) { .report { grid-template-columns: 1.15fr .85fr; align-items: start; } }
+  .rform { display: grid; gap: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; min-width: 0; }
+  .rform[hidden] { display: none; }
+  .rform label { display: grid; gap: 6px; font-weight: 600; font-size: 15px; }
+  .rform .hint { font-weight: 400; font-size: 13.5px; color: var(--faint); }
+  .rform textarea, .rform input[type="email"] { width: 100%; font: 400 15px/1.5 var(--f-body); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+  .rform textarea { font-family: var(--f-mono); font-size: 13.5px; line-height: 1.6; min-height: 232px; resize: vertical; }
+  .rform textarea:focus-visible, .rform input:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+  .rform input[type="file"] { font: 400 14px/1.4 var(--f-body); color: var(--mut); max-width: 100%; }
+  .rform .trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .rform .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .rform .err { margin: 0; color: var(--deny); font-size: 14px; }
+  .rform .err[hidden] { display: none; }
+  .rdone { background: var(--ok-soft); color: var(--ink); border-radius: 14px; padding: 20px; }
+  .rdone[hidden] { display: none; }
+  .rdone strong { color: var(--ok); }
+  .raside { display: grid; gap: 0; }
+  .raside .item { padding: 14px 0; border-bottom: 1px solid var(--hair); }
+  .raside .item:first-child { padding-top: 0; }
+  .raside dt { font-weight: 700; margin-bottom: 4px; }
+  .raside dd { margin: 0; color: var(--mut); font-size: 15px; }
 
   footer.site { border-top: 1px solid var(--hair); padding: 28px 0 40px; color: var(--faint); font-size: 14px; }
   footer.site .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; }
@@ -367,22 +387,47 @@ regent-control hook install hermes   <span class="dim"># or claude-code, codex</
   </section>
 
   <section class="block" id="report" aria-labelledby="report-h">
-    <div class="wrap report">
-      <div>
-        <h2 id="report-h">Tell us what happened</h2>
-        <p class="sub">One short report after you try it is all we ask. Good, bad or confusing: all of it helps. The answer code and the decision ID let us find your case in seconds. Send it to <strong>info@regentprotocol.org</strong> with the subject <em>Regent beta report</em>.</p>
-        <div class="cta">
-          <a class="btn btn-primary" id="mail-report" data-ph="beta_report_mail_opened" href="mailto:info@regentprotocol.org?subject=Regent%20beta%20report">Email the report</a>
-          <a class="btn btn-ghost" href="https://docs.regentprotocol.org/agent">Read the agent page</a>
-        </div>
-      </div>
-      <div class="snip"><pre id="p-report">Agent: (Instinct, Claude, Hermes, your own…)
+    <div class="wrap">
+      <h2 id="report-h">Tell us what happened</h2>
+      <p class="sub">One short report after you try it is all we ask. Good, bad or confusing: all of it helps.</p>
+      <div class="report">
+        <div>
+          <form class="rform" id="report-form" novalidate>
+            <label for="rf-report">Your report
+              <span class="hint">Fill in the lines you can. The answer code and the decision ID let us find your case in seconds.</span>
+              <textarea id="rf-report" name="report" required minlength="10" maxlength="6000" spellcheck="true">Agent: (Instinct, Claude, Hermes, your own…)
 What I tried:
 What I expected:
 What happened: (answer code and decision ID, e.g. dec_…)
 When: (date, time and time zone)
-Receipt link or screenshot:
-Would I use this with real money? Why or why not?</pre><button class="copy" type="button" data-copy="p-report" data-ph="beta_prompt_copied:report">Copy</button></div>
+Would I use this with real money? Why or why not?</textarea>
+            </label>
+            <label for="rf-email">Email, if you want an answer
+              <span class="hint">Optional. Used only to reply to this report.</span>
+              <input id="rf-email" name="email" type="email" autocomplete="email" maxlength="200" placeholder="you@example.com">
+            </label>
+            <label for="rf-shot">Screenshot
+              <span class="hint">Optional. One PNG, JPEG or WebP, up to 2 MB. Hide keys, links with tokens and card numbers before you attach it.</span>
+              <input id="rf-shot" name="screenshot" type="file" accept="image/png,image/jpeg,image/webp">
+            </label>
+            <div class="trap" aria-hidden="true"><label>Website <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+            <p class="err" id="rf-err" role="alert" hidden></p>
+            <div class="row">
+              <button class="btn btn-primary" id="rf-send" type="submit">Send the report</button>
+              <a class="btn btn-ghost" id="mail-report" data-ph="beta_report_mail_opened" href="mailto:info@regentprotocol.org?subject=Regent%20beta%20report">Or email it</a>
+            </div>
+          </form>
+          <div class="rdone" id="report-done" role="status" hidden>
+            <strong>Received.</strong> Thank you. If you left an address, a person answers from info@regentprotocol.org.
+          </div>
+        </div>
+        <dl class="raside">
+          <div class="item"><dt>What helps most</dt><dd>The decision ID (<span class="mono">dec_…</span>) and the answer code your agent got back. Ask your agent for them if it did not show you.</dd></div>
+          <div class="item"><dt>Never send a key</dt><dd>Not to us and not to your agent. Anything in the text that looks like a key is removed before a person reads it; we cannot do that for a picture.</dd></div>
+          <div class="item"><dt>Spent without a decision?</dt><dd>Say so in the first line. That report goes to the top of the list.</dd></div>
+          <div class="item"><dt>Prefer a chat?</dt><dd>Write to <a href="mailto:info@regentprotocol.org">info@regentprotocol.org</a> or read <a href="https://docs.regentprotocol.org/agent">the page for agents</a>.</dd></div>
+        </dl>
+      </div>
     </div>
   </section>
 </main>
@@ -441,11 +486,55 @@ Would I use this with real money? Why or why not?</pre><button class="copy" type
     });
   })();
 
-  /* Pre-fill the report email with the template */
+  /* The report form: one JSON post to our own forms service; the email link carries the same text */
   (function () {
-    var a = document.getElementById("mail-report"), t = document.getElementById("p-report");
-    if (a && t) a.href = "mailto:info@regentprotocol.org?subject=" + encodeURIComponent("Regent beta report") +
-      "&body=" + encodeURIComponent(t.innerText + "\n");
+    var form = document.getElementById("report-form");
+    if (!form) return;
+    var area = document.getElementById("rf-report"), mail = document.getElementById("mail-report");
+    var err = document.getElementById("rf-err"), send = document.getElementById("rf-send");
+    var template = area.value, MAX = 2 * 1024 * 1024;
+    function mailto() {
+      mail.href = "mailto:info@regentprotocol.org?subject=" + encodeURIComponent("Regent beta report") +
+        "&body=" + encodeURIComponent(area.value + "\n");
+    }
+    mailto();
+    area.addEventListener("input", mailto);
+    function fail(text) { err.textContent = text; err.hidden = false; send.disabled = false; send.textContent = "Send the report"; }
+    function readPicture(file) {
+      return new Promise(function (resolve, reject) {
+        var r = new FileReader();
+        r.onload = function () { resolve(String(r.result).split(",")[1] || ""); };
+        r.onerror = function () { reject(new Error("The screenshot could not be read.")); };
+        r.readAsDataURL(file);
+      });
+    }
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      err.hidden = true;
+      var report = area.value.trim();
+      if (report.length < 10 || report === template.trim()) { fail("Fill in at least one line of the report first."); return; }
+      var email = form.elements.email.value.trim();
+      if (email && !form.elements.email.checkValidity()) { fail("That email address does not look right. Fix it or leave it empty."); return; }
+      var file = form.elements.screenshot.files[0];
+      if (file && file.size > MAX) { fail("The screenshot is over 2 MB. Crop it, or send the report by email."); return; }
+      send.disabled = true; send.textContent = "Sending\u2026";
+      (file ? readPicture(file) : Promise.resolve(null)).then(function (picture) {
+        var body = { report: report, email: email || null, source: "beta_page", website: form.elements.website.value };
+        if (picture) body.screenshot = { data: picture };
+        return fetch("/api/beta-feedback", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+      }).then(function (r) {
+        if (r.ok) return null;
+        return r.json().catch(function () { return {}; }).then(function (j) {
+          throw new Error((j && j.detail && j.detail.message) || "Could not send right now.");
+        });
+      }).then(function () {
+        form.hidden = true;
+        document.getElementById("report-done").hidden = false;
+        ph("beta_report_sent", { with_screenshot: !!file, with_email: !!email });
+      }).catch(function (ex) {
+        fail((ex && ex.message ? ex.message : "Could not send right now.") + " You can also use the email button.");
+      });
+    });
   })();
 
   /* Privacy-aware analytics (PostHog via first-party proxy), only after consent */
