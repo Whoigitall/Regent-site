@@ -165,7 +165,9 @@
   .hero .cat { font-size: 17.5px; color: var(--mut); max-width: 58ch; margin: 0 0 26px; }
   /* NVIDIA's own Inception member badge from the programme portal: the file as issued (embedded
      byte for byte), on its own line with clear space around it, never beside our logo. */
-  .inception-badge { display: block; width: 180px; margin: 30px 0 6px; }
+  .inception-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; margin: 30px 0 6px; }
+  .inception-badge { display: block; width: 180px; flex: none; }
+  .inception-cap { font: 500 13px/1.4 var(--f-mono); letter-spacing: .04em; color: var(--mut); }
   .inception-badge img { display: block; width: 100%; height: auto; }
   .status-note {
     display: inline-flex; align-items: center; gap: 8px;
@@ -715,7 +717,14 @@
   .plogo { height: 34px; display: flex; align-items: center; margin: 2px 0 14px; }
   .plogo img { max-height: 34px; max-width: 100%; width: auto; height: auto; display: block; }
   .eco .cell { background: rgba(255,255,255,0.045); }
-  @media (min-width: 1000px) { .principles.eco { grid-template-columns: repeat(5, 1fr); } }
+  @media (min-width: 1000px) { .principles.eco { grid-template-columns: repeat(3, 1fr); } }
+  .eco .cell:not(.cta-cell) { display: flex; flex-direction: column; }
+  .eco .cell:not(.cta-cell) p { flex: 1 1 auto; }
+  .plogo .pword { font: 700 19px/1 var(--f-head, inherit); letter-spacing: .01em; color: var(--ink); }
+  .pfoot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-top: 14px; font-size: 13px; }
+  .pfoot a { color: var(--mut); text-decoration: underline; text-underline-offset: 3px; }
+  .pfoot a:hover { color: var(--ink); }
+  .chip-ready { background: var(--seal-soft); color: var(--seal); }
   .cta-cell { grid-column: 1 / -1; border: 1px dashed var(--seal) !important; display: flex; align-items: center; gap: 26px; flex-wrap: wrap; }
   .cta-cell .k { flex-basis: 100%; }
   .cta-cell h3 { margin: 0; flex: 0 0 auto; }
